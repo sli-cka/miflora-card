@@ -10,7 +10,7 @@ class MifloraCard extends HTMLElement {
             moisture: 'hass:water',
             temperature: 'hass:thermometer',
             intensity: 'hass:white-balance-sunny',
-            rssi: 'mdi:power',
+            rssi: 'mdi:wifi',
             conductivity: 'hass:emoticon-poop',
             battery: 'hass:battery'
         };
