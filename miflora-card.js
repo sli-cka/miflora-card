@@ -130,7 +130,6 @@ class MifloraCard extends HTMLElement {
         const card = document.createElement('ha-card');
         const content = document.createElement('div');
         const plantimage = document.createElement('div');
-        const plantlocation = document.createElement('div');        
         const style = document.createElement('style');
 
         style.textContent = `
@@ -143,15 +142,6 @@ class MifloraCard extends HTMLElement {
                 width: 100%;
             }
             .image {
-                float: right;
-                margin-left: 15px;
-                margin-right: 15px;
-                margin-bottom: 15px;
-                width: 125px;
-                height: 125px;
-                border-radius: 6px;
-            }
-            .location {
                 float: right;
                 margin-left: 15px;
                 margin-right: 15px;
@@ -193,16 +183,12 @@ class MifloraCard extends HTMLElement {
             `;
         plantimage.innerHTML = `
             <img class="image" src=/local/${config.image}>
-            `;
-
-        plantlocation.innerHTML = `
-            <div class="location">${config.location}</div>
+            <p class="location">${config.location}</p>
             `;
 
         content.id = "container";
         card.header = config.title;
         card.appendChild(plantimage);
-        card.appendChild(plantlocation);      
         card.appendChild(content);
         card.appendChild(style);
         root.appendChild(card);
