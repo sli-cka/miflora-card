@@ -158,6 +158,13 @@ class MifloraCard extends HTMLElement {
                 height: 125px;
                 border-radius: 6px;
             }
+            .location {
+                float: right;
+                margin-left: 15px;
+                width: 125px;
+                height: 125px;
+                border-radius: 6px;
+            }            
             .sensor {
                 display: flex;
                 cursor: pointer;
