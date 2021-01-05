@@ -54,8 +54,8 @@ class MifloraCard extends HTMLElement {
         var _minMoisture = parseFloat(config.min_moisture);
         var _minConductivity = parseFloat(config.min_conductivity);
         var _maxConductivity = parseFloat(config.max_conductivity);        
-        var _minTemperature = parseFloat(config.min_termperature);
-        var _maxTemperature = parseFloat(config.max_termperature);
+        var _minTemperature = parseFloat(config.min_temperature);
+        var _maxTemperature = parseFloat(config.max_temperature);
 
         this.shadowRoot.getElementById('container').innerHTML = `
             <div class="content clearfix">
