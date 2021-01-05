@@ -98,7 +98,7 @@ class MifloraCard extends HTMLElement {
                     _alertIcon = '&#9660; ';
                 } else if (_state > _maxConductivity) {
                     _alertStyle = ';color:red';
-                    _alertIcon = '&#9660; '
+                    _alertIcon = '&#9650; '
                 }
             }
             if (_name == 'temperature') {
@@ -107,7 +107,7 @@ class MifloraCard extends HTMLElement {
                     _alertIcon = '&#9660; ';
                 } else if (_state > _maxTemperature) {
                     _alertStyle = ';color:red';
-                    _alertIcon = '&#9660; '
+                    _alertIcon = '&#9650; '
                 }
             }
             this.shadowRoot.getElementById('sensors').innerHTML += `
