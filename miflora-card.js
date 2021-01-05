@@ -96,7 +96,7 @@ class MifloraCard extends HTMLElement {
                 if (_state < _minConductivity) {
                     _alertStyle = ';color:red';
                     _alertIcon = '&#9660; ';
-                } else if (_state < _maxConductivity) {
+                } else if (_state > _maxConductivity) {
                     _alertStyle = ';color:red';
                     _alertIcon = '&#9660; '
                 }
@@ -105,7 +105,7 @@ class MifloraCard extends HTMLElement {
                 if (_state < _minTemperature) {
                     _alertStyle = ';color:red';
                     _alertIcon = '&#9660; ';
-                } else if (_state < _maxTemperature) {
+                } else if (_state > _maxTemperature) {
                     _alertStyle = ';color:red';
                     _alertIcon = '&#9660; '
                 }
