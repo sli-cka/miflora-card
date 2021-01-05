@@ -150,7 +150,6 @@ class MifloraCard extends HTMLElement {
                 width: 100%;
             }
             .image {
-                float: right;
                 margin-left: 15px;
                 margin-right: 15px;
                 margin-bottom: 15px;
@@ -161,6 +160,8 @@ class MifloraCard extends HTMLElement {
             .location {
                 float: right;
                 margin-left: 15px;
+                display: grid;
+                text-align: justify;
             }            
             .sensor {
                 display: flex;
@@ -194,8 +195,8 @@ class MifloraCard extends HTMLElement {
             }
             `;
         plantimage.innerHTML = `
-            <img class="image" src=/local/${config.image}>
-            <p class="location">${config.location}</p>
+            
+            <p class="location"><img class="image" src=/local/${config.image}>${config.location}</p>
             `;
 
         content.id = "container";
