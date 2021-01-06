@@ -14,10 +14,13 @@ A Home Assistant Lovelace card to report MiFlora sensors
 | type             | string  | **Required** | `custom:miflora-card`                         |
 | title            | string  | **Required** | Name of the plant being monitored             |
 | image            | string  | **Required** | Path to an image of the plant being monitored |
+| localtion        | string  | Optional     | Location of the plant being monitored         |
 | min_moisture     | integer | Optional     | Minimum moisture content for this plant       |
 | max_moisture     | integer | Optional     | Maximum moisture content for this plant       |
 | min_conductivity | integer | Optional     | Minimum conductivity reading for this plant   |
+| max_conductivity | integer | Optional     | Maximum conductivity reading for this plant   |
 | min_temperature  | integer | Optional     | Minimum temperature for this plant            |
+| max_temperature  | integer | Optional     | Maximum temperature for this plant            |
 | entities         | list    | **Required** | A list sensors to be monitored                |
 
 ### Entities
@@ -46,10 +49,13 @@ resources:
 - type: custom:miflora-card
   title: 'Calathea Zebrina'
   image: images/calathea-zebrina.jpg
+  location: Living Room
   min_moisture: 15
   max_moisture: 60
   min_conductivity: 350
+  max_conductivity: 2000
   min_temperature: 12
+  max_temperature: 35
   entities:
   - entity: sensor.miflora_1_moisture
     type: moisture
@@ -62,4 +68,7 @@ resources:
     name: Fertility
   - entity: sensor.miflora_1_battery
     type: battery
+  - entity: sensor.miflora_1_rssi
+    type: rssi
+    name: BT Signal
 ```
