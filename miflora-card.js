@@ -161,7 +161,7 @@ class MifloraCard extends HTMLElement {
                 float: right;
                 margin-left: 15px;
                 display: grid;
-                text-align: justify;
+                text-align: center;
             }            
             .sensor {
                 display: flex;
