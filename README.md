@@ -14,7 +14,7 @@ A Home Assistant Lovelace card to report MiFlora sensors
 | type             | string  | **Required** | `custom:miflora-card`                         |
 | title            | string  | **Required** | Name of the plant being monitored             |
 | image            | string  | **Required** | Path to an image of the plant being monitored |
-| localtion        | string  | Optional     | Location of the plant being monitored         |
+| location         | string  | Optional     | Location of the plant being monitored         |
 | min_moisture     | integer | Optional     | Minimum moisture content for this plant       |
 | max_moisture     | integer | Optional     | Maximum moisture content for this plant       |
 | min_conductivity | integer | Optional     | Minimum conductivity reading for this plant   |
