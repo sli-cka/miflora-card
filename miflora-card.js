@@ -194,8 +194,14 @@ class MifloraCard extends HTMLElement {
                 display: table;
             }
             `;
-        plantimage.innerHTML = `
-            <p class="location"><img class="image" src=/local/${config.image}>${config.location}</p>
+
+            if (config.location = "") {
+                _templocation = '';
+            } else {
+                _templocation = config.location;
+            }
+            plantimage.innerHTML = `
+            <p class="location"><img class="image" src=/local/${config.image}>${_templocation}</p>
             `;
 
         content.id = "container";
