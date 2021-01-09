@@ -200,7 +200,7 @@ class MifloraCard extends HTMLElement {
             } else if (config.location == 'undefined') {
                 var _templocation = '';
             } 
-            } else if (config.location = null) {
+            } else if (config.location == null) {
                 var _templocation = '';
             } else {
                 var _templocation = config.location;
