@@ -195,13 +195,16 @@ class MifloraCard extends HTMLElement {
             }
             `;
 
+            // Check if location is set and save location in Variable plantlocation
             if (config.location == null) {
-                var _templocation = '';
+                var _plantlocation = '';
             } else {
-                var _templocation = config.location;
+                var _plantlocation = config.location;
             }
+
+            // Display Plant image (required) and location (optional)
             plantimage.innerHTML = `
-            <p class="location"><img class="image" src=/local/${config.image}>${_templocation}</p>
+            <p class="location"><img class="image" src=/local/${config.image}>${_plantlocation}</p>
             `;
 
         content.id = "container";
