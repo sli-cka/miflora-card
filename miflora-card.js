@@ -195,7 +195,7 @@ class MifloraCard extends HTMLElement {
             }
             `;
 
-        if (config.entities[i]['loaction'] = "") {
+        if (config.entities[i]['location'] = "") {
             _templocation = '';
         } else {
             _templocation = _location;
@@ -221,3 +221,4 @@ class MifloraCard extends HTMLElement {
 }
 
 customElements.define('miflora-card', MifloraCard);
+    
