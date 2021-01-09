@@ -197,6 +197,8 @@ class MifloraCard extends HTMLElement {
 
             if (config.location = "") {
                 _templocation = '';
+            } else if (config.location = 'undefined') {
+                _templocation = '';
             } else {
                 _templocation = config.location;
             }
