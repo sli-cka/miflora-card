@@ -195,10 +195,10 @@ class MifloraCard extends HTMLElement {
             }
             `;
 
-            if (config.location) {
-                _templocation == config.location;
+            if (config.location = "") {
+                _templocation = '';
             } else {
-                _templocation == '';
+                _templocation = _location;
             }
             plantimage.innerHTML = `
             <p class="location"><img class="image" src=/local/${config.image}>${_templocation}</p>
