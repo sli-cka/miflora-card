@@ -6,6 +6,7 @@
 /glances
 /node-red
 /themes
+/blueprints
 /tts
 /www
 .google.token
@@ -15,3 +16,5 @@ google_calendars.yaml
 *.db
 *.log
 secrets.yaml
+home-assisant_v2.db-shm
+home-assisant_v2.db*
