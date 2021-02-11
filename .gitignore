@@ -1,12 +1,12 @@
 /.cloud
 /.storage
 /.vscode
+/blueprints
 /custom_components
 /deps
 /glances
 /node-red
 /themes
-/blueprints
 /tts
 /www
 .google.token
