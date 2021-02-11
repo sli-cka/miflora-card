@@ -17,4 +17,4 @@ google_calendars.yaml
 *.log
 secrets.yaml
 home-assisant_v2.db-shm
-home-assisant_v2.db*
+home-assisant_v2.db-wal
