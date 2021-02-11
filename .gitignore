@@ -1,0 +1,17 @@
+/.cloud
+/.storage
+/.vscode
+/custom_components
+/deps
+/glances
+/node-red
+/themes
+/tts
+/www
+.google.token
+.ip_authenticated.yaml
+gcloud.json
+google_calendars.yaml
+*.db
+*.log
+secrets.yaml

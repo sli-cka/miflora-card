@@ -1,0 +1,7 @@
+#====================
+# Erweiterte Logs einschalten
+#====================
+logger:
+  default: info
+  logs:
+    homeassistant.core: debug

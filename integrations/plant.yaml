@@ -1,0 +1,170 @@
+#====================
+# Plant Integration
+# This plant component lets you merge moisture, conductivity, light intensity, 
+# temperature and battery level for a plant into a single UI element. 
+# https://www.home-assistant.io/integrations/plant/
+#
+# CURRENTLY DISABLED --> 2020-01-27
+#
+#====================
+
+# plant:
+
+#   Wohnzimmer_Dracaena:
+#     sensors:
+#       moisture: sensor.mi_m_80eaca8969cb
+#       temperature: sensor.mi_t_80eaca8969cb
+#       conductivity: sensor.mi_c_80eaca8969cb
+#       brightness: sensor.mi_l_80eaca8969cb
+#     min_moisture: 15
+#     max_moisture: 60
+#     min_conductivity: 200
+#     max_conductivity: 1500
+#     min_brightness: 2000
+#     max_brightness: 50000
+#     min_temperature: 15
+#     max_temperature: 35
+
+
+#   Chillzimmer_Dracaena:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d678b5b
+#       temperature: sensor.mi_t_c47c8d678b5b
+#       conductivity: sensor.mi_c_c47c8d678b5b
+#       brightness: sensor.mi_l_c47c8d678b5b
+#     min_moisture: 15
+#     max_moisture: 60
+#     min_conductivity: 200
+#     max_conductivity: 1500
+#     min_brightness: 2000
+#     max_brightness: 50000
+#     min_temperature: 15
+#     max_temperature: 35
+
+
+#   Chillzimmer_Efeutute:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d67bd2f
+#       temperature: sensor.mi_t_c47c8d67bd2f
+#       conductivity: sensor.mi_c_c47c8d67bd2f
+#       brightness: sensor.mi_l_c47c8d67bd2f
+#     min_moisture: 15
+#     max_moisture: 60
+#     min_conductivity: 350
+#     max_conductivity: 2000
+#     min_brightness: 500
+#     max_brightness: 12000
+#     min_temperature: 10
+#     max_temperature: 32
+
+
+#   Chillzimmer_Calathea:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d679abd
+#       temperature: sensor.mi_t_c47c8d679abd
+#       conductivity: sensor.mi_c_c47c8d679abd
+#       brightness: sensor.mi_l_c47c8d679abd
+#     min_moisture: 15
+#     max_moisture: 65
+#     min_conductivity: 350
+#     max_conductivity: 1000
+#     min_brightness: 800
+#     max_brightness: 20000
+#     min_temperature: 12
+#     max_temperature: 32
+
+
+#   Chillzimmer_Dracaena_Marginata:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d678c2a
+#       temperature: sensor.mi_t_c47c8d678c2a
+#       conductivity: sensor.mi_c_c47c8d678c2a
+#       brightness: sensor.mi_l_c47c8d678c2a
+#     min_moisture: 15
+#     max_moisture: 60
+#     min_conductivity: 200
+#     max_conductivity: 1500
+#     min_brightness: 2000
+#     max_brightness: 50000
+#     min_temperature: 15
+#     max_temperature: 35
+
+
+#   Chillzimmer_Cordyline_fructicosa:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d67bcdd
+#       temperature: sensor.mi_t_c47c8d67bcdd
+#       conductivity: sensor.mi_c_c47c8d67bcdd
+#       brightness: sensor.mi_l_c47c8d67bcdd
+#     min_moisture: 15
+#     max_moisture: 60
+#     min_conductivity: 200
+#     max_conductivity: 1500
+#     min_brightness: 2000
+#     max_brightness: 50000
+#     min_temperature: 15
+#     max_temperature: 35
+
+
+#   Schlafzimmer_Maya_Tree:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d67792d
+#       temperature: sensor.mi_t_c47c8d67792d
+#       conductivity: sensor.mi_c_c47c8d67792d
+#       brightness: sensor.mi_l_c47c8d67792d
+#     min_moisture: 15
+#     max_moisture: 60
+#     min_conductivity: 350
+#     max_conductivity: 2000
+#     min_brightness: 1500
+#     max_brightness: 50000
+#     min_temperature: 15
+#     max_temperature: 35
+
+
+#   Chillzimmer_Dracaena_Makoyana:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d6789f8
+#       temperature: sensor.mi_t_c47c8d6789f8
+#       conductivity: sensor.mi_c_c47c8d6789f8
+#       brightness: sensor.mi_l_c47c8d6789f8
+#     min_moisture: 15
+#     max_moisture: 65
+#     min_conductivity: 350
+#     max_conductivity: 1000
+#     min_brightness: 800
+#     max_brightness: 20000
+#     min_temperature: 15
+#     max_temperature: 35
+
+
+#   Wohnzimmer_Dypsis_Lutescens:
+#     sensors:
+#       moisture: sensor.mi_m_c47c8d67bcbb
+#       temperature: sensor.mi_t_c47c8d67bcbb
+#       conductivity: sensor.mi_c_c47c8d67bcbb
+#       brightness: sensor.mi_l_c47c8d67bcbb
+#     min_moisture: 15
+#     max_moisture: 65
+#     min_conductivity: 350
+#     max_conductivity: 1000
+#     min_brightness: 800
+#     max_brightness: 20000
+#     min_temperature: 15
+#     max_temperature: 35
+
+
+#   Kueche_Basilikum:
+#     sensors:
+#       moisture: sensor.mi_moisture_c47c8d6777e3
+#       temperature: sensor.mi_temperature_c47c8d6777e3
+#       conductivity: sensor.mi_conductivity_c47c8d6777e3
+#       brightness: sensor.mi_llluminance_c47c8d6777e3
+#     min_moisture: 15
+#     max_moisture: 60
+#     min_conductivity: 350
+#     max_conductivity: 2000
+#     min_brightness: 800
+#     max_brightness: 60000
+#     min_temperature: 8
+#     max_temperature: 32

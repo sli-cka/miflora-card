@@ -1,0 +1,89 @@
+blueprint:
+  name: Group Sonos on Motion
+  description: 'Group a Sonos device to a main device when presence (e.g. motion)
+    is detected and the main device is playing music. Can be extended with custom
+    conditions, for example, only group the Sonos when you''re not asleep
+
+    '
+  domain: automation
+  input:
+    presence_entity:
+      name: A sensor to detect presence (can be a motion sensor)
+      selector:
+        entity:
+          domain: binary_sensor
+    sonos_source:
+      name: Sonos source
+      description: Sonos entity to group the target Sonos to
+      selector:
+        entity:
+          integration: sonos
+    sonos_target:
+      name: Sonos target
+      description: Sonos target to group to the source Sonos
+      selector:
+        entity:
+          integration: sonos
+    no_presence_wait:
+      name: Wait time
+      description: Time to leave the sonos grouped after last presence is detected.
+      default: 120
+      selector:
+        number:
+          min: 0.0
+          max: 3600.0
+          unit_of_measurement: seconds
+          step: 1.0
+          mode: slider
+    custom_conditions:
+      name: Custom conditions
+      default: []
+      description: A list of custom condititions that also have to be met before grouping
+        the sonos
+  source_url: https://community.home-assistant.io/t/group-sonos-based-on-presence-e-g-motion/256542
+mode: restart
+max_exceeded: silent
+variables:
+  sonos_source: !input 'sonos_source'
+  sonos_target: !input 'sonos_target'
+trigger:
+- platform: state
+  entity_id: !input 'presence_entity'
+  to: 'on'
+- platform: homeassistant
+  event: start
+- platform: event
+  event_type: automation_reloaded
+condition:
+- condition: state
+  entity_id: !input 'presence_entity'
+  state: 'on'
+- condition: state
+  entity_id: !input 'sonos_source'
+  state: playing
+- condition: or
+  conditions:
+  - condition: state
+    entity_id: !input 'sonos_target'
+    state: paused
+  - condition: state
+    entity_id: !input 'sonos_target'
+    state: idle
+  - '{{ sonos_target in state_attr(sonos_source, "sonos_group") }}'
+- '{{ state_attr(sonos_source, "source")  != "TV" }}'
+- condition: and
+  conditions: !input 'custom_conditions'
+action:
+- service: sonos.join
+  data:
+    master: !input 'sonos_source'
+    entity_id: !input 'sonos_target'
+- wait_for_trigger:
+    platform: state
+    entity_id: !input 'presence_entity'
+    from: 'on'
+    to: 'off'
+- delay: !input 'no_presence_wait'
+- service: sonos.unjoin
+  data:
+    entity_id: !input 'sonos_target'

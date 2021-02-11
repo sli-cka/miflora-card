@@ -1,0 +1,6 @@
+#====================
+# Custom Integration: Authenticated
+# https://github.com/custom-components/authenticated
+#====================
+
+platform: authenticated

@@ -1,0 +1,7 @@
+#====================
+# Sensor Fahrtzeit Deutsche Bahn
+#====================
+
+platform: deutsche_bahn
+from: "Röthenbach/St.W. In der Lach, Wendelstein"
+to: "Rathenauplatz, Nürnberg"

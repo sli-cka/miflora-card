@@ -1,0 +1,518 @@
+say:
+  alias: Sonos Text To Speech
+  sequence:
+  - service: sonos.snapshot
+    data_template:
+      entity_id: '{{ ''media_player.'' ~ where }}'
+  - service: tts.google_cloud_say
+    data_template:
+      entity_id: '{{ ''media_player.'' ~ where }}'
+      message: '{{ what }}'
+  - delay:
+      seconds: 1.5
+  - delay: "{% set duration = states.media_player[where].attributes.media_duration\
+      \ %} {% if duration > 0 %}\n  {% set duration = duration - 1 %}\n{% endif %}\
+      \ {% set seconds = duration % 60 %} {% set minutes = (duration / 60)|int % 60\
+      \ %} {% set hours = (duration / 3600)|int %} {{ [hours, minutes, seconds]|join(':')\
+      \ }}"
+  - service: sonos.restore
+    data_template:
+      entity_id: '{{ ''media_player.'' ~ where }}'
+  mode: single
+roborock_kuche:
+  alias: Roborock Küche
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: app_segment_clean
+      params:
+      - 19
+    entity_id: vacuum.roborock
+  - service: notify.flo_telegram
+    data:
+      message: Küche Reinigung wurde gestartet
+  mode: single
+roborock_schlafzimmer:
+  alias: Roborock Schlafzimmer
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: app_segment_clean
+      params:
+      - 2
+    entity_id: vacuum.roborock
+  - service: notify.flo_telegram
+    data:
+      message: Schlafzimmer Reinigung wurde gestartet
+  mode: single
+roborock_gang:
+  alias: Roborock Gang
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: app_segment_clean
+      params:
+      - 17
+    entity_id: vacuum.roborock
+  - service: notify.flo_telegram
+    data:
+      message: Gang Reinigung wurde gestartet
+  mode: single
+atv_chillzimmer_ausschalten:
+  alias: ATV Chillzimmer ausschalten
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home_hold
+    entity_id: remote.chillzimmer_apple_tv
+  - delay: '1'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.chillzimmer_apple_tv
+  mode: single
+atv_chillzimmer_einschalten:
+  alias: ATV Chillzimmer einschalten
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - wakeup
+    entity_id: remote.chillzimmer_apple_tv
+  mode: single
+atv_chillzimmer_netflix:
+  alias: ATV Chillzimmer Netflix
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - right
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.chillzimmer_apple_tv
+  mode: single
+atv_chillzimmer_sky:
+  alias: ATV Chillzimmer Sky
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - right
+      - right
+      - right
+      - right
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.chillzimmer_apple_tv
+  mode: single
+atv_chillzimmer_zattoo:
+  alias: ATV Chillzimmer Zattoo
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.chillzimmer_apple_tv
+  mode: single
+atv_chillzimmer_amazon_prime:
+  alias: ATV Chillzimmer Amazon Prime
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay: '1'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay: '1'
+  - service: remote.send_command
+    data:
+      command:
+      - right
+      - right
+    entity_id: remote.chillzimmer_apple_tv
+  - delay: '1'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.chillzimmer_apple_tv
+  mode: single
+  icon: mdi:amazon
+atv_chillzimmer_youtube:
+  alias: ATV Chillzimmer Youtube
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - right
+      - right
+      - right
+    entity_id: remote.chillzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.chillzimmer_apple_tv
+  mode: single
+roborock_wohnzimmer:
+  alias: Roborock Wohnzimmer
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: app_segment_clean
+      params:
+      - 18
+    entity_id: vacuum.roborock
+  - service: notify.flo_telegram
+    data:
+      message: Wohnzimmer Reinigung wurde gestartet
+  mode: single
+roborock_bad:
+  alias: Roborock Bad
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: app_segment_clean
+      params:
+      - 1
+    entity_id: vacuum.roborock
+  - service: notify.flo_telegram
+    data:
+      message: Bad Reinigung wurde gestartet
+  mode: single
+roborock_chillzimmer:
+  alias: Roborock Chillzimmer
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: app_segment_clean
+      params:
+      - 16
+    entity_id: vacuum.roborock
+  - service: notify.flo_telegram
+    data:
+      message: Chillzimmer Reinigung wurde gestartet
+  mode: single
+atv_schlafzimmer_ausschalten:
+  alias: ATV Schlafzimmer ausschalten
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home_hold
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay: '1'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.schlafzimmer_apple_tv
+  mode: single
+atv_schlafzimmer_einschalten:
+  alias: ATV Schlafzimmer einschalten
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - wakeup
+    entity_id: remote.schlafzimmer_apple_tv
+  mode: single
+atv_schlafzimmer_zattoo:
+  alias: ATV Schlafzimmer Zattoo
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.schlafzimmer_apple_tv
+  mode: single
+atv_schlafzimmer_youtube:
+  alias: ATV Schlafzimmer Youtube
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - home
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - right
+      - right
+      - right
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      milliseconds: '500'
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.schlafzimmer_apple_tv
+  mode: single
+atv_chillzimmer_tv_sound:
+  alias: ATV Chillzimmer TV Sound
+  sequence:
+  - service: media_player.select_source
+    data:
+      source: TV
+    entity_id: media_player.wohnzimmer_sonos
+  mode: single
+atv_chillzimmer_command_up:
+  alias: ATV Chillzimmer Command Up
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - up
+    entity_id: remote.chillzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:arrow-up-bold-circle-outline
+atv_chillzimmer_command_down:
+  alias: ATV Chillzimmer Command Down
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - down
+    entity_id: remote.chillzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:arrow-down-bold-circle-outline
+atv_chillzimmer_command_left:
+  alias: ATV Chillzimmer Command Left
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - left
+    entity_id: remote.chillzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:arrow-left-bold-circle-outline
+atv_chillzimmer_command_right:
+  alias: ATV Chillzimmer Command Right
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - right
+    entity_id: remote.chillzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:arrow-right-bold-circle-outline
+atv_chillzimmer_command_select:
+  alias: ATV Chillzimmer Command Select
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.chillzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:image-filter-center-focus
+atv_chillzimmer_command_menu:
+  alias: ATV Chillzimmer Command Menu
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - menu
+    entity_id: remote.chillzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:backup-restore
+hdmi_2:
+  alias: HDMI 2
+  sequence:
+  - service: remote.send_command
+    data:
+      device: chillzimmer_television
+      command: hdmi
+    entity_id: remote.rm_mini_3_remote
+  - delay: '0.5'
+  - service: remote.send_command
+    data:
+      device: chillzimmer_television
+      command: left
+    entity_id: remote.rm_mini_3_remote
+  - delay: '0.5'
+  - service: remote.send_command
+    data:
+      device: chillzimmer_television
+      command: ok
+    entity_id: remote.rm_mini_3_remote
+  - delay: '0.5'
+  mode: single
+  icon: mdi:television-classic
+hdmi_3:
+  alias: HDMI 3
+  sequence:
+  - service: remote.send_command
+    data:
+      device: chillzimmer_television
+      command: hdmi
+    entity_id: remote.rm_mini_3_remote
+  - delay: '0.5'
+  - service: remote.send_command
+    data:
+      device: chillzimmer_television
+      command: right
+    entity_id: remote.rm_mini_3_remote
+  - delay: '0.5'
+  - service: remote.send_command
+    data:
+      device: chillzimmer_television
+      command: ok
+    entity_id: remote.rm_mini_3_remote
+  - delay: '0.5'
+  mode: single
+  icon: mdi:television-classic

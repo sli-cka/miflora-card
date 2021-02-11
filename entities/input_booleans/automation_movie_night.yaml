@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Movie Night
+automation_movie_night:
+  name: automation_movie_night
+  icon: mdi:movie

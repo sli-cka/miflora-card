@@ -1,0 +1,8 @@
+# Garten Zone
+
+name: Garten
+latitude: !secret garten_latitude
+longitude: !secret garten_longitude
+radius: 150
+passive: false
+icon: mdi:shovel

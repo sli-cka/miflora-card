@@ -1,0 +1,1419 @@
+- id: '1595188519197'
+  alias: Info Spülmaschine fertig
+  description: ''
+  trigger:
+  - below: 3
+    device_id: a5118386e5a94c45aec418915d24c78b
+    domain: sensor
+    entity_id: sensor.shelly_shsw_pm_8caab505778e_current_consumption
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+    platform: device
+    type: value
+  condition: []
+  action:
+  - data:
+      message: Spülmaschine ist fertig
+    service: notify.flo_telegram
+  mode: single
+- id: '1595194697802'
+  alias: Heizung Toilette an
+  description: ''
+  trigger:
+  - device_id: 28ded1cc893143a9a5225c0f1e975330
+    domain: switch
+    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    platform: device
+    type: turned_on
+  condition: []
+  action:
+  - data:
+      message: Heizung Toilette eingeschaltet
+    service: notify.flo_telegram
+  mode: single
+- id: '1595194863515'
+  alias: Heizung Toilette aus
+  description: ''
+  trigger:
+  - device_id: 28ded1cc893143a9a5225c0f1e975330
+    domain: switch
+    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - data:
+      message: Heizung Toilette ausgeschaltet
+    service: notify.flo_telegram
+  mode: single
+- id: '1595197538460'
+  alias: Telegram Infos Arbeit Spät
+  description: ''
+  trigger:
+  - at: '17:10'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: zone
+    entity_id: person.flo
+    zone: zone.arbeit
+  action:
+  - data:
+      message: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
+        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %}{{ [\"Meister\",\"\
+        Chef\",\"mein Liebster\"] | random }}.\n\nDie aktuelle Uhrzeit ist {{states.sensor.time.state}}\
+        \ Uhr.\n\nDas Wetter ist aktuell {{state_attr('weather.home', 'temperature')}}°\
+        \ C und es ist {{states.weather.home.state}}. \n\nHeimweg:\nAbfahrt {{ states.sensor.rothenbach_st_w_in_der_lach_wendelstein_to_rathenauplatz_nurnberg.state\
+        \ }} Uhr\nVerspätung {{ states.sensor.rothenbach_st_w_in_der_lach_wendelstein_to_rathenauplatz_nurnberg.attributes.delay\
+        \ }} Minuten\nDauer {{ states.sensor.db_transit_time_nue.state }} Stunden\n\
+        \nAuto - {{ states.sensor.arbeitsweg_nue_auto.state }} Minuten\nvia {{ states.sensor.arbeitsweg_nue_auto.attributes.route\
+        \ }}\n\nIch wünsche dir einen {{ [\"herrlichen\",\"wunderbaren\",\"tollen\"\
+        ,\"super\",\"wundervollen\",\"schönen\"] | random }} Abend!\n"
+    service: notify.flo_telegram
+  - data:
+      language: de
+      message: Guten Abend Flo
+    entity_id: media_player.wohnzimmer_sonos
+    service: tts.google_translate_say
+  mode: single
+- id: '1595765260699'
+  alias: Blitze
+  description: ''
+  trigger:
+  - above: 1
+    below: 100000
+    device_id: a910e7071dc54f0cbe765cff59bbf9cd
+    domain: sensor
+    entity_id: sensor.blitzortung_lightning_counter
+    platform: device
+    type: value
+  condition: []
+  action:
+  - device_id: dd31102cd1224b89bc195d3eff56a385
+    domain: light
+    entity_id: light.chillzimmer_deckenlampe
+    type: flash
+  mode: parallel
+  max: 300
+- id: '1595769804152'
+  alias: Rollostop
+  description: Jalousien/Rollanden stoppen
+  trigger:
+  - above: 98
+    below: 100
+    device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+    domain: cover
+    entity_id: cover.tradfri_blind
+    platform: device
+    type: position
+  condition:
+  - condition: state
+    entity_id: binary_sensor.koogeek_chillzimmer_fenster
+    state: 'on'
+  action:
+  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+    domain: cover
+    entity_id: cover.tradfri_blind
+    position: 100
+    type: set_position
+  - data:
+      message: Rollostop Chillzimmer wurde aktiviert
+    service: notify.notify
+  - data:
+      variables:
+        what: Rollo Stop wurde aktiviert!
+        where: wohnzimmer_sonos
+        language: de
+    entity_id: script.say
+    service: script.turn_on
+  mode: single
+- id: '1595772363655'
+  alias: Kamera Balkon ausschalten
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.koogeek_balkon_tuer
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: alarm_control_panel.blink_rudolph
+    service: alarm_control_panel.alarm_disarm
+  - data:
+      message: Kamera Balkon wurde deaktiviert
+    service: notify.flo_telegram
+  mode: single
+- id: '1595772447419'
+  alias: Kamera Balkon einschalten
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.koogeek_balkon_tuer
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: alarm_control_panel.blink_rudolph
+    service: alarm_control_panel.alarm_arm_away
+  - data:
+      message: Kamera Balkon wurde aktiviert
+    service: notify.flo_telegram
+  mode: single
+- id: '1595776280605'
+  alias: Telegram Infos Arbeit  TTS
+  description: ''
+  trigger:
+  - device_id: b7a3fbc22a854263a6530c11366b6b86
+    domain: binary_sensor
+    entity_id: binary_sensor.sensor_bad_motion
+    platform: device
+    type: motion
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - after: 07:00
+    before: '10:00'
+    condition: time
+  action:
+  - data:
+      message: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
+        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %}{{ [\"Meister\",\"\
+        Chef\",\"mein Liebster\"] | random }}.\n\nDie aktuelle Uhrzeit ist {{states.sensor.time.state}}\
+        \ Uhr.\n\nDas Wetter ist aktuell {{state_attr('weather.home', 'temperature')}}°\
+        \ C und es ist {{states.weather.home.state}}. \n\nArbeitsweg:\nAbfahrt {{\
+        \ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.state\
+        \ }} Uhr\nVerspätung {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.attributes.delay\
+        \ }} Minuten\nDauer {{ states.sensor.db_transit_time_roe.state }} Stunden\n\
+        \nAuto - {{ states.sensor.arbeitsweg_roe_auto.state }} Minuten\nvia {{ states.sensor.arbeitsweg_roe_auto.attributes.route\
+        \ }}\n\nIch wünsche dir einen {{ [\"herrlichen\",\"wunderbaren\",\"tollen\"\
+        ,\"super\",\"wundervollen\",\"schönen\"] | random }} Tag!\n"
+    service: notify.flo_telegram
+  - data:
+      entity_id: media_player.bad_sonos
+    service: sonos.snapshot
+  - data:
+      entity_id: media_player.bad_sonos
+    service: sonos.unjoin
+  - data_template:
+      entity_id: media_player.bad_sonos
+      language: de
+      message: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
+        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %}{{ [\"Meister\",\"\
+        Chef\",\"mein Liebster\"] | random }}.\n\nDie aktuelle Uhrzeit ist {{states.sensor.time.state}}\
+        \ Uhr.\n\nDas Temparatur ist aktuell {{state_attr('weather.home', 'temperature')\
+        \ | round(0)}}° C und das Wetter ist {{states.weather.home.state}}. \n\nAbfahrt\
+        \ in die Arbeit um {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.state\
+        \ }}.\nVerspätung {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.attributes.delay\
+        \ }} Minuten\nDauer {{ states.sensor.db_transit_time_roe.state }}.\nIch wünsche\
+        \ dir einen {{ [\"herrlichen\",\"wunderbaren\",\"tollen\",\"super\",\"wundervollen\"\
+        ,\"schönen\"] | random }} Tag!\n"
+    entity_id: media_player.bad_sonos
+    service: tts.google_translate_say
+  - delay: '2'
+  - data:
+      entity_id: media_player.bad_sonos
+    service: sonos.restore
+  - delay: '1000'
+  mode: single
+- id: '1595783889092'
+  alias: HA start notify
+  description: ''
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      message: Home Assistant gestartet
+    service: notify.flo_telegram
+  mode: single
+- id: '1595785985930'
+  alias: HA stop notify
+  description: ''
+  trigger:
+  - event: shutdown
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      message: Home Assistant gestoppt
+    service: notify.flo_telegram
+  mode: single
+- id: '1596236837075'
+  alias: HACS Update Info
+  description: ''
+  trigger:
+  - above: '0'
+    entity_id: sensor.hacs
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      message: '{{states.sensor.hacs.state}} Hacs Update(s) vorhanden
+
+        '
+    service: notify.notify
+  - data:
+      message: '{{states.sensor.hacs.state}} Hacs Update(s) vorhanden
+
+        '
+    service: notify.flo_telegram
+  mode: single
+- id: '1597054963851'
+  alias: Klingel
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.rudolphstrasse_18_nurnberg
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Es hat geklingelt
+    service: notify.mobile_app_flo_s_iphone_11
+  - data:
+      message: Es hat geklingelt
+    service: notify.flo_telegram
+  - device_id: dd31102cd1224b89bc195d3eff56a385
+    domain: light
+    entity_id: light.chillzimmer_deckenlampe
+    type: flash
+  - type: flash
+    device_id: c7e9a8ec028f4fe28c8c990e5881150b
+    entity_id: light.bad_deckenlampe_weiss
+    domain: light
+  - type: flash
+    device_id: 60e98ecf625f4c89948e27557eea0de0
+    entity_id: light.wohnzimmer_deckenlampe
+    domain: light
+  - type: flash
+    device_id: e902a0cd25bb47f0926be1e4e6c46bae
+    entity_id: light.schlafzimmer_deckenlampe
+    domain: light
+  - type: flash
+    device_id: 79459b5df51d4215a3bf064801ad9cd4
+    entity_id: light.kuche_deckenlampe
+    domain: light
+  - type: flash
+    device_id: 8127c9ca8e0541f8b8e39e8cd01fdb8d
+    entity_id: light.gang_deckenlampe_1
+    domain: light
+  - type: flash
+    device_id: ddea3d406fe44686a49c0244bb960cf4
+    entity_id: light.gang_deckenlampe_2
+    domain: light
+  - delay: '0.2'
+  - device_id: dd31102cd1224b89bc195d3eff56a385
+    domain: light
+    entity_id: light.chillzimmer_deckenlampe
+    type: flash
+  - type: flash
+    device_id: c7e9a8ec028f4fe28c8c990e5881150b
+    entity_id: light.bad_deckenlampe_weiss
+    domain: light
+  - type: flash
+    device_id: 60e98ecf625f4c89948e27557eea0de0
+    entity_id: light.wohnzimmer_deckenlampe
+    domain: light
+  - type: flash
+    device_id: e902a0cd25bb47f0926be1e4e6c46bae
+    entity_id: light.schlafzimmer_deckenlampe
+    domain: light
+  - type: flash
+    device_id: 79459b5df51d4215a3bf064801ad9cd4
+    entity_id: light.kuche_deckenlampe
+    domain: light
+  - type: flash
+    device_id: 8127c9ca8e0541f8b8e39e8cd01fdb8d
+    entity_id: light.gang_deckenlampe_1
+    domain: light
+  - type: flash
+    device_id: ddea3d406fe44686a49c0244bb960cf4
+    entity_id: light.gang_deckenlampe_2
+    domain: light
+  - delay: '0.2'
+  - device_id: dd31102cd1224b89bc195d3eff56a385
+    domain: light
+    entity_id: light.chillzimmer_deckenlampe
+    type: flash
+  - type: flash
+    device_id: c7e9a8ec028f4fe28c8c990e5881150b
+    entity_id: light.bad_deckenlampe_weiss
+    domain: light
+  - type: flash
+    device_id: 60e98ecf625f4c89948e27557eea0de0
+    entity_id: light.wohnzimmer_deckenlampe
+    domain: light
+  - type: flash
+    device_id: e902a0cd25bb47f0926be1e4e6c46bae
+    entity_id: light.schlafzimmer_deckenlampe
+    domain: light
+  - type: flash
+    device_id: 79459b5df51d4215a3bf064801ad9cd4
+    entity_id: light.kuche_deckenlampe
+    domain: light
+  - type: flash
+    device_id: 8127c9ca8e0541f8b8e39e8cd01fdb8d
+    entity_id: light.gang_deckenlampe_1
+    domain: light
+  - type: flash
+    device_id: ddea3d406fe44686a49c0244bb960cf4
+    entity_id: light.gang_deckenlampe_2
+    domain: light
+  mode: parallel
+  max: 5
+- id: '1597141959312'
+  alias: Wasseralarm
+  description: ''
+  trigger:
+  - device_id: e48b0811708b476d83c6bdc4f25e3f9e
+    domain: binary_sensor
+    entity_id: binary_sensor.shelly_shwt_1_c8a739_flood
+    platform: device
+    type: turned_on
+  condition: []
+  action:
+  - data:
+      message: Achtung! Wasser am Boden (Toilette)
+    service: notify.mobile_app_flo_s_iphone_11
+  - data:
+      message: Achtung! Wasser am Boden (Toilette)
+    service: notify.flo_telegram
+  mode: single
+- id: '1599650515819'
+  alias: Rollo WZ öffnen
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - device_id: 7e01390d29fa4c64ae40a745245df5df
+    domain: cover
+    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    position: 100
+    type: set_position
+  - device_id: 87260ef7fd684616a12119abe234f78c
+    domain: cover
+    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    position: 100
+    type: set_position
+  mode: single
+- id: '1599650893811'
+  alias: Rollo WZ schließen
+  description: ''
+  trigger:
+  - event: sunset
+    platform: sun
+  condition: []
+  action:
+  - device_id: 7e01390d29fa4c64ae40a745245df5df
+    domain: cover
+    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    position: 0
+    type: set_position
+  - device_id: 87260ef7fd684616a12119abe234f78c
+    domain: cover
+    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    position: 0
+    type: set_position
+  mode: single
+- id: '1599747044487'
+  alias: Briefkasten
+  description: ''
+  trigger:
+  - device_id: 845ce1ce0a694597b742acde0c9e2c39
+    domain: binary_sensor
+    entity_id: binary_sensor.shelly_shdw_2_d8bfc01a8e7a_door_window
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    platform: device
+    type: opened
+  condition: []
+  action:
+  - data:
+      message: Briefkasten geöffnet
+    service: notify.flo_telegram
+  mode: single
+- id: '1599749316508'
+  alias: Ping - RPi3 down
+  description: Info per Telegram wenn Raspberry Pi 3 down ist
+  trigger:
+  - entity_id: binary_sensor.ping_raspberry_pi_3
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: Raspberry Pi 3 down (DNS Server)
+    service: notify.flo_telegram
+  mode: single
+- id: '1599821272066'
+  alias: Rollo CZ öffnen
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: binary_sensor.koogeek_chillzimmer_fenster
+    state: 'off'
+  action:
+  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+    domain: cover
+    entity_id: cover.tradfri_blind
+    position: 100
+    type: set_position
+  mode: single
+- id: '1599821480344'
+  alias: Rollo CZ schließen
+  description: ''
+  trigger:
+  - event: sunset
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: binary_sensor.koogeek_chillzimmer_fenster
+    state: 'off'
+  - above: '50'
+    condition: numeric_state
+    entity_id: cover.tradfri_blind
+    attribute: current_position
+  action:
+  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+    domain: cover
+    entity_id: cover.tradfri_blind
+    position: 50
+    type: set_position
+  mode: single
+- id: '1599821764307'
+  alias: Ping - Tado up
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.ping_tado_bridge
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Tado Bridge (Heizung) gestertet
+    service: notify.flo_telegram
+  mode: single
+- id: '1600003925095'
+  alias: Bewegung erkannt
+  description: ''
+  trigger:
+  - entity_id: group.motion_all
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Bewegung erkannt
+    service: notify.flo_telegram
+  mode: single
+- id: '1600185298859'
+  alias: Movie Night
+  description: ''
+  trigger:
+  - entity_id: input_boolean.automation_movie_night
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: d15f28d3f9b311ea87726fe564b32d29
+    entity_id: switch.shelly_shplg_s_9a4071
+    domain: switch
+  - service: script.atv_chillzimmer_einschalten
+    data: {}
+  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+    domain: cover
+    entity_id: cover.tradfri_blind
+    position: 0
+    type: set_position
+  - device_id: dd31102cd1224b89bc195d3eff56a385
+    domain: light
+    entity_id: light.chillzimmer_deckenlampe
+    type: turn_off
+  - delay: '1'
+  - brightness_pct: 30
+    device_id: f58408ded4ef42c298dfd3e28fe53808
+    domain: light
+    entity_id: light.chillzimmer_tv_lampe
+    type: turn_on
+  - delay: '1'
+  - device_id: 5260936b8d284bc4b67d4cf209c0af27
+    domain: light
+    entity_id: light.chillzimmer_stehlampe_unten
+    type: turn_off
+  - delay: '1'
+  - device_id: d0ee65aef03e49dea1c13994f866fabf
+    domain: light
+    entity_id: light.chillzimmer_stehlampe_oben
+    type: turn_off
+  - data:
+      entity_id: input_boolean.automation_movie_night
+    service: input_boolean.turn_off
+  - delay: '12'
+  - service: script.atv_chillzimmer_netflix
+    data: {}
+  mode: single
+- id: '1600188471292'
+  alias: Xbox spielen
+  description: ''
+  trigger:
+  - entity_id: input_boolean.automation_xbox_spielen
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+    domain: cover
+    entity_id: cover.tradfri_blind
+    position: 0
+    type: set_position
+  - device_id: fc3fc54fbb794a7a82c9dc87682620f9
+    domain: switch
+    entity_id: switch.xbox
+    type: turn_on
+  - type: turn_on
+    device_id: d15f28d3f9b311ea87726fe564b32d29
+    entity_id: switch.shelly_shplg_s_9a4071
+    domain: switch
+  - device_id: dd31102cd1224b89bc195d3eff56a385
+    domain: light
+    entity_id: light.chillzimmer_deckenlampe
+    type: turn_off
+  - delay: '1'
+  - brightness_pct: 30
+    device_id: f58408ded4ef42c298dfd3e28fe53808
+    domain: light
+    entity_id: light.chillzimmer_tv_lampe
+    flash: short
+    type: turn_on
+  - delay: '1'
+  - device_id: 5260936b8d284bc4b67d4cf209c0af27
+    domain: light
+    entity_id: light.chillzimmer_stehlampe_unten
+    type: turn_off
+  - delay: '1'
+  - device_id: d0ee65aef03e49dea1c13994f866fabf
+    domain: light
+    entity_id: light.chillzimmer_stehlampe_oben
+    type: turn_off
+  - data:
+      entity_id: input_boolean.automation_xbox_spielen
+    service: input_boolean.turn_off
+  mode: single
+- id: '1600381540794'
+  alias: Tag Bad is scanned
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: eac80aa2-6ae4-4ed6-b5a2-53bdd0013bb2
+  condition: []
+  action:
+  - type: toggle
+    device_id: ff02e160de9c4d26bc390da1aeba5602
+    entity_id: switch.shelly_shsw_pm_ba0f30
+    domain: switch
+  mode: single
+- id: '1600381905068'
+  alias: Strom aus
+  description: ''
+  trigger:
+  - platform: time
+    at: 03:00
+  - platform: state
+    entity_id: input_boolean.automation_strom_aus
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: fc3fc54fbb794a7a82c9dc87682620f9
+    entity_id: switch.xbox
+    domain: switch
+  - type: turn_off
+    device_id: 9894c517073c11eba29a3775c3692765
+    entity_id: switch.shelly_shplg_s_80149d
+    domain: switch
+  - type: turn_off
+    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    entity_id: switch.shelly_shplg_s_977c27
+    domain: switch
+  - type: turn_off
+    device_id: 6c55d03d0f6c4fdba9a9d8ddde31d29a
+    entity_id: switch.shelly_shplg_s_dbf2f5
+    domain: switch
+  - type: turn_off
+    device_id: 28ded1cc893143a9a5225c0f1e975330
+    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    domain: switch
+  - type: turn_off
+    device_id: d15f28d3f9b311ea87726fe564b32d29
+    entity_id: switch.shelly_shplg_s_9a4071
+    domain: switch
+  - delay: '1'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.automation_strom_aus
+  mode: single
+- id: '1600382426170'
+  alias: Licht aus
+  description: ''
+  trigger:
+  - platform: time
+    at: 03:00
+  - platform: state
+    entity_id: input_boolean.automation_licht_aus
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - scene: scene.alle_lampe_ausschalten
+  - delay: '1'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.automation_licht_aus
+  mode: single
+- id: '1600616427029'
+  alias: Roborock Dockingstation
+  description: Telegram Info sobald Roborock Sauger zur Ladestation zurückgekehrt
+    ist
+  trigger:
+  - platform: state
+    entity_id: vacuum.roborock
+    to: docked
+  condition: []
+  action:
+  - service: notify.flo_telegram
+    data:
+      message: Roborock hat Ladestation erreicht
+  mode: single
+- id: '1601800364407'
+  alias: Toilette Heizung einschalten
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 421555c772964bd4839bb79eed564647
+    entity_id: sensor.sensor_toilette_temperature
+    domain: sensor
+    below: 17
+  condition:
+  - condition: time
+    after: 08:00
+    before: '22:00'
+  - condition: zone
+    entity_id: person.flo
+    zone: zone.home
+  action:
+  - type: turn_on
+    device_id: 28ded1cc893143a9a5225c0f1e975330
+    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    domain: switch
+  mode: single
+- id: '1601800416342'
+  alias: Toilette Heizung ausschalten
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 421555c772964bd4839bb79eed564647
+    entity_id: sensor.sensor_toilette_temperature
+    domain: sensor
+    above: 18
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 28ded1cc893143a9a5225c0f1e975330
+    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    domain: switch
+  mode: single
+- id: '1602945984780'
+  alias: HA Update Info
+  description: ''
+  trigger:
+  - platform: state
+    to: 'on'
+    entity_id: binary_sensor.updater
+  condition: []
+  action:
+  - data:
+      message: 'Home Assistant Version {{ states.binary_sensor.updater.attributes.newest_version
+        }} verfügbar
+
+        '
+    service: notify.flo_telegram
+  mode: single
+- id: '1602947017477'
+  alias: HA Update Info Latest Version
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.updater
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: 'aktuellste Home Assistant Version installiert
+
+        '
+    service: notify.flo_telegram
+  mode: single
+- id: '1607536666393'
+  alias: Gute Nacht Musik
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.automation_gute_nacht_musik
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - delay: '2'
+  - service: script.say
+    data:
+      where: schlafzimmer_sonos
+      language: de
+      what: 'Gute Nacht, {{ ["du kleines Genie", "mein Lieblingsmensch", "ich liebe
+        dich"] | random }}.  jetzt kommt Gute Nacht Musik für dich.
+
+        '
+  - delay: '1'
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.1
+    entity_id: media_player.schlafzimmer_sonos
+  - service: media_player.select_source
+    data:
+      source: '{{ ["Interstellar Radio Station", "Sleep Radio", "Calm Radio - Sleep"]
+        | random }}
+
+        '
+    entity_id: media_player.schlafzimmer_sonos
+  - service: media_player.media_play
+    data: {}
+    entity_id: media_player.schlafzimmer_sonos
+  - scene: scene.alle_lampe_ausschalten
+  - type: turn_off
+    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    entity_id: switch.shelly_shplg_s_977c27
+    domain: switch
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.automation_gute_nacht_musik
+  - delay: '5400'
+  - service: media_player.media_stop
+    data: {}
+    entity_id: media_player.schlafzimmer_sonos
+  mode: restart
+  max: 10
+- id: '1607984051320'
+  alias: NFC Tag c982aeb5-b570-4437-8ebe-2c2117a75c0e ist gescannt
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: c982aeb5-b570-4437-8ebe-2c2117a75c0e
+  condition: []
+  action:
+  - scene: scene.chillout
+  - type: turn_on
+    device_id: d15f28d3f9b311ea87726fe564b32d29
+    entity_id: switch.shelly_shplg_s_9a4071
+    domain: switch
+  mode: single
+- id: '1608909673746'
+  alias: Dimmer Wohnzimmer Rollo Runter
+  description: ''
+  trigger:
+  - device_id: 45b66ffc2ab54570aa89d2c9b238392c
+    domain: hue
+    platform: device
+    type: remote_button_long_release
+    subtype: dim_up
+  condition: []
+  action:
+  - device_id: 7e01390d29fa4c64ae40a745245df5df
+    domain: cover
+    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    type: set_position
+    position: 100
+  - device_id: 87260ef7fd684616a12119abe234f78c
+    domain: cover
+    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    type: set_position
+    position: 100
+  mode: single
+- id: '1608909726300'
+  alias: Dimmer Wohnzimmer Rollo Rauf
+  description: ''
+  trigger:
+  - device_id: 45b66ffc2ab54570aa89d2c9b238392c
+    domain: hue
+    platform: device
+    type: remote_button_long_release
+    subtype: dim_down
+  condition: []
+  action:
+  - device_id: 7e01390d29fa4c64ae40a745245df5df
+    domain: cover
+    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    type: set_position
+    position: 0
+  - device_id: 87260ef7fd684616a12119abe234f78c
+    domain: cover
+    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    type: set_position
+    position: 0
+  mode: single
+- id: '1608923224438'
+  alias: Sonos Radio Group
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sensor_gang_occupancy
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.sensor_kuche_occupancy
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.sensor_bad_occupancy
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.follow_music
+      state: 'on'
+    - condition: template
+      value_template: "{% if states('media_player.' + states('input_select.music_controller'))\
+        \ == 'playing' %}\n  true\n{% else %}\n  false\n{% endif %}\n"
+  action:
+  - service: sonos.join
+    data:
+      master: media_player.{{ states('input_select.music_controller') }}
+      entity_id: "{% if trigger.entity_id == 'binary_sensor.sensor_gang_occupancy'\
+        \ %}\n  {% set player = 'media_player.gang_sonos' %}\n{% elif trigger.entity_id\
+        \ == 'binary_sensor.sensor_kuche_occupancy' %}\n  {% set player = 'media_player.kueche_sonos'\
+        \ %}\n{% elif trigger.entity_id == 'binary_sensor.sensor_bad_occupancy' %}\n\
+        \  {% set player = 'media_player.bad_sonos' %}    \n{% endif %} {% if player\
+        \ is not none %}\n  {{ player }}\n{% else %}\n  false\n{% endif %}\n"
+  - service: media_player.media_play
+    data:
+      entity_id: media_player.{{ states('input_select.music_controller') }}
+  mode: parallel
+  max: 10
+- id: '1608923385099'
+  alias: Sonos Radio Ungroup
+  trigger:
+  - platform: state
+    entity_id: group.light_gang
+    to: 'off'
+  - platform: state
+    entity_id: group.light_kueche
+    to: 'off'
+  - platform: state
+    entity_id: group.light_bad
+    to: 'off'
+  condition:
+  - condition: template
+    value_template: "{% if trigger.entity_id == 'group.light_gang' %}\n  {% set playertmp\
+      \ = 'gang_sonos' %}\n{% elif trigger.entity_id == 'group.light_kueche' %}\n\
+      \  {% set playertmp = 'kueche_sonos' %}\n{% elif trigger.entity_id == 'group.light_bad'\
+      \ %}\n  {% set playertmp = 'bad_sonos' %}    \n{% endif %} {% if states('input_select.music_controller')\
+      \ != '{{ playertmp }}' %}\n  true\n{% else %}\n  false\n{% endif %}\n"
+  action:
+  - service: sonos.unjoin
+    data:
+      entity_id: "{% if trigger.entity_id == 'group.light_gang' %}\n  {% set player\
+        \ = 'media_player.gang_sonos' %}\n{% elif trigger.entity_id == 'group.light_kueche'\
+        \ %}\n  {% set player = 'media_player.kueche_sonos' %}\n{% elif trigger.entity_id\
+        \ == 'group.light_bad' %}\n  {% set player = 'media_player.bad_sonos' %} \
+        \   \n{% endif %} {% if player is not none %}\n  {{ player }}\n{% else %}\n\
+        \  false\n{% endif %}\n"
+  mode: parallel
+  max: 10
+- id: '1609241631134'
+  alias: Sonos Radio Start
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sensor_gang_occupancy
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.sensor_kuche_occupancy
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.sensor_bad_occupancy
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.follow_music
+    state: 'on'
+  - condition: template
+    value_template: "{% if states('media_player.' + states('input_select.music_controller'))\
+      \ != 'playing' %}\n  true\n{% else %}\n  false\n{% endif %}"
+  action:
+  - service: media_player.media_play
+    data:
+      entity_id: "{% if trigger.entity_id == 'binary_sensor.sensor_gang_occupancy'\
+        \ %}\n  {% set player = 'media_player.gang_sonos' %}\n{% elif trigger.entity_id\
+        \ == 'binary_sensor.sensor_kuche_occupancy' %}\n  {% set player = 'media_player.kueche_sonos'\
+        \ %}\n{% elif trigger.entity_id == 'binary_sensor.sensor_bad_occupancy' %}\n\
+        \  {% set player = 'media_player.bad_sonos' %}    \n{% endif %} {% if player\
+        \ is not none %}\n  {{ player }}\n{% else %}\n  false\n{% endif %}\n"
+  - service: input_select.select_option
+    data:
+      option: "{% if trigger.entity_id == 'binary_sensor.sensor_gang_occupancy' %}\n\
+        \  {% set controller = 'gang_sonos' %}\n{% elif trigger.entity_id == 'binary_sensor.sensor_kuche_occupancy'\
+        \ %}\n  {% set controller = 'kueche_sonos' %}\n{% elif trigger.entity_id ==\
+        \ 'binary_sensor.sensor_bad_occupancy' %}\n  {% set controller = 'bad_sonos'\
+        \ %}    \n{% endif %} {% if controller is not none %}\n  {{ controller }}\n\
+        {% else %}\n  false\n{% endif %}\n"
+    entity_id: input_select.music_controller
+  mode: parallel
+  max: 20
+- id: '1609249803388'
+  alias: Sonos Radio Stop
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.light_gang
+    to: 'off'
+  - platform: state
+    entity_id: group.light_kueche
+    to: 'off'
+  - platform: state
+    entity_id: group.light_bad
+    to: 'off'
+  condition:
+  - condition: template
+    value_template: "{% if trigger.entity_id == 'group.light_gang' %}\n  {% set playertmp\
+      \ = 'gang_sonos' %}\n{% elif trigger.entity_id == 'group.light_kueche' %}\n\
+      \  {% set playertmp = 'kueche_sonos' %}\n{% elif trigger.entity_id == 'group.light_bad'\
+      \ %}\n  {% set playertmp = 'bad_sonos' %}    \n{% endif %} {% if states('input_select.music_controller')\
+      \ == '{{ playertmp }}' %}\n  true\n{% else %}\n  false\n{% endif %}\n"
+  action:
+  - service: media_player.media_pause
+    data:
+      entity_id: "{% if trigger.entity_id == 'group.light_gang' %}\n  {% set player\
+        \ = 'media_player.gang_sonos' %}\n{% elif trigger.entity_id == 'group.light_kueche'\
+        \ %}\n  {% set player = 'media_player.kueche_sonos' %}\n{% elif trigger.entity_id\
+        \ == 'group.light_bad' %}\n  {% set player = 'media_player.bad_sonos' %} \
+        \   \n{% endif %} {% if player is not none %}\n  {{ player }}\n{% else %}\n\
+        \  false\n{% endif %}\n"
+  mode: parallel
+  max: 10
+- id: '1609333673236'
+  alias: Motion-activated Light Gang
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '30'
+      motion_entity: binary_sensor.sensor_gang_occupancy
+      light_target:
+        area_id: 8b3cd614ec994f02a3765943b00cf5f9
+- id: '1609333827314'
+  alias: Motion-activated Light Küche
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '30'
+      light_target:
+        device_id:
+        - 79459b5df51d4215a3bf064801ad9cd4
+      motion_entity: binary_sensor.sensor_kuche_occupancy
+- id: '1609334568871'
+  alias: Motion-activated Light Bad
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '60'
+      motion_entity: binary_sensor.sensor_bad_occupancy
+      light_target:
+        area_id: 021ad1fe92704ebcb2c1a4c13efc4695
+- id: '1609341308578'
+  alias: Motion-activated Light Toilette
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '30'
+      motion_entity: binary_sensor.sensor_toilette_occupancy
+      light_target:
+        area_id: df3d1b5893934d95992ad07bf34e4fb6
+- id: '1610734199650'
+  alias: Motion-activated Light Schlafzimmer
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '60'
+      motion_entity: binary_sensor.sensor_schlafzimmer_occupancy
+      light_target:
+        area_id: 89da5b09c0ee4029831cc94f5adfb152
+- id: '1610740785988'
+  alias: Ich bin wach
+  description: Automation nach dem Aufstehen
+  trigger:
+  - platform: state
+    entity_id: input_boolean.automation_ich_bin_wach
+    to: 'on'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.sensor_toilette_temperature
+    below: '19'
+  action:
+  - delay: '2'
+  - service: script.say
+    data:
+      where: schlafzimmer_sonos
+      language: de
+      what: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
+        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %} {{[\"Meister\",\"\
+        Chef\",\"mein Liebster\"] | random }}. \nDie aktuelle Uhrzeit ist {{states.sensor.time.state}}\
+        \ Uhr.\nDie Außen-Temparatur ist aktuell {{state_attr('weather.home', 'temperature')\
+        \ | round(0)}}° C und das Wetter ist {{states.weather.home.state}}.\nDie Temperatur\
+        \ in der Toilette ist {{states.sensor.sensor_toilette_temperature.state}}\
+        \ ° C. {% if states.sensor.sensor_toilette_temperature.state | float | round(0)\
+        \ < 19 %}Ich habe die Heizung eingeschalten.  {% else %}Die Heizung musste\
+        \ nicht eingeschalten werden. {% endif %}\nAbfahrt in die Arbeit um {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.state\
+        \ }}.\nVerspätung {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.attributes.delay\
+        \ }} Minuten\nDauer {{ states.sensor.db_transit_time_roe.state }}.\n{% if\
+        \ states.sensor.sk_nurnberg_weekincidence.state | float | round(0) < 200 %}Wir\
+        \ sind kein Corona Hotspot.  {% else %}Wir sind weiterhin ein Covid-Hotspot\
+        \ {% endif %}\nDie aktuelle Inzidenz in Nürnberg beträgt {{ states.sensor.sk_nurnberg_weekincidence.state\
+        \ | float | round(0) }}\nIch wünsche dir einen {{ [\"herrlichen\",\"wunderbaren\"\
+        ,\"tollen\",\"super\",\"wundervollen\",\"schönen\"] | random }} Tag!\n"
+  - type: turn_on
+    device_id: 3620fa51fdde11ea979df93b0cf6136c
+    entity_id: light.schlafzimmer_tischlampe
+    domain: light
+    brightness_pct: 70
+    flash: long
+  - type: turn_on
+    device_id: 28ded1cc893143a9a5225c0f1e975330
+    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    domain: switch
+  - service: media_player.select_source
+    data:
+      source: '{{ ["Umse Radio", "Radio PH35", "PULS"] | random }}
+
+        '
+    entity_id: media_player.schlafzimmer_sonos
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.15
+    entity_id: media_player.schlafzimmer_sonos
+  - service: media_player.media_play
+    data: {}
+    entity_id: media_player.schlafzimmer_sonos
+  - delay: '900'
+  - type: turn_off
+    device_id: 28ded1cc893143a9a5225c0f1e975330
+    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    domain: switch
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.automation_ich_bin_wach
+  - type: turn_off
+    device_id: 3620fa51fdde11ea979df93b0cf6136c
+    entity_id: light.schlafzimmer_tischlampe
+    domain: light
+  - service: media_player.media_stop
+    data: {}
+    entity_id: media_player.schlafzimmer_sonos
+  mode: restart
+- id: '1610744456244'
+  alias: Ping - Tado down
+  description: Info per Telegram wenn Tado Bridge (Heizung) down ist
+  trigger:
+  - entity_id: binary_sensor.ping_tado_bridge
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: Tado Bridge down (Heizung)
+    service: notify.flo_telegram
+  mode: single
+- id: '1610744798708'
+  alias: Ping - RPi3 up
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.ping_raspberry_pi_3
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Raspberry Pi 3 gestertet
+    service: notify.flo_telegram
+  mode: single
+- id: '1610753616257'
+  alias: test_tts
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: script.say
+    data:
+      where: chillzimmer_sonos
+      language: de
+      what: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
+        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %} Mein geliebte Frau\
+        \ Tatiana. \nDie aktuelle Uhrzeit ist {{states.sensor.time.state}} Uhr.\n\
+        Die Außen-Temparatur ist aktuell {{state_attr('weather.home', 'temperature')\
+        \ | round(0)}}° C und das Wetter ist {{states.weather.home.state}}.\nDie Temperatur\
+        \ in der Toilette ist {{states.sensor.sensor_toilette_temperature.state}}\
+        \ ° C. {% if states.sensor.sensor_toilette_temperature.state | float | round(0)\
+        \ < 19 %}Ich habe die Heizung eingeschalten.  {% else %}Die Heizung musste\
+        \ nicht eingeschalten werden. {% endif %}\n{% if states.sensor.sk_nurnberg_weekincidence.state\
+        \ | float | round(0) < 200 %}Wir sind kein Corona Hotspot.  {% else %}Wir\
+        \ sind weiterhin ein Covid-Hotspot {% endif %}.\nDie aktuelle Inzidenz in\
+        \ Nürnberg beträgt {{ states.sensor.sk_nurnberg_weekincidence.state | float\
+        \ | round(0) }}.\nIch Liebe dich Tatiana und \nIch wünsche dir einen {{ [\"\
+        herrlichen\",\"wunderbaren\",\"tollen\",\"super\",\"wundervollen\",\"schönen\"\
+        ] | random }} Tag!\n"
+  mode: restart
+- id: '1610819563991'
+  alias: music_controller aktualisieren
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: d15f28d3f9b311ea87726fe564b32d29
+    entity_id: switch.shelly_shplg_s_9a4071
+    domain: switch
+  - platform: device
+    type: turned_off
+    device_id: d15f28d3f9b311ea87726fe564b32d29
+    entity_id: switch.shelly_shplg_s_9a4071
+    domain: switch
+  - platform: device
+    type: turned_on
+    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    entity_id: switch.shelly_shplg_s_977c27
+    domain: switch
+  - platform: device
+    type: turned_off
+    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    entity_id: switch.shelly_shplg_s_977c27
+    domain: switch
+  condition:
+  - condition: state
+    entity_id: input_boolean.follow_music
+    state: 'on'
+  action:
+  - service: input_select.select_option
+    data:
+      option: "{% if trigger.entity_id == 'switch.shelly_shplg_s_9a4071' and states.switch.shelly_shplg_s_9a4071.state\
+        \ == 'on' %}\n  {% set player = 'wohnzimmer_sonos' %}\n{% elif trigger.entity_id\
+        \ == 'switch.shelly_shplg_s_9a4071' and states.switch.shelly_shplg_s_9a4071.state\
+        \ == 'off' %}\n  {% set player = 'gang_sonos' %}    \n{% elif trigger.entity_id\
+        \ == 'switch.shelly_shplg_s_977c27' and states.switch.shelly_shplg_s_977c27.state\
+        \ == 'on' %}\n  {% set player = 'schlafzimmer_sonos' %}  \n{% elif trigger.entity_id\
+        \ == 'switch.shelly_shplg_s_977c27' and states.switch.shelly_shplg_s_977c27.state\
+        \ == 'off' %}\n  {% set player = 'gang_sonos' %}\n{% else %}\n  {% set player\
+        \ = 'gang_sonos' %}    \n{% endif %} {% if player is not none %}\n  {{ player\
+        \ }}\n{% else %}\n  false\n{% endif %}\n"
+    entity_id: input_select.music_controller
+  mode: single
+- id: '1610843975242'
+  alias: TV Licht
+  description: ''
+  trigger:
+  - platform: state
+    to: 'on'
+    entity_id: input_boolean.automation_tv_licht
+  condition: []
+  action:
+  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+    domain: cover
+    entity_id: cover.tradfri_blind
+    type: set_position
+    position: 50
+  - device_id: dd31102cd1224b89bc195d3eff56a385
+    domain: light
+    entity_id: light.chillzimmer_deckenlampe
+    type: turn_off
+  - delay: '1'
+  - brightness_pct: 30
+    device_id: f58408ded4ef42c298dfd3e28fe53808
+    domain: light
+    entity_id: light.chillzimmer_tv_lampe
+    type: turn_on
+  - delay: '1'
+  - device_id: 5260936b8d284bc4b67d4cf209c0af27
+    domain: light
+    entity_id: light.chillzimmer_stehlampe_unten
+    type: turn_off
+  - delay: '1'
+  - device_id: d0ee65aef03e49dea1c13994f866fabf
+    domain: light
+    entity_id: light.chillzimmer_stehlampe_oben
+    type: turn_off
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.automation_tv_licht
+  mode: single
+- id: '1611502912273'
+  alias: Ping - Tado Gruppenstatus down
+  description: Info per Telegram wenn ein tado Gerät nicht erreichbar ist
+  trigger:
+  - entity_id: group.climate_all
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: Es gibt ein Problem mit einem tado Gerät
+    service: notify.flo_telegram
+  mode: single
+- id: '1611786281253'
+  alias: home_status aktualisieren
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.flo
+    to: home
+  - platform: state
+    entity_id: person.flo
+    to: not_home
+  - device_id: 0adea5e2c5994bd8849dc710bfe456c9
+    domain: hue
+    platform: device
+    type: remote_button_short_release
+    subtype: dim_down
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: "{% if trigger.entity_id == 'person.flo' and states.person.flo.state\
+        \ == 'home' %}\n  {% set home_mode = 'Zuhause' %}\n{% elif trigger.entity_id\
+        \ == 'person.flo' and states.person.flo.state == 'not_home' %}\n  {% set home_mode\
+        \ = 'Abwesend' %}\n{% else %}\n  {% set home_mode = 'Abwesend' %}    \n{%\
+        \ endif %} {% if home_mode is not none %}\n  {{ home_mode }}\n{% else %}\n\
+        \  false\n{% endif %}\n"
+    entity_id: input_select.home_status
+  mode: single
+- id: '1611853049208'
+  alias: home_status Zuhause
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.home_status
+    to: Zuhause
+  condition: []
+  action:
+  - service: script.say
+    data:
+      where: chillzimmer_sonos
+      what: Der Zuhause Modus wurde aktiviert
+  - service: notify.flo_telegram
+    data:
+      message: Der Zuhause Modus wurde aktiviert
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.follow_music
+  - service: automation.turn_off
+    data: {}
+    entity_id: automation.bewegung_erkannt
+  mode: single
+- id: '1611872857719'
+  alias: home_status Gast Modus
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.home_status
+    to: Gast_Modus
+  condition: []
+  action:
+  - service: script.say
+    data:
+      where: chillzimmer_sonos
+      what: Der Gast Modus wurde aktiviert
+  - service: notify.flo_telegram
+    data:
+      message: Der Gast Modus wurde aktiviert
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.follow_music
+  - service: automation.turn_off
+    data: {}
+    entity_id: automation.bewegung_erkannt
+  mode: single
+- id: '1611873010274'
+  alias: home_status Abwesend
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.home_status
+    to: Abwesend
+  condition: []
+  action:
+  - service: script.say
+    data:
+      where: gang_sonos
+      what: Der Abwesend Modus wurde aktiviert
+  - service: notify.flo_telegram
+    data:
+      message: Der Abwesend Modus wurde aktiviert
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.follow_music
+  - service: automation.turn_on
+    data: {}
+    entity_id: automation.bewegung_erkannt
+  mode: single
+- id: '1612632253349'
+  alias: ZHA - Tuya 4-Button Scene Switch
+  description: ''
+  use_blueprint:
+    path: Stringer/zha-tuya-4-button-scene-switch-ts0044.yaml
+    input:
+      tuya_4button_scene_switch: b451c46b59cf19930ebbfc68290b3cd9
+      button_three_short_press:
+      - type: toggle
+        device_id: 60e98ecf625f4c89948e27557eea0de0
+        entity_id: light.wohnzimmer_deckenlampe
+        domain: light
+      button_four_short_press:
+      - type: toggle
+        device_id: 79459b5df51d4215a3bf064801ad9cd4
+        entity_id: light.kuche_deckenlampe
+        domain: light
+      button_one_short_press:
+      - type: toggle
+        device_id: dd31102cd1224b89bc195d3eff56a385
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+      button_one_double_press: []
+      button_two_short_press:
+      - type: toggle
+        device_id: e902a0cd25bb47f0926be1e4e6c46bae
+        entity_id: light.schlafzimmer_deckenlampe
+        domain: light

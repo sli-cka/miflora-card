@@ -1,0 +1,8 @@
+#==================
+#=== Binärsensor um Netzwerkstatus per Ping zu ermitteln
+#==================  
+platform: ping
+host: 192.168.10.100
+count: 2
+scan_interval: 30
+name: ping_raspberry-pi-3

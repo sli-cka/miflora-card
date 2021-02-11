@@ -1,0 +1,14 @@
+#====================
+# Statistics Integration
+#====================
+
+#==================
+#=== Statistics / Statistik Integration für Vegtrug Pflanzen
+#==================  
+#----- Sensor Vegtrug MiFlower Pflanzensensor c47c8d6777e3
+platform: statistics
+entity_id: sensor.mi_llluminance_c47c8d6777e3
+name: mi_daily_light_c47c8d6777e3
+max_age:
+  hours: 24
+sampling_size: 1440

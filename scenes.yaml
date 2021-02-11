@@ -1,0 +1,271 @@
+- id: '1595202476719'
+  name: Chillout
+  entities:
+    light.chillzimmer_deckenlampe:
+      brightness: 105
+      color_temp: 500
+      effect: none
+      effect_list:
+      - colorloop
+      - random
+      friendly_name: Chillzimmer Deckenlampe
+      max_mireds: 500
+      min_mireds: 153
+      state: 'on'
+      supported_features: 63
+    light.chillzimmer_stehlampe_oben:
+      brightness: 131
+      effect: none
+      effect_list:
+      - colorloop
+      - random
+      friendly_name: Chillzimmer Stehlampe oben
+      hs_color:
+      - 260.235
+      - 100
+      max_mireds: 500
+      min_mireds: 153
+      rgb_color:
+      - 85
+      - 0
+      - 255
+      state: 'on'
+      supported_features: 63
+      xy_color:
+      - 0.173
+      - 0.057
+    light.chillzimmer_stehlampe_unten:
+      brightness: 58
+      friendly_name: Chillzimmer Stehlampe unten
+      state: 'on'
+      supported_features: 41
+    light.chillzimmer_tv_lampe:
+      brightness: 255
+      color_temp: 500
+      effect: none
+      effect_list:
+      - colorloop
+      - random
+      friendly_name: Chillzimmer TV Lampe
+      max_mireds: 500
+      min_mireds: 153
+      state: 'on'
+      supported_features: 63
+- id: '1600382283400'
+  name: alle Lampe ausschalten
+  entities:
+    group.light_all:
+      entity_id:
+      - light.bad_deckenlampe_bunt
+      - light.bad_deckenlampe_weiss
+      - light.hue_iris_1
+      - light.chillzimmer_deckenlampe
+      - light.chillzimmer_stehlampe_oben
+      - light.chillzimmer_stehlampe_unten
+      - light.chillzimmer_tv_lampe
+      - light.gang_deckenlampe_1
+      - light.gang_deckenlampe_2
+      - light.schlafzimmer_deckenlampe
+      - light.schlafzimmer_bett
+      - light.schlafzimmer_stehlampen
+      - light.wohnzimmer_deckenlampe
+      - light.wohnzimmer_stehlampe_klein
+      - light.wohnzimmer_stehlampe_klein2
+      - light.wohnzimmer_stehlampe_li1
+      - light.wohnzimmer_stehlampe_li2
+      - light.wohnzimmer_stehlampe_re1
+      - light.wohnzimmer_stehlampe_re2
+      order: 0
+      friendly_name: Alle Lichter
+      state: 'off'
+    switch.shelly_shsw_pm_ba0f30:
+      shelly_type: Shelly 1 PM
+      shelly_id: BA0F30
+      ip_address: 192.168.10.156
+      protocols:
+      - mDns
+      - poll
+      - CoAP-discovery
+      - CoAP-msg
+      ssid: krautsalat2
+      rssi: -63 dB
+      uptime: 59 h
+      device_temp: 42 °C
+      has_firmware_update: false
+      latest_fw_version: 1.8.3
+      firmware_version: 1.8.3
+      mqtt_connected: false
+      cloud_status: disabled
+      switch: false
+      over_power: false
+      current_consumption: 0 W
+      friendly_name: Spiegellampe
+      icon: mdi:lightbulb
+      state: 'off'
+- id: '1601589499104'
+  name: Bett
+  entities:
+    light.schlafzimmer_deckenlampe:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      friendly_name: Schlafzimmer Deckenlampe
+      supported_features: 63
+      state: 'off'
+    light.schlafzimmer_bett:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 237
+      hs_color:
+      - 135.529
+      - 100
+      rgb_color:
+      - 0
+      - 255
+      - 65
+      xy_color:
+      - 0.17
+      - 0.7
+      effect: none
+      friendly_name: Schlafzimmer Bett
+      supported_features: 63
+      state: 'on'
+    light.schlafzimmer_tischlampe:
+      effect_list:
+      - colorloop
+      - random
+      brightness: 15
+      hs_color:
+      - 254.483
+      - 68.235
+      rgb_color:
+      - 123
+      - 81
+      - 255
+      xy_color:
+      - 0.21
+      - 0.109
+      effect: colorloop
+      friendly_name: Schlafzimmer Tischlampe
+      supported_features: 61
+      state: 'on'
+    light.schlafzimmer_stehlampen:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 88
+      hs_color:
+      - 17.176
+      - 100
+      rgb_color:
+      - 255
+      - 72
+      - 0
+      xy_color:
+      - 0.67
+      - 0.325
+      effect: none
+      friendly_name: Schlafzimmer Stehlampen
+      supported_features: 63
+      state: 'on'
+  icon: mdi:bed
+- id: '1607965453005'
+  name: Weihnachtsbeleuchtung
+  entities:
+    light.wohnzimmer_stehlampe_li1:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 76
+      hs_color:
+      - 16.471
+      - 100
+      rgb_color:
+      - 255
+      - 70
+      - 0
+      xy_color:
+      - 0.672
+      - 0.324
+      effect: none
+      friendly_name: Wohnzimmer Stehlampe Li1
+      supported_features: 63
+      state: 'on'
+    light.wohnzimmer_stehlampe_li2:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 76
+      hs_color:
+      - 299.714
+      - 82.353
+      rgb_color:
+      - 253
+      - 44
+      - 255
+      xy_color:
+      - 0.381
+      - 0.16
+      effect: none
+      friendly_name: Wohnzimmer Stehlampe Li2
+      supported_features: 63
+      state: 'on'
+    light.wohnzimmer_stehlampe_re1:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 76
+      hs_color:
+      - 16.471
+      - 100
+      rgb_color:
+      - 255
+      - 70
+      - 0
+      xy_color:
+      - 0.672
+      - 0.324
+      effect: none
+      friendly_name: Wohnzimmer Stehlampe Re1
+      supported_features: 63
+      state: 'on'
+    light.wohnzimmer_stehlampe_re2:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 79
+      hs_color:
+      - 299.714
+      - 82.353
+      rgb_color:
+      - 253
+      - 44
+      - 255
+      xy_color:
+      - 0.381
+      - 0.16
+      effect: none
+      friendly_name: Wohnzimmer Stehlampe Re2
+      supported_features: 63
+      state: 'on'
+    light.wohnzimmer_deckenlampe:
+      brightness: 13
+      friendly_name: Wohnzimmer Deckenlampe
+      supported_features: 41
+      state: 'on'
+  icon: mdi:pine-tree

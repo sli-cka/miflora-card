@@ -1,0 +1,17 @@
+#====================
+# Last boot time, Disk, memory & CPU usage
+#====================
+
+platform: systemmonitor
+resources:
+  - type: disk_use_percent
+    arg: /
+  - type: disk_use
+    arg: /
+  - type: disk_free
+    arg: /
+  - type: memory_free
+  - type: memory_use
+  - type: memory_use_percent
+  - type: last_boot
+  - type: processor_use

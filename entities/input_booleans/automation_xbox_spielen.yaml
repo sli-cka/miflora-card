@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: XBOX spielen
+automation_xbox_spielen:
+  name: automation_xbox_spielen
+  icon: mdi:microsoft-xbox

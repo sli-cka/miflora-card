@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Ich bin wach
+automation_ich_bin_wach:
+  name: automation_ich_bin_wach
+  icon: mdi:weather-sunset-up

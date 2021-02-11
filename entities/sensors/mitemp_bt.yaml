@@ -1,0 +1,5 @@
+#====================
+# Integration Pflanzensensor MiFlora Vegtrug
+#====================
+
+platform: mitemp_bt

@@ -1,0 +1,11 @@
+#====================
+# Input Select Auswahl für Home State (Home Status) 
+#====================
+
+home_status:
+  name: Home Status
+  icon: mdi:home-assistant
+  options:
+    - Zuhause
+    - Gast_Modus
+    - Abwesend

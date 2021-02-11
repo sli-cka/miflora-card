@@ -1,0 +1,9 @@
+#====================
+# Strommessung Bad Spiegellampe
+#====================
+
+platform: integration
+source: sensor.shelly_shsw_pm_ba0f30_current_consumption
+name: energy_spent_bad_spiegellampe
+unit_prefix: k
+round: 2

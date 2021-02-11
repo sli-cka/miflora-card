@@ -1,0 +1,10 @@
+#====================
+# Strommessung Küche Dunstabzug
+#====================
+
+platform: integration
+source: sensor.shelly_shplg_s_dbf2f5_current_consumption
+name: energy_spent_kueche_dunstabzug
+method: left
+unit_prefix: k
+round: 2

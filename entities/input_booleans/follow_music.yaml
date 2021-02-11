@@ -1,0 +1,4 @@
+# Hilfsschalter für Follow Music
+follow_music:
+  name: follow_music
+  icon: mdi:music

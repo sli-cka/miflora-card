@@ -1,0 +1,9 @@
+#====================
+# Strommessung Wohnzimmer Steckdose F12S1
+#====================
+
+platform: integration
+source: sensor.shelly_shsw_pm_8caab5056877_current_consumption
+name: energy_spent_wohnzimmer_F12S1
+unit_prefix: k
+round: 2

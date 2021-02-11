@@ -1,0 +1,12 @@
+#====================
+# Sensor Fahrtzeit Arbeitsweg
+#====================
+
+platform: here_travel_time
+api_key: !secret here_api_key
+origin_latitude: "49.36722946166992"
+origin_longitude: "11.169797897338867"
+destination_latitude: "49.457340240478516"
+destination_longitude: "11.092790603637695"
+mode: "publicTransportTimeTable"
+name: "Arbeitsweg NUE ÖPNV"

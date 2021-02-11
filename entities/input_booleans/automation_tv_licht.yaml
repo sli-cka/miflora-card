@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: TV Licht
+automation_tv_licht:
+  name: automation_tv_licht
+  icon: mdi:lightbulb-outline

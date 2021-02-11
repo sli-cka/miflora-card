@@ -1,0 +1,9 @@
+#====================
+# Xiaomi Roborock Integration
+#====================
+
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret roborock_ip
+    token: !secret roborock_token
+    name: Roborock

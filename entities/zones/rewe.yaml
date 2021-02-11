@@ -1,0 +1,8 @@
+# Rewe Zone
+
+name: Rewe
+latitude: !secret rewe_latitude
+longitude: !secret rewe_longitude
+radius: 50
+passive: false
+icon: mdi:store

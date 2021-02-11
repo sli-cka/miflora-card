@@ -1,0 +1,9 @@
+#====================
+# System Sensors
+#====================
+
+platform: command_line
+name: RPi CPU Temperature
+command: "cat /sys/class/thermal/thermal_zone0/temp"
+value_template: "{{ value | multiply(0.001) | round(2) }}"
+unit_of_measurement: "°C"

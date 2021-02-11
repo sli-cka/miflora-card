@@ -1,0 +1,9 @@
+#====================
+# Strommessung Küche Spülmaschine
+#====================
+
+platform: integration
+source: sensor.shelly_shsw_pm_8caab505778e_current_consumption
+name: energy_spent_kueche_spuelmaschine
+unit_prefix: k
+round: 2

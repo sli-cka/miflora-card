@@ -1,0 +1,21 @@
+#====================
+# Proximity Integration
+# The proximity integration allows you to monitor the proximity of devices or persons to
+# a particular zone and the direction of travel. The result is an entity created in Home
+# Assistant which maintains the proximity data.
+#
+# https://www.home-assistant.io/integrations/proximity/
+#====================
+
+# Proximity 
+proximity:
+  home: # Entfernung nach Haus
+    devices:
+      - device_tracker.flo_s_iphone_11
+    tolerance: 50
+
+  arbeit: # Entfernung zur Arbeit
+    devices:
+      - device_tracker.flo_s_iphone_11
+    zone: arbeit
+    tolerance: 100

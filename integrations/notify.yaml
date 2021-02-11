@@ -1,0 +1,9 @@
+#====================
+# Telegram Notification
+# https://www.home-assistant.io/integrations/notify/
+#====================
+
+notify:
+  - name: Flo-Telegram
+    platform: telegram
+    chat_id: !secret telegram_chat_id

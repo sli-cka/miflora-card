@@ -1,0 +1,9 @@
+#====================
+# Sensor Uhrzeit
+#====================
+
+platform: time_date
+display_options:
+  - 'time'
+  - 'date'
+  - 'date_time'

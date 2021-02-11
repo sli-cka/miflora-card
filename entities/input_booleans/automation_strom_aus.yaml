@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Strom aus
+automation_strom_aus:
+  name: automation_strom_aus
+  icon: mdi:power-plug-off-outline

@@ -1,0 +1,9 @@
+#====================
+# Latest Available HA Version
+#====================
+
+platform: version
+name: Latest Available Version
+beta: false
+image: raspberrypi4
+source: hassio

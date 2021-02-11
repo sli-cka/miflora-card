@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Licht aus
+automation_licht_aus:
+  name: automation_licht_aus
+  icon: mdi:lightbulb-off

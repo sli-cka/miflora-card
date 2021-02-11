@@ -1,0 +1,9 @@
+#====================
+# Nextbike (VAG Rad) Integration
+#====================
+
+#----- Sensor Nextbike 500m
+platform: nextbike
+name: Nextbike 500m
+city_id: 626
+radius: 500

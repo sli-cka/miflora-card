@@ -1,0 +1,17 @@
+#====================
+# Integration für TTS Text-To-Speach
+# Text-to-Speech (TTS) enables Home Assistant to speak to you.#
+# https://www.home-assistant.io/integrations/tts/
+#
+# Google Cloud Platform => https://www.home-assistant.io/integrations/google_cloud/
+#====================
+
+# Google Translate
+# tts:
+#   - platform: google_translate
+
+# Google Cloud Platform
+tts:
+  - platform: google_cloud
+    key_file: gcloud.json
+    voice: de-DE-Wavenet-B

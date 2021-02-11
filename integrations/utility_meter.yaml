@@ -1,0 +1,147 @@
+#====================
+# Utility meter
+# Now tracking daily, monthly, quarterly and yearly Peak/Offpeak usage
+# https://www.home-assistant.io/integrations/utility_meter/
+#====================
+
+utility_meter:
+
+  # Strommessung Langzeit Toilette Heizung
+  energy_spent_toilette_heizung_daily:
+    source: sensor.energy_spent_toilette_heizung
+    cycle: daily
+  energy_spent_toilette_heizung_weekly:
+    source: sensor.energy_spent_toilette_heizung
+    cycle: weekly
+  energy_spent_toilette_heizung_monthly:
+    source: sensor.energy_spent_toilette_heizung
+    cycle: monthly
+  energy_spent_toilette_heizung_yearly:
+    source: sensor.energy_spent_toilette_heizung
+    cycle: yearly
+
+  # Strommessung Langzeit Küche Spülmaschine
+  energy_spent_kueche_spuelmaschine_daily:
+    source: sensor.energy_spent_kueche_spuelmaschine
+    cycle: daily
+  energy_spent_kueche_spuelmaschine_weekly:
+    source: sensor.energy_spent_kueche_spuelmaschine
+    cycle: weekly
+  energy_spent_kueche_spuelmaschine_monthly:
+    source: sensor.energy_spent_kueche_spuelmaschine
+    cycle: monthly
+  energy_spent_kueche_spuelmaschine_yearly:
+    source: sensor.energy_spent_kueche_spuelmaschine
+    cycle: yearly
+
+  # Strommessung Langzeit Bad Spiegellampe
+  energy_spent_bad_spiegellampe_daily:
+    source: sensor.energy_spent_bad_spiegellampe
+    cycle: daily
+  energy_spent_bad_spiegellampe_weekly:
+    source: sensor.energy_spent_bad_spiegellampe
+    cycle: weekly
+  energy_spent_bad_spiegellampe_monthly:
+    source: sensor.energy_spent_bad_spiegellampe
+    cycle: monthly
+  energy_spent_bad_spiegellampe_yearly:
+    source: sensor.energy_spent_bad_spiegellampe
+    cycle: yearly
+
+  # Strommessung Langzeit Steckdose Wohnzimmer F12S1 (kleinschreiben)
+  energy_spent_wohnzimmer_f12s1_daily:
+    source: sensor.energy_spent_wohnzimmer_F12S1
+    cycle: daily
+  energy_spent_wohnzimmer_f12s1_weekly:
+    source: sensor.energy_spent_wohnzimmer_F12S1
+    cycle: weekly
+  energy_spent_wohnzimmer_f12s1_monthly:
+    source: sensor.energy_spent_wohnzimmer_F12S1
+    cycle: monthly
+  energy_spent_wohnzimmer_f12s1_yearly:
+    source: sensor.energy_spent_wohnzimmer_F12S1
+    cycle: yearly
+    
+  # Strommessung Langzeit Steckdose Wohnzimmer F12S2
+  energy_spent_wohnzimmer_f12s2_daily:
+    source: sensor.energy_spent_wohnzimmer_F12S2
+    cycle: daily
+  energy_spent_wohnzimmer_f12s2_weekly:
+    source: sensor.energy_spent_wohnzimmer_F12S2
+    cycle: weekly
+  energy_spent_wohnzimmer_f12s2_monthly:
+    source: sensor.energy_spent_wohnzimmer_F12S2
+    cycle: monthly
+  energy_spent_wohnzimmer_f12s2_yearly:
+    source: sensor.energy_spent_wohnzimmer_F12S2
+    cycle: yearly
+
+  # Strommessung Langzeit Gang Routerschrank
+  energy_spent_gang_routerschrank_daily:
+    source: sensor.energy_spent_gang_routerschrank
+    cycle: daily
+  energy_spent_gang_routerschrank_weekly:
+    source: sensor.energy_spent_gang_routerschrank
+    cycle: weekly
+  energy_spent_gang_routerschrank_monthly:
+    source: sensor.energy_spent_gang_routerschrank
+    cycle: monthly
+  energy_spent_gang_routerschrank_yearly:
+    source: sensor.energy_spent_gang_routerschrank
+    cycle: yearly
+
+  # Strommessung Langzeit Küche Dunstabzug
+  energy_spent_kueche_dunstabzug_daily:
+    source: sensor.energy_spent_kueche_dunstabzug
+    cycle: daily
+  energy_spent_kueche_dunstabzug_weekly:
+    source: sensor.energy_spent_kueche_dunstabzug
+    cycle: weekly
+  energy_spent_kueche_dunstabzug_monthly:
+    source: sensor.energy_spent_kueche_dunstabzug
+    cycle: monthly
+  energy_spent_kueche_dunstabzug_yearly:
+    source: sensor.energy_spent_kueche_dunstabzug
+    cycle: yearly
+
+  # Strommessung Langzeit Chillzimmer TV
+  energy_spent_chillzimmer_tv_daily:
+    source: sensor.energy_spent_chillzimmer_tv
+    cycle: daily
+  energy_spent_chillzimmer_tv_weekly:
+    source: sensor.energy_spent_chillzimmer_tv
+    cycle: weekly
+  energy_spent_chillzimmer_tv_monthly:
+    source: sensor.energy_spent_chillzimmer_tv
+    cycle: monthly
+  energy_spent_chillzimmer_tv_yearly:
+    source: sensor.energy_spent_chillzimmer_tv
+    cycle: yearly
+
+  # Strommessung Langzeit Schlafzimmer TV
+  energy_spent_schlafzimmer_tv_daily:
+    source: sensor.energy_spent_schlafzimmer_tv
+    cycle: daily
+  energy_spent_schlafzimmer_tv_weekly:
+    source: sensor.energy_spent_schlafzimmer_tv
+    cycle: weekly
+  energy_spent_schlafzimmer_tv_monthly:
+    source: sensor.energy_spent_schlafzimmer_tv
+    cycle: monthly
+  energy_spent_schlafzimmer_tv_yearly:
+    source: sensor.energy_spent_schlafzimmer_tv
+    cycle: yearly
+
+  # Strommessung Langzeit Chillzimmer Ventilator
+  energy_spent_chillzimmer_ventilator_daily:
+    source: sensor.energy_spent_chillzimmer_ventilator
+    cycle: daily
+  energy_spent_chillzimmer_ventilator_weekly:
+    source: sensor.energy_spent_chillzimmer_ventilator
+    cycle: weekly
+  energy_spent_chillzimmer_ventilator_monthly:
+    source: sensor.energy_spent_chillzimmer_ventilator
+    cycle: monthly
+  energy_spent_chillzimmer_ventilator_yearly:
+    source: sensor.energy_spent_chillzimmer_ventilator
+    cycle: yearly

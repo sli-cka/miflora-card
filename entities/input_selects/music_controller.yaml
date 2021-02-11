@@ -1,0 +1,15 @@
+#====================
+# Input Select Auswahl für Sonos Master Controller 
+# siehe Scripts // von https://philhawthorne.com/making-music-follow-you-around-the-home-with-home-assistant-and-sonos/)
+#====================
+
+music_controller:
+  name: Music Controller
+  icon: mdi:music
+  options:
+    - bad_sonos
+    - chillzimmer_sonos
+    - gang_sonos
+    - kueche_sonos
+    - schlafzimmer_sonos
+    - wohnzimmer_sonos

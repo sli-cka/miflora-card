@@ -1,0 +1,120 @@
+light.all:
+  name: Alle Lichter
+  entities:
+    - light.bad_deckenlampe_bunt
+    - light.bad_deckenlampe_weiss
+    - light.hue_iris_1
+    - light.chillzimmer_deckenlampe
+    - light.chillzimmer_stehlampe_oben
+    - light.chillzimmer_stehlampe_unten
+    - light.chillzimmer_tv_lampe
+    - light.gang_deckenlampe_1
+    - light.gang_deckenlampe_2
+    - light.kuche_deckenlampe
+    - light.schlafzimmer_deckenlampe
+    - light.schlafzimmer_bett
+    - light.schlafzimmer_tischlampe
+    - light.schlafzimmer_stehlampen
+    - light.toilette_deckenlampe
+    - light.wohnzimmer_deckenlampe
+    - light.wohnzimmer_stehlampe_klein
+    - light.wohnzimmer_stehlampe_klein2
+    - light.wohnzimmer_stehlampe_li1
+    - light.wohnzimmer_stehlampe_li2
+    - light.wohnzimmer_stehlampe_re1
+    - light.wohnzimmer_stehlampe_re2
+    
+light.bad:
+  name: Bad Licht
+  entities:
+    - light.bad_deckenlampe_bunt
+    - light.bad_deckenlampe_weiss
+    - light.hue_iris_1
+
+light.chillzimmer:
+  name: Chillzimmer Licht
+  entities:
+    - light.chillzimmer_deckenlampe
+    - light.chillzimmer_stehlampe_oben
+    - light.chillzimmer_stehlampe_unten
+    - light.chillzimmer_tv_lampe
+
+light.gang:
+  name: Gang Licht
+  entities:
+    - light.gang_deckenlampe_1
+    - light.gang_deckenlampe_2
+
+light.kueche:
+  name: Küche Licht
+  entities:
+    - light.kuche_deckenlampe
+
+light.schlafzimmer:
+  name: Schlafzimmer Licht
+  entities:
+    - light.schlafzimmer_deckenlampe
+    - light.schlafzimmer_bett
+    - light.schlafzimmer_tischlampe
+    - light.schlafzimmer_stehlampen
+
+light.wohnzimmer:
+  name: Wohnzimmer Licht
+  entities:
+    - light.wohnzimmer_deckenlampe
+    - light.wohnzimmer_stehlampe_klein
+    - light.wohnzimmer_stehlampe_klein2
+    - light.wohnzimmer_stehlampe_li1
+    - light.wohnzimmer_stehlampe_li2
+    - light.wohnzimmer_stehlampe_re1
+    - light.wohnzimmer_stehlampe_re2
+
+cover.wohnzimmer:
+  name: Wohnzimmer Rollos
+  entities:
+    - cover.shelly_shsw_25_8caab505a2ca
+    - cover.shelly_shsw_25_98f4abf2c243
+
+cover.all:
+  name: Alle Rollos
+  entities:
+    - cover.shelly_shsw_25_8caab505a2ca
+    - cover.shelly_shsw_25_98f4abf2c243
+    - cover.tradfri_blind
+
+media_player.all:
+  name: Alle Sonos Boxen
+  entities:
+    - media_player.bad_sonos
+    - media_player.chillzimmer_sonos
+    - media_player.gang_sonos
+    - media_player.kueche_sonos
+    - media_player.schlafzimmer_sonos
+    - media_player.wohnzimmer_sonos
+
+media_player.kochen:
+  name: Gruppe zum Kochen
+  entities:
+    - media_player.gang_sonos
+    - media_player.kueche_sonos
+
+motion.all:
+  name: Alle Bewegungssensoren
+  entities:
+    - binary_sensor.sensor_bad_occupancy
+    - binary_sensor.sensor_chillzimmer_occupancy
+    - binary_sensor.sensor_gang_occupancy
+    - binary_sensor.sensor_kuche_occupancy
+    - binary_sensor.sensor_schlafzimmer_occupancy
+    - binary_sensor.sensor_toilette_occupancy
+
+climate.all:
+  name: Status aller Thermostate
+  entities:
+    - binary_sensor.bad_thermostat_connection_state
+    - binary_sensor.chillzimmer_thermostat_connection_state
+    - binary_sensor.schlafzimmer_thermostat_connection_state
+    - binary_sensor.tado_bridge_connection_state
+    - binary_sensor.wohnzimmer_raumthermostat_connection_state
+    - binary_sensor.wohnzimmer_thermostat_links_connection_state
+    - binary_sensor.wohnzimmer_thermostat_rechts_connection_state

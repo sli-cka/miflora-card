@@ -1,0 +1,18 @@
+#====================
+# Xiaomi Roborock Map Extractor Integration
+#====================
+
+camera:
+  - platform: xiaomi_cloud_map_extractor
+    host: !secret roborock_ip
+    token: !secret roborock_token
+    username: !secret roborock_username
+    password: !secret roborock_password
+    country: "de"
+    draw: ["all"]
+    map_transformation:
+      trim:
+        top: 10
+        bottom: 10
+        left: 10
+        right: 10

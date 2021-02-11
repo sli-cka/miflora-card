@@ -1,0 +1,8 @@
+# Arbeits Zone
+
+name: Arbeit
+latitude: !secret arbeit_latitude
+longitude: !secret arbeit_longitude
+radius: 80
+passive: false
+icon: mdi:factory

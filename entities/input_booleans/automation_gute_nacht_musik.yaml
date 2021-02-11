@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Gute Nacht Musik
+automation_gute_nacht_musik:
+  name: automation_gute_nacht_musik
+  icon: mdi:music

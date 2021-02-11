@@ -1,0 +1,9 @@
+#====================
+# Strommessung Gang Routerschrank
+#====================
+
+platform: integration
+source: sensor.shelly_shplg_s_801be9_current_consumption
+name: energy_spent_gang_routerschrank
+unit_prefix: k
+round: 2

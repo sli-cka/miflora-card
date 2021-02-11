@@ -1,0 +1,822 @@
+#====================
+# Template Sensoren
+# The template platform supports sensors which get their values from other entities
+# https://www.home-assistant.io/integrations/template/
+#====================
+
+platform: template
+sensors:
+
+  #====================
+  # Count Sensoren für Statistik 
+  #====================  
+
+  # Count Automations
+  count_automations:
+    value_template: "{{ states.automation | list | length }}"
+
+  # Count Scripts
+  count_scripts:
+    value_template: "{{ states.script| list | length }}"
+
+  # Count Device Trackers
+  count_device_trackers:
+    value_template: "{{ states.device_tracker | list | length }}"
+
+  # Count Binary Sensors
+  count_binary_sensors:
+    value_template: "{{ states.binary_sensor| list | length }}"
+
+  # Count Sensors
+  count_sensors:
+    value_template: "{{ states.sensor | list | length }}"
+
+  # Count Switches
+  count_switches:
+    value_template: "{{ states.switch | list | length }}"
+
+  # Count Zones
+  count_zones:
+    value_template: "{{ states.zone | list | length }}"
+
+  # Input Booleans
+  count_input_booleans:
+    value_template: "{{ states.input_boolean | list | length }}"
+
+  # Input Numbers
+  count_input_numbers:
+    value_template: "{{ states.input_number | list | length }}"
+
+  # Input Texts
+  count_input_texts:
+    value_template: "{{ states.input_text | list | length }}"
+
+  # Input Selects
+  count_input_selects:
+    value_template: "{{ states.input_select | list | length }}"
+
+  # Input Date Times
+  count_input_datetimes:
+    value_template: "{{ states.input_datetime | list | length }}"
+
+
+
+  #====================
+  # Sensor Wochentag
+  #====================
+  dayoftheweek:
+    value_template: "{{ ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][now().weekday()] }}"
+
+  #====================
+  # Sensor Fahrtzeit Arbeitsweg
+  #====================
+  month:
+    value_template: "{{ ['Januar','Februar','März','April','May','Juni','Juli','August','September','Oktober','November','Dezember'][now().month-1] }}"
+
+  #====================
+  # Strommessung in Euro Wohnzimmer F12S1
+  #====================
+  cost_daily_wohnzimmer_f12s1:
+    friendly_name: "Steckdose Wohnzimmer F12S1 Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_wohnzimmer_f12s1_daily') | float) * 0.29892 ) | round(2) }}"
+
+  cost_monthly_wohnzimmer_f12s1:
+    friendly_name: "Steckdose Wohnzimmer F12S1 Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_wohnzimmer_f12s1_monthly') | float) * 0.29892 ) | round(2) }}"        
+  
+  cost_yeary_wohnzimmer_f12s1:
+    friendly_name: "Steckdose Wohnzimmer F12S1 Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_wohnzimmer_f12s1_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung in Euro Wohnzimmer F12S2
+  #====================
+  cost_daily_wohnzimmer_f12s2:
+    friendly_name: "Steckdose Wohnzimmer F12S2 Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_wohnzimmer_f12s2_daily') | float) * 0.29892 ) | round(2) }}"
+
+  cost_monthly_wohnzimmer_f12s2:
+    friendly_name: "Steckdose Wohnzimmer F12S2 Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_wohnzimmer_f12s2_monthly') | float) * 0.29892 ) | round(2) }}"        
+  
+  cost_yeary_wohnzimmer_f12s2:
+    friendly_name: "Steckdose Wohnzimmer F12S2 Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_wohnzimmer_f12s2_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Bad Spiegellampe
+  #====================
+  cost_daily_bad_spiegellampe:
+    friendly_name: "Bad Spiegellampe Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_bad_spiegellampe_daily') | float) * 0.29892 ) | round(2) }}"
+
+  cost_monthly_bad_spiegellampe:
+    friendly_name: "Bad Spiegellampe Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_bad_spiegellampe_monthly') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_yeary_bad_spiegellampe:
+    friendly_name: "Bad Spiegellampe Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_bad_spiegellampe_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Küche Spülmaschine
+  #====================
+  cost_daily_kueche_spuelmaschine:
+    friendly_name: "Küche Spülmaschine Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_kueche_spuelmaschine_daily') | float) * 0.29892 ) | round(2) }}"
+
+  cost_monthly_kueche_spuelmaschine:
+    friendly_name: "Küche Spülmaschine Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_kueche_spuelmaschine_monthly') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_yeary_kueche_spuelmaschine:
+    friendly_name: "Küche Spülmaschine Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_kueche_spuelmaschine_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Toilette Heizung
+  #====================
+  cost_daily_toilette_heizung:
+    friendly_name: "Toilette Heizung Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_toilette_heizung_daily') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_monthly_toilette_heizung:
+    friendly_name: "Toilette Heizung Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_toilette_heizung_monthly') | float) * 0.29892 ) | round(2) }}"        
+    
+  cost_yeary_toilette_heizung:
+    friendly_name: "Toilette Heizung Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_toilette_heizung_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Gang Routerschrank
+  #====================
+  cost_daily_gang_routerschrank:
+    friendly_name: "Gang Routerschrank Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_gang_routerschrank_daily') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_monthly_gang_routerschrank:
+    friendly_name: "Gang Routerschrank Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_gang_routerschrank_monthly') | float) * 0.29892 ) | round(2) }}"        
+    
+  cost_yeary_gang_routerschrank:
+    friendly_name: "Gang Routerschrank Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_gang_routerschrank_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Küche Dunstabzug
+  #====================
+  cost_daily_kueche_dunstabzug:
+    friendly_name: "Küche Dunstabzug Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_kueche_dunstabzug_daily') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_monthly_kueche_dunstabzug:
+    friendly_name: "Küche Dunstabzug Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_kueche_dunstabzug_monthly') | float) * 0.29892 ) | round(2) }}"        
+    
+  cost_yeary_kueche_dunstabzug:
+    friendly_name: "Küche Dunstabzug Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_kueche_dunstabzug_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Chillzimmer TV
+  #====================
+  cost_daily_chillzimmer_tv:
+    friendly_name: "Chillzimmer TV Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_chillzimmer_tv_daily') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_monthly_chillzimmer_tv:
+    friendly_name: "Chillzimmer TV Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_chillzimmer_tv_monthly') | float) * 0.29892 ) | round(2) }}"        
+    
+  cost_yeary_chillzimmer_tv:
+    friendly_name: "Chillzimmer TV Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_chillzimmer_tv_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Schlafzimmer TV
+  #====================
+  cost_daily_schlafzimmer_tv:
+    friendly_name: "Schlafzimmer TV Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_schlafzimmer_tv_daily') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_monthly_schlafzimmer_tv:
+    friendly_name: "Schlafzimmer TV Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_schlafzimmer_tv_monthly') | float) * 0.29892 ) | round(2) }}"        
+    
+  cost_yeary_schlafzimmer_tv:
+    friendly_name: "Schlafzimmer TV Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_schlafzimmer_tv_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Strommessung  in Euro Chillzimmer Ventilator
+  #====================
+  cost_daily_chillzimmer_ventilator:
+    friendly_name: "Chillzimmer Ventilator Kosten Tag"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_chillzimmer_ventilator_daily') | float) * 0.29892 ) | round(2) }}"
+    
+  cost_monthly_chillzimmer_ventilator:
+    friendly_name: "Chillzimmer Ventilator Kosten Monat"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_chillzimmer_ventilator_monthly') | float) * 0.29892 ) | round(2) }}"        
+    
+  cost_yeary_chillzimmer_ventilator:
+    friendly_name: "Chillzimmer Ventilator Kosten Jahr"
+    unit_of_measurement: '€'
+    icon_template: mdi:currency-eur
+    value_template: "{{ ((states('sensor.energy_spent_chillzimmer_ventilator_yearly') | float) * 0.29892 ) | round(2) }}"
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower 80eaca8969cb
+  #====================
+  mi_rssi_80eaca8969cb:
+    friendly_name: WZ Dracaena RSSI
+    value_template: "{{ states.sensor.mi_c_80eaca8969cb.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_80eaca8969cb_min:
+    friendly_name: Tageslicht 80eaca8969cb Min
+    value_template: "{{ states.sensor.mi_daily_light_80eaca8969cb.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_80eaca8969cb_max:
+    friendly_name: Tageslicht 80eaca8969cb Max
+    value_template: "{{ states.sensor.mi_daily_light_80eaca8969cb.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_80eaca8969cb_total:
+    friendly_name: Tageslicht 80eaca8969cb Total
+    value_template: "{{ (states.sensor.mi_daily_light_80eaca8969cb.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d67bcdd
+  #====================
+  mi_rssi_c47c8d67bcdd:
+    friendly_name: Cordyline RSSI
+    value_template: "{{ states.sensor.mi_l_c47c8d67bcdd.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d67bcdd_min:
+    friendly_name: Tageslicht c47c8d67bcdd Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67bcdd.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67bcdd_max:
+    friendly_name: Tageslicht c47c8d67bcdd Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67bcdd.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67bcdd_total:
+    friendly_name: Tageslicht c47c8d67bcdd Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d67bcdd.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d678b5b
+  #====================
+  mi_rssi_c47c8d678b5b:
+    friendly_name: CZ Dracaena RSSI
+    value_template: "{{ states.sensor.mi_l_c47c8d678b5b.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d678b5b_min:
+    friendly_name: Tageslicht c47c8d678b5b Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d678b5b.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d678b5b_max:
+    friendly_name: Tageslicht c47c8d678b5b Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d678b5b.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d678b5b_total:
+    friendly_name: Tageslicht c47c8d678b5b Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d678b5b.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d67bd2f
+  #====================
+  mi_rssi_c47c8d67bd2f:
+    friendly_name: CZ Efeutute RSSI
+    value_template: "{{ states.sensor.mi_c_c47c8d67bd2f.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d67bd2f_min:
+    friendly_name: Tageslicht c47c8d67bd2f Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67bd2f.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67bd2f_max:
+    friendly_name: Tageslicht c47c8d67bd2f Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67bd2f.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67bd2f_total:
+    friendly_name: Tageslicht c47c8d67bd2f Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d67bd2f.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d679abd
+  #====================
+  mi_rssi_c47c8d679abd:
+    friendly_name: CZ Calathea RSSI
+    value_template: "{{ states.sensor.mi_c_c47c8d679abd.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d679abd_min:
+    friendly_name: Tageslicht c47c8d679abd Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d679abd.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d679abd_max:
+    friendly_name: Tageslicht c47c8d679abd Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d679abd.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d679abd_total:
+    friendly_name: Tageslicht c47c8d679abd Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d679abd.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d678c2a
+  #====================
+  mi_rssi_c47c8d678c2a:
+    friendly_name: CZ Dracaena Marginata RSSI
+    value_template: "{{ states.sensor.mi_c_c47c8d678c2a.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d678c2a_min:
+    friendly_name: Tageslicht c47c8d678c2a Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d678c2a.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d678c2a_max:
+    friendly_name: Tageslicht c47c8d678c2a Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d678c2a.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d678c2a_total:
+    friendly_name: Tageslicht c47c8d678c2a Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d678c2a.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d67792d
+  #====================
+  mi_rssi_c47c8d67792d:
+    friendly_name: SZ Maya Tree RSSI
+    value_template: "{{ states.sensor.mi_c_c47c8d67792d.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d67792d_min:
+    friendly_name: Tageslicht c47c8d67792d Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67792d.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67792d_max:
+    friendly_name: Tageslicht c47c8d67792d Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67792d.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67792d_total:
+    friendly_name: Tageslicht c47c8d67792d Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d67792d.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d6789f8
+  #====================
+  mi_rssi_c47c8d6789f8:
+    friendly_name: Chillzimmer Dracaena Makoyana RSSI
+    value_template: "{{ states.sensor.mi_c_c47c8d6789f8.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d6789f8_min:
+    friendly_name: Tageslicht c47c8d6789f8 Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d6789f8.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d6789f8_max:
+    friendly_name: Tageslicht c47c8d6789f8 Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d6789f8.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d6789f8_total:
+    friendly_name: Tageslicht c47c8d6789f8 Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d6789f8.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+    
+  #====================
+  # Custom Entities für Pflanzensensor VegTrug MiFlower c47c8d67bcbb
+  #====================
+  mi_rssi_c47c8d67bcbb:
+    friendly_name: Wohnzimmer Dypsis Lutescens RSSI
+    value_template: "{{ states.sensor.mi_c_c47c8d67bcbb.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d67bcbb_min:
+    friendly_name: Tageslicht c47c8d67bcbb Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67bcbb.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67bcbb_max:
+    friendly_name: Tageslicht c47c8d67bcbb Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d67bcbb.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d67bcbb_total:
+    friendly_name: Tageslicht c47c8d67bcbb Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d67bcbb.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+    
+  #====================
+  # Custom Entites für Pflanzensensor VegTrug MiFlower c47c8d6777e3
+  #====================
+  mi_rssi_c47c8d6777e3:
+    friendly_name: Küche Basilikum RSSI
+    value_template: "{{ states.sensor.mi_conductivity_c47c8d6777e3.attributes.rssi }}"
+    unit_of_measurement: "dB"
+
+  mi_daily_light_c47c8d6777e3_min:
+    friendly_name: Tageslicht c47c8d6777e3 Min
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d6777e3.attributes.min_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d6777e3_max:
+    friendly_name: Tageslicht c47c8d6777e3 Max
+    value_template: "{{ states.sensor.mi_daily_light_c47c8d6777e3.attributes.max_value }}"
+    unit_of_measurement: "lx"
+
+  mi_daily_light_c47c8d6777e3_total:
+    friendly_name: Tageslicht c47c8d6777e3 Total
+    value_template: "{{ (states.sensor.mi_daily_light_c47c8d6777e3.attributes.total | float) | round(0) }}"
+    unit_of_measurement: "lx"
+
+  #====================
+  # Template Sensor Fahrtzeit DB
+  #====================
+  db_transit_time_roe:
+    friendly_name: "Fahrtzeit Roe"
+    value_template: "{{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.attributes.time }}"
+
+  #====================
+  # Template Sensor Fahrtzeit DB
+  #====================
+  db_transit_time_nue:
+    friendly_name: "Fahrtzeit Nue"
+    value_template: "{{ states.sensor.rothenbach_st_w_in_der_lach_wendelstein_to_rathenauplatz_nurnberg.attributes.time }}"
+
+  #====================
+  # Template Sensor Shelly 057A29 (Toilette Heizplatte) Firmware Infos
+  #====================
+  shelly_shsw_pm_8caab5057a29_has_firmware_update:
+    friendly_name: "Shelly 057A29 (IP:159) FW Update"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.has_firmware_update }}"
+  shelly_shsw_pm_8caab5057a29_firmware_version:
+    friendly_name: "Shelly 057A29 (IP:159) FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.firmware_version }}"
+  shelly_shsw_pm_8caab5057a29_latest_fw_version:
+    friendly_name: "Shelly 057A29 (IP:159) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.latest_fw_version }}"
+  shelly_shsw_pm_8caab5057a29_ip_address:
+    friendly_name: "Shelly 057A29 (IP:159) IP Address"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly 05778E (Küche Spülmaschine) Firmware Infos
+  #====================
+  shelly_shsw_pm_8caab505778e_has_firmware_update:
+    friendly_name: "Shelly 05778E (IP:158) FW Update"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505778e.attributes.has_firmware_update }}"
+  shelly_shsw_pm_8caab505778e_firmware_version:
+    friendly_name: "Shelly 05778E (IP:158) FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505778e.attributes.firmware_version }}"
+  shelly_shsw_pm_8caab505778e_latest_fw_version:
+    friendly_name: "Shelly 05778E (IP:158) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505778e.attributes.latest_fw_version }}"
+  shelly_shsw_pm_8caab505778e_ip_address:
+    friendly_name: "Shelly 05778E (IP:158) IP Address"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505778e.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly BA0F30 (Bad Spiegellampe) Firmware Infos
+  #====================
+  shelly_shsw_pm_ba0f30_has_firmware_update:
+    friendly_name: "Shelly BA0F30 (IP:156) FW Update"
+    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.has_firmware_update }}"
+  shelly_shsw_pm_ba0f30_firmware_version:
+    friendly_name: "Shelly BA0F30 (IP:156) FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.firmware_version }}"
+  shelly_shsw_pm_ba0f30_latest_fw_version:
+    friendly_name: "Shelly BA0F30 (IP:156) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.latest_fw_version }}"
+  shelly_shsw_pm_ba0f30_ip_address:
+    friendly_name: "Shelly BA0F30 (IP:156) IP Address"
+    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly 5056877 (Wohnzimmer Steckdose F12S1) Firmware Infos
+  #====================
+  shelly_shsw_pm_8caab5056877_has_firmware_update:
+    friendly_name: "Shelly 5056877 (IP:160) FW Update"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5056877.attributes.has_firmware_update }}"
+  shelly_shsw_pm_8caab5056877_firmware_version:
+    friendly_name: "Shelly 5056877 (IP:160) FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5056877.attributes.firmware_version }}"
+  shelly_shsw_pm_8caab5056877_latest_fw_version:
+    friendly_name: "Shelly 5056877 (IP:160) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5056877.attributes.latest_fw_version }}"
+  shelly_shsw_pm_8caab5056877_ip_address:
+    friendly_name: "Shelly 5056877 (IP:160) IP Address"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab5056877.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly 505FBA2 (Wohnzimmer Steckdose F12S2) Firmware Infos
+  #====================
+  shelly_shsw_pm_8caab505fba2_has_firmware_update:
+    friendly_name: "Shelly 505FBA2 (IP:161) FW Update"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505fba2.attributes.has_firmware_update }}"
+  shelly_shsw_pm_8caab505fba2_firmware_version:
+    friendly_name: "Shelly 505FBA2 (IP:161) FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505fba2.attributes.firmware_version }}"
+  shelly_shsw_pm_8caab505fba2_latest_fw_version:
+    friendly_name: "Shelly 505FBA2 (IP:161) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505fba2.attributes.latest_fw_version }}"
+  shelly_shsw_pm_8caab505fba2_ip_address:
+    friendly_name: "Shelly 505FBA2 (IP:161) IP Address"
+    value_template: "{{ states.switch.shelly_shsw_pm_8caab505fba2.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly BF2C243 (Wohnzimmer Rolladen links) Firmware Infos
+  #====================
+  shelly_shsw_25_98f4abf2c243_has_firmware_update:
+    friendly_name: "Shelly BF2C243 (IP:162) FW Update"
+    value_template: "{{ states.cover.shelly_shsw_25_98f4abf2c243.attributes.has_firmware_update }}"
+  shelly_shsw_25_98f4abf2c243_firmware_version:
+    friendly_name: "Shelly BF2C243 (IP:162) FW Version"
+    value_template: "{{ states.cover.shelly_shsw_25_98f4abf2c243.attributes.firmware_version }}"
+  shelly_shsw_25_98f4abf2c243_latest_fw_version:
+    friendly_name: "Shelly BF2C243 (IP:162) Latest FW Version"
+    value_template: "{{ states.cover.shelly_shsw_25_98f4abf2c243.attributes.latest_fw_version }}"
+  shelly_shsw_25_98f4abf2c243_ip_address:
+    friendly_name: "Shelly BF2C243 (IP:162) IP Address"
+    value_template: "{{ states.cover.shelly_shsw_25_98f4abf2c243.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly 505A2CA (Wohnzimmer Rolladen rechts) Firmware Infos
+  #====================
+  shelly_shsw_25_8caab505a2ca_has_firmware_update:
+    friendly_name: "Shelly 505A2CA (IP:163) FW Update"
+    value_template: "{{ states.cover.shelly_shsw_25_8caab505a2ca.attributes.has_firmware_update }}"
+  shelly_shsw_25_8caab505a2ca_firmware_version:
+    friendly_name: "Shelly 505A2CA (IP:163) FW Version"
+    value_template: "{{ states.cover.shelly_shsw_25_8caab505a2ca.attributes.firmware_version }}"
+  shelly_shsw_25_8caab505a2ca_latest_fw_version:
+    friendly_name: "Shelly 505A2CA (IP:163) Latest FW Version"
+    value_template: "{{ states.cover.shelly_shsw_25_8caab505a2ca.attributes.latest_fw_version }}"
+  shelly_shsw_25_8caab505a2ca_ip_address:
+    friendly_name: "Shelly 505A2CA (IP:163) IP Address"
+    value_template: "{{ states.cover.shelly_shsw_25_8caab505a2ca.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly C8A739 (Toilette Wassersensor) Firmware Infos
+  #====================
+  shelly_shwt_1_c8a739_flood_has_firmware_update:
+    friendly_name: "Shelly C8A739 (IP:164) FW Update"
+    value_template: "{{ states.binary_sensor.shelly_shwt_1_c8a739_flood.attributes.has_firmware_update }}"
+  shelly_shwt_1_c8a739_flood_firmware_version:
+    friendly_name: "Shelly C8A739 (IP:164) FW Version"
+    value_template: "{{ states.binary_sensor.shelly_shwt_1_c8a739_flood.attributes.firmware_version }}"
+  shelly_shwt_1_c8a739_flood_latest_fw_version:
+    friendly_name: "Shelly C8A739 (IP:164) Latest FW Version"
+    value_template: "{{ states.binary_sensor.shelly_shwt_1_c8a739_flood.attributes.latest_fw_version }}"
+  shelly_shwt_1_c8a739_flood_ip_address:
+    friendly_name: "Shelly C8A739 (IP:164) IP Address"
+    value_template: "{{ states.binary_sensor.shelly_shwt_1_c8a739_flood.attributes.ip_address }}"
+  shelly_shwt_1_c8a739_flood_battery:
+    friendly_name: "Shelly C8A739 (IP:164) Battery"
+    value_template: "{{ states.binary_sensor.shelly_shwt_1_c8a739_flood.attributes.battery }}"
+
+  #====================
+  # Template Sensor Shelly 01A8E7A (Fenstersensor) Firmware Infos
+  #====================
+  shelly_shdw_2_d8bfc01a8e7a_door_window_has_firmware_update:
+    friendly_name: "Shelly 01A8E7A (IP:165) FW Update"
+    value_template: "{{ states.binary_sensor.shelly_shdw_2_d8bfc01a8e7a_door_window.attributes.has_firmware_update }}"
+  shelly_shdw_2_d8bfc01a8e7a_door_window_firmware_version:
+    friendly_name: "Shelly 01A8E7A (IP:165) FW Version"
+    value_template: "{{ states.binary_sensor.shelly_shdw_2_d8bfc01a8e7a_door_window.attributes.firmware_version }}"
+  shelly_shdw_2_d8bfc01a8e7a_door_window_latest_fw_version:
+    friendly_name: "Shelly 01A8E7A (IP:165) Latest FW Version"
+    value_template: "{{ states.binary_sensor.shelly_shdw_2_d8bfc01a8e7a_door_window.attributes.latest_fw_version }}"
+  shelly_shdw_2_d8bfc01a8e7a_door_window_ip_address:
+    friendly_name: "Shelly 01A8E7A (IP:165) IP Address"
+    value_template: "{{ states.binary_sensor.shelly_shdw_2_d8bfc01a8e7a_door_window.attributes.ip_address }}"
+  shelly_shdw_2_d8bfc01a8e7a_door_window_battery:
+    friendly_name: "Shelly 01A8E7A (IP:165) Battery"
+    value_template: "{{ states.binary_sensor.shelly_shdw_2_d8bfc01a8e7a_door_window.attributes.battery }}"
+
+  #====================
+  # Template Sensor Shelly 801BE9 (Gang Routerschrank) Firmware Infos
+  #====================
+  shelly_shplg_s_801be9_has_firmware_update:
+    friendly_name: "Shelly 801BE9 (IP:166) FW Update"
+    value_template: "{{ states.switch.shelly_shplg_s_801be9.attributes.has_firmware_update }}"
+  shelly_shplg_s_801be9_firmware_version:
+    friendly_name: "Shelly 801BE9 (IP:166) FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_801be9.attributes.firmware_version }}"
+  shelly_shplg_s_801be9_latest_fw_version:
+    friendly_name: "Shelly 801BE9 (IP:166) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_801be9.attributes.latest_fw_version }}"
+  shelly_shplg_s_801be9_ip_address:
+    friendly_name: "Shelly 801BE9 (IP:166) IP Address"
+    value_template: "{{ states.switch.shelly_shplg_s_801be9.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly DBF2F5 (Küche Dunstabzug) Firmware Infos
+  #====================
+  shelly_shplg_s_dbf2f5_has_firmware_update:
+    friendly_name: "Shelly DBF2F5 (IP:167) FW Update"
+    value_template: "{{ states.switch.shelly_shplg_s_dbf2f5.attributes.has_firmware_update }}"
+  shelly_shplg_s_dbf2f5_firmware_version:
+    friendly_name: "Shelly DBF2F5 (IP:167) FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_dbf2f5.attributes.firmware_version }}"
+  shelly_shplg_s_dbf2f5_latest_fw_version:
+    friendly_name: "Shelly DBF2F5 (IP:167) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_dbf2f5.attributes.latest_fw_version }}"
+  shelly_shplg_s_dbf2f5_ip_address:
+    friendly_name: "Shelly DBF2F5 (IP:167) IP Address"
+    value_template: "{{ states.switch.shelly_shplg_s_dbf2f5.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly 80149D (Wohnzimmer Ventilator) Firmware Infos
+  #====================
+  shelly_shplg_s_80149d_has_firmware_update:
+    friendly_name: "Shelly 80149d (IP:170) FW Update"
+    value_template: "{{ states.switch.shelly_shplg_s_80149d.attributes.has_firmware_update }}"
+  shelly_shplg_s_80149d_firmware_version:
+    friendly_name: "Shelly 80149d (IP:170) FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_80149d.attributes.firmware_version }}"
+  shelly_shplg_s_80149d_latest_fw_version:
+    friendly_name: "Shelly 80149d (IP:170) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_80149d.attributes.latest_fw_version }}"
+  shelly_shplg_s_80149d_ip_address:
+    friendly_name: "Shelly 80149d (IP:170) IP Address"
+    value_template: "{{ states.switch.shelly_shplg_s_80149d.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Nextbike Nähste Fahrrad
+  #====================
+  nextbike_closest_bike:
+    friendly_name: Nextbike Entfernung nächstes Fahrrad
+    value_template: "{{ states.sensor.nextbike_500m.attributes.closest_distance }}"
+    unit_of_measurement: "Meter"
+
+  #====================
+  # Template Sensor Nextbike Nähste Fahrrad Geo
+  #====================
+  nextbike_closest_bike_coordinates:
+    friendly_name: Nextbike Koordinaten nächstes Fahrrad
+    value_template: "{{ states.sensor.nextbike_500m.attributes.closest_latitude }}, {{ states.sensor.nextbike_500m.attributes.closest_longitude }}"
+
+    
+
+
+
+  #====================
+  # Home Assistant uptime
+  #====================
+  ha_uptime:
+    friendly_name: HA Uptime
+    value_template: >
+      {% if states('sensor.uptime') == '0.0' %} 
+        Just restarted...
+      {% else %}
+        {% macro phrase(value, name) %}
+        {%- set value = value | int %}
+        {%- set end = 's' if value > 1 else '' %}
+        {{- '{} {}{}'.format(value, name, end) if value | int > 0 else '' }}
+        {%- endmacro %}
+        
+        {% set weeks = (states('sensor.uptime') | int / 7) | int %}
+        {% set days = (states('sensor.uptime') | int) - (weeks * 7) %}
+        {% set hours = (states('sensor.uptime') | float - states('sensor.uptime') | int) * 24 %}
+        {% set minutes = (hours - hours | int) * 60 %}
+
+        {{ [ phrase(weeks, 'week'), phrase(days, 'day'), phrase(hours, 'hr'), phrase(minutes, 'min') ] | select('!=','') | list | join(', ') }}
+      {% endif %}
+
+
+  #====================
+  # Raspberry Pi last boot date and time
+  #====================
+  last_boot_date_time:
+    friendly_name: Last Boot
+    value_template: >
+      {% set date = as_timestamp(states('sensor.last_boot')) | timestamp_custom('%d') %}
+      {% set date = '{:01}'.format(date | int) %}
+      {% if date in ('1', '21', '31') %}
+        {% set date = date ~ 'st' %}
+      {% elif date in ('2', '22') %}
+        {% set date = date ~ 'nd' %}
+      {% elif date in ('3', '23') %}
+        {% set date = date ~ 'rd' %}
+      {% else %}
+        {% set date = date ~ 'th' %}
+      {% endif %}
+
+      {{ as_timestamp(states('sensor.last_boot')) | timestamp_custom('%H:%M on %a') }} {{ date }} {{ as_timestamp(states('sensor.last_boot')) | timestamp_custom('%b %Y') }}
+
+
+  #====================
+  # Raspberry Pi Up Time
+  #====================
+  rpi_uptime:
+    friendly_name: RPi Uptime
+    value_template: >
+      {% set up_time = as_timestamp(now()) - as_timestamp(states('sensor.last_boot')) %}
+
+      {% set minutes = (up_time // 60) | int %}
+      {% set hours = (minutes // 60) %}
+      {% set days = (hours // 24) %}
+      {% set weeks = (days // 7) %}
+
+      {% set minutes = (minutes % 60) %}
+      {% set hours =  (hours % 24) %}
+      {% set days = (days % 7) %}
+
+      {% macro phrase(value, name) %}
+                {%- set value = value %}
+                {%- set end = 's' if value > 1 else '' %}
+                {{- '{} {}{}'.format(value, name, end) if value | int > 0 else '' }}
+      {%- endmacro %}
+                
+      {% set text = [ phrase(weeks, 'week'), phrase(days, 'day'), phrase(hours, 'hr'), phrase(minutes, 'min') ] | select('!=','') | list | join(', ') %}
+      {% set last_comma = text.rfind(',') %}
+      {% if last_comma != -1 %}
+        {% set text = text[:last_comma] + ' and' + text[last_comma + 1:] %}
+      {% endif %}
+      
+      {{ text }}
