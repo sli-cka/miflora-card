@@ -7,7 +7,6 @@
 /node-red
 /themes
 /tts
-/www
 .google.token
 .ip_authenticated.yaml
 gcloud.json
