@@ -14,5 +14,5 @@ google_calendars.yaml
 *.db
 *.log
 secrets.yaml
-home-assisant_v2.db-shm
-home-assisant_v2.db-wal
+home-assistant_v2.db-shm
+home-assistant_v2.db-wal
