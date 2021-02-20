@@ -711,6 +711,39 @@ sensors:
     value_template: "{{ states.switch.shelly_shplg_s_dbf2f5.attributes.ip_address }}"
 
   #====================
+  # Template Sensor Shelly 977C27 (Schlafzimmer TV) Firmware Infos
+  #====================
+  shelly_shplg_s_977c27_has_firmware_update:
+    friendly_name: "Shelly 977C27 (IP:168) FW Update"
+    value_template: "{{ states.switch.shelly_shplg_s_977c27.attributes.has_firmware_update }}"
+  shelly_shplg_s_977c27_firmware_version:
+    friendly_name: "Shelly 977C27 (IP:168) FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_977c27.attributes.firmware_version }}"
+  shelly_shplg_s_977c27_latest_fw_version:
+    friendly_name: "Shelly 977C27 (IP:168) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_977c27.attributes.latest_fw_version }}"
+  shelly_shplg_s_977c27_ip_address:
+    friendly_name: "Shelly 977C27 (IP:168) IP Address"
+    value_template: "{{ states.switch.shelly_shplg_s_977c27.attributes.ip_address }}"
+
+  #====================
+  # Template Sensor Shelly 9A4071 (Chillzimmer TV) Firmware Infos
+  #====================
+  shelly_shplg_s_9a4071_has_firmware_update:
+    friendly_name: "Shelly 9A4071 (IP:169) FW Update"
+    value_template: "{{ states.switch.shelly_shplg_s_9a4071.attributes.has_firmware_update }}"
+  shelly_shplg_s_9a4071_firmware_version:
+    friendly_name: "Shelly 9A4071 (IP:169) FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_9a4071.attributes.firmware_version }}"
+  shelly_shplg_s_9a4071_latest_fw_version:
+    friendly_name: "Shelly 9A4071 (IP:169) Latest FW Version"
+    value_template: "{{ states.switch.shelly_shplg_s_9a4071.attributes.latest_fw_version }}"
+  shelly_shplg_s_9a4071_ip_address:
+    friendly_name: "Shelly 9A4071 (IP:169) IP Address"
+    value_template: "{{ states.switch.shelly_shplg_s_9a4071.attributes.ip_address }}"
+
+
+  #====================
   # Template Sensor Shelly 80149D (Wohnzimmer Ventilator) Firmware Infos
   #====================
   shelly_shplg_s_80149d_has_firmware_update:

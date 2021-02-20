@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Gute Nacht TV
+automation_gute_nacht_tv:
+  name: automation_gute_nacht_tv
+  icon: mdi:television-ambient-light

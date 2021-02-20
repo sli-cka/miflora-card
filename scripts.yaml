@@ -516,3 +516,25 @@ hdmi_3:
   - delay: '0.5'
   mode: single
   icon: mdi:television-classic
+atv_schlafzimmer_command_menu:
+  alias: ATV Schlafzimmer Command Menu
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - menu
+    entity_id: remote.schlafzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:backup-restore
+atv_schlafzimmer_command_select:
+  alias: ATV Schlafzimmer Command Select
+  sequence:
+  - service: remote.send_command
+    data:
+      command:
+      - select
+    entity_id: remote.schlafzimmer_apple_tv
+  mode: parallel
+  max: 10
+  icon: mdi:image-filter-center-focus

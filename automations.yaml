@@ -719,7 +719,7 @@
     below: 17
   condition:
   - condition: time
-    after: 08:00
+    after: 07:30
     before: '22:00'
   - condition: zone
     entity_id: person.flo
@@ -1417,3 +1417,50 @@
         device_id: e902a0cd25bb47f0926be1e4e6c46bae
         entity_id: light.schlafzimmer_deckenlampe
         domain: light
+- id: '1613829218114'
+  alias: Gute Nacht TV
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.automation_gute_nacht_tv
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    entity_id: switch.shelly_shplg_s_977c27
+    domain: switch
+  - service: script.say
+    data:
+      where: schlafzimmer_sonos
+      language: de
+      what: 'Gute Nacht, {{ ["du kleines Genie", "mein Lieblingsmensch", "ich liebe
+        dich"] | random }}.  Ich habe den Fernseher für dich eingeschalten.
+
+        '
+  - service: remote.turn_on
+    data: {}
+    entity_id: remote.schlafzimmer_apple_tv
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: script.atv_schlafzimmer_einschalten
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: script.atv_schlafzimmer_command_select
+    data: {}
+  - service: remote.turn_off
+    data: {}
+    entity_id: remote.schlafzimmer_apple_tv
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.automation_gute_nacht_tv
+  mode: restart
+  max: 10
