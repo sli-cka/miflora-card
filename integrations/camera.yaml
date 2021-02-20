@@ -16,7 +16,7 @@ camera:
       color_map_wall: [100, 196, 254]
       color_map_wall_v2: [93, 109, 126]
       color_grey_wall: [93, 109, 126]
-      color_path: [0xEE, 0xEE, 0xEE]
+      color_path: [0, 0, 0]
       color_goto_path: [0, 255, 0]
       color_predicted_path: [255, 255, 0, 0]
       color_zones: [0xAD, 0xD8, 0xFF, 0x8F]
@@ -33,12 +33,12 @@ camera:
     attributes:
       - calibration_points      
     map_transformation:
-      scale: 3
+      scale: 4
       trim:
-        top: 40
-        bottom: 40
-        left: 20
-        right: 20
+        top: 20
+        bottom: 20
+        left: 15
+        right: 15
     sizes:
       charger_radius: 6
       vacuum_radius: 8.5
