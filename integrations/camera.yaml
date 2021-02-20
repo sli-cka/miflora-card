@@ -10,9 +10,15 @@ camera:
     password: !secret roborock_password
     country: "de"
     draw: ["all"]
+    attributes:
+      - calibration_points      
     map_transformation:
+      scale: 3
       trim:
-        top: 10
-        bottom: 10
-        left: 10
-        right: 10
+        top: 40
+        bottom: 40
+        left: 20
+        right: 20
+    sizes:
+      charger_radius: 6
+      vacuum_radius: 8.5
