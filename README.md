@@ -3,7 +3,10 @@
 
 # MiFlora Card
 
-A Home Assistant Lovelace card to report MiFlora sensors
+A Home Assistant Lovelace card to report MiFlora sensors.
+This card a fork from https://github.com/RodBr/miflora-card.
+I added more min_max sensors and a possibilty to add a location for the plant.
+Both settings are optional.
 
 ![miflora-card](https://github.com/sli-cka/miflora-card/raw/master/miflora-card.png)
 
