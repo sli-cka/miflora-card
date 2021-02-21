@@ -5,7 +5,7 @@
 
 A Home Assistant Lovelace card to report MiFlora sensors
 
-![miflora-card](https://github.com/lbouriez/lovelace-miflora-card/raw/master/miflora-card.png)
+![miflora-card](https://github.com/sli-cka/miflora-card/raw/master/miflora-card.png)
 
 ## Options
 
