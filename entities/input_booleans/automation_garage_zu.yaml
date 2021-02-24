@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Garage zu
+automation_garage_zu:
+  name: automation_garage_zu
+  icon: mdi:garage

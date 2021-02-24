@@ -1,0 +1,47 @@
+esphome:
+  name: wemos_mini_d1
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: "krautsalat2"
+  password: "fl0l3tm31n"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Wemos Mini D1 Fallback Hotspot"
+    password: "03W622ZmsNDf"
+
+captive_portal:
+
+
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+
+
+ota:
+  password: "test"
+
+api:
+  services:
+    - service: control_servo
+      variables:
+        level: float
+      then:
+        - servo.write:
+            id: my_servo
+            level: !lambda 'return level / 100.0;'
+
+output:
+  - platform: esp8266_pwm
+    id: pwm_output
+    pin: D3
+    frequency: 50 Hz
+ 
+servo:
+  - id: my_servo
+    output: pwm_output
+    transition_length: 3s

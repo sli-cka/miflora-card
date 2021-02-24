@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Garage auf
+automation_garage_auf:
+  name: automation_garage_auf
+  icon: mdi:garage-open

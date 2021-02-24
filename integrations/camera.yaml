@@ -33,10 +33,10 @@ camera:
     attributes:
       - calibration_points      
     map_transformation:
-      scale: 4
+      scale: 5
       trim:
-        top: 20
-        bottom: 20
+        top: 15
+        bottom: 15
         left: 15
         right: 15
     sizes:
