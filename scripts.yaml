@@ -22,6 +22,9 @@ say:
 roborock_kuche:
   alias: Roborock Küche
   sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.automation_garage_auf
   - service: vacuum.send_command
     data:
       command: app_segment_clean
@@ -35,6 +38,9 @@ roborock_kuche:
 roborock_schlafzimmer:
   alias: Roborock Schlafzimmer
   sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.automation_garage_auf
   - service: vacuum.send_command
     data:
       command: app_segment_clean
@@ -48,6 +54,9 @@ roborock_schlafzimmer:
 roborock_gang:
   alias: Roborock Gang
   sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.automation_garage_auf
   - service: vacuum.send_command
     data:
       command: app_segment_clean
@@ -267,6 +276,9 @@ atv_chillzimmer_youtube:
 roborock_wohnzimmer:
   alias: Roborock Wohnzimmer
   sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.automation_garage_auf
   - service: vacuum.send_command
     data:
       command: app_segment_clean
@@ -280,6 +292,9 @@ roborock_wohnzimmer:
 roborock_bad:
   alias: Roborock Bad
   sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.automation_garage_auf
   - service: vacuum.send_command
     data:
       command: app_segment_clean
@@ -293,6 +308,9 @@ roborock_bad:
 roborock_chillzimmer:
   alias: Roborock Chillzimmer
   sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.automation_garage_auf
   - service: vacuum.send_command
     data:
       command: app_segment_clean
