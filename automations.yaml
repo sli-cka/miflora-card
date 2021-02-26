@@ -32,6 +32,12 @@
   - data:
       message: Heizung Toilette eingeschaltet
     service: notify.flo_telegram
+  - service: notify.mobile_app_flo_s_iphone_11
+    data:
+      title: Heizung an
+      message: Die Heizung in der Toilette wurde eingeschalten
+      data:
+        url: /flos-dashboard/heizung
   mode: single
 - id: '1595194863515'
   alias: Heizung Toilette aus
@@ -1452,6 +1458,8 @@
       milliseconds: 0
   - service: script.atv_schlafzimmer_einschalten
     data: {}
+  - service: remote.turn_on
+    data: {}
   - delay:
       hours: 0
       minutes: 0
@@ -1474,9 +1482,6 @@
   - platform: state
     entity_id: input_boolean.automation_garage_auf
     to: 'on'
-  - platform: state
-    entity_id: vacuum.roborock
-    from: docking
   condition: []
   action:
   - service: esphome.wemos_mini_d1_2_control_servo

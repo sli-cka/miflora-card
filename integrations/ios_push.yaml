@@ -1,0 +1,28 @@
+#====================
+# Integration for mobile notifications on iOS compagnion app
+# Categories needed for actionable notifications
+#
+# https://companion.home-assistant.io/docs/notifications/notifications-basic
+# https://companion.home-assistant.io/docs/notifications/actionable-notifications/
+#====================
+
+ios:
+  push:
+    categories:
+      - name: Alarm
+        identifier: 'alarm'
+        actions:
+          - identifier: 'SOUND_ALARM'
+            title: 'Sound Alarm'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: true
+            behavior: 'default'
+          - identifier: 'SILENCE_ALARM'
+            title: 'Silence Alarm'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: false
+            behavior: 'textInput'
+            textInputButtonTitle: 'Silencio!'
+            textInputPlaceholder: 'Placeholder'

@@ -1,6 +1,7 @@
 #==================
 #=== Binärsensor um Netzwerkstatus per Ping zu ermitteln
-#==================  
+#==================
+
 platform: ping
 host: 192.168.10.132
 count: 2
