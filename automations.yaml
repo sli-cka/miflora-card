@@ -27,17 +27,22 @@
     entity_id: switch.shelly_shsw_pm_8caab5057a29
     platform: device
     type: turned_on
+  - platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: HEIZUNG_AUS
   condition: []
   action:
-  - data:
-      message: Heizung Toilette eingeschaltet
-    service: notify.flo_telegram
   - service: notify.mobile_app_flo_s_iphone_11
     data:
-      title: Heizung an
-      message: Die Heizung in der Toilette wurde eingeschalten
+      title: Heizung
+      message: Toilette eingeschalten
       data:
-        url: /flos-dashboard/heizung
+        push:
+          category: heizung
+        url:
+          _: /flos-dashboard/heizung
+          HEIZUNG_AN: /flos-dashboard/
   mode: single
 - id: '1595194863515'
   alias: Heizung Toilette aus
@@ -51,8 +56,15 @@
   condition: []
   action:
   - data:
-      message: Heizung Toilette ausgeschaltet
-    service: notify.flo_telegram
+      title: Heizung
+      message: Die Heizung in der Toilette wurde ausgeschalten
+      data:
+        push:
+          category: heizung
+        url:
+          _: /flos-dashboard/heizung
+          HEIZUNG_AN: /flos-dashboard/
+    service: notify.mobile_app_flo_s_iphone_11
   mode: single
 - id: '1595197538460'
   alias: Telegram Infos Arbeit Spät

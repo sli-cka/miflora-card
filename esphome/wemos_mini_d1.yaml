@@ -4,8 +4,8 @@ esphome:
   board: d1_mini
 
 wifi:
-  ssid: "krautsalat2"
-  password: "fl0l3tm31n"
+  ssid: "bratwurst2"
+  password: "fl0l3tm30ut"
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:

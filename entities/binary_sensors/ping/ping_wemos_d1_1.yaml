@@ -3,7 +3,7 @@
 #================== 
 
 platform: ping
-host: 192.168.10.190
+host: 192.168.1.90
 count: 2
 scan_interval: 30
 name: ping_wemos_d1_1

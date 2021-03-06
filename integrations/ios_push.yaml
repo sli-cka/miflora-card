@@ -9,20 +9,12 @@
 ios:
   push:
     categories:
-      - name: Alarm
-        identifier: 'alarm'
+      - name: Heizung
+        identifier: 'heizung'
         actions:
-          - identifier: 'SOUND_ALARM'
-            title: 'Sound Alarm'
-            activationMode: 'background'
-            authenticationRequired: true
-            destructive: true
-            behavior: 'default'
-          - identifier: 'SILENCE_ALARM'
-            title: 'Silence Alarm'
+          - identifier: 'HEIZUNG_AUS'
+            title: 'Heizung aus'
             activationMode: 'background'
             authenticationRequired: true
             destructive: false
-            behavior: 'textInput'
-            textInputButtonTitle: 'Silencio!'
-            textInputPlaceholder: 'Placeholder'
+            behavior: 'default'

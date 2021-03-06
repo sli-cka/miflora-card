@@ -3,7 +3,7 @@
 #==================
 
 platform: ping
-host: 192.168.10.155
+host: 192.168.1.55
 count: 2
 scan_interval: 30
 name: ping_ikea-gateway

@@ -3,7 +3,7 @@
 #==================
 
 platform: ping
-host: 192.168.10.180
+host: 192.168.1.80
 count: 2
 scan_interval: 30
 name: ping_roborock_s5max

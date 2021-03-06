@@ -1,6 +1,7 @@
 #====================
 # InfluxDB Add-On
 #====================
+
 influxdb:
   host: !secret influxdb_host
   port: 8086
