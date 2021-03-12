@@ -24,7 +24,7 @@
   trigger:
   - device_id: 28ded1cc893143a9a5225c0f1e975330
     domain: switch
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     platform: device
     type: turned_on
   - platform: event
@@ -50,7 +50,7 @@
   trigger:
   - device_id: 28ded1cc893143a9a5225c0f1e975330
     domain: switch
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     platform: device
     type: turned_off
   condition: []
@@ -288,10 +288,8 @@
   alias: Klingel
   description: ''
   trigger:
-  - entity_id: binary_sensor.rudolphstrasse_18_nurnberg
-    from: 'off'
-    platform: state
-    to: 'on'
+  - platform: event
+    event_type: nello_bell_ring
   condition: []
   action:
   - data:
@@ -649,7 +647,7 @@
   action:
   - type: toggle
     device_id: ff02e160de9c4d26bc390da1aeba5602
-    entity_id: switch.shelly_shsw_pm_ba0f30
+    entity_id: switch.shelly1pm_ba0f30
     domain: switch
   mode: single
 - id: '1600381905068'
@@ -682,7 +680,7 @@
     domain: switch
   - type: turn_off
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - type: turn_off
     device_id: d15f28d3f9b311ea87726fe564b32d29
@@ -748,7 +746,7 @@
   action:
   - type: turn_on
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   mode: single
 - id: '1601800416342'
@@ -765,7 +763,7 @@
   action:
   - type: turn_off
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   mode: single
 - id: '1602945984780'
@@ -1134,7 +1132,7 @@
     flash: long
   - type: turn_on
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - service: media_player.select_source
     data:
@@ -1152,7 +1150,7 @@
   - delay: '900'
   - type: turn_off
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - service: input_boolean.turn_off
     data:

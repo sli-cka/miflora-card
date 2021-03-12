@@ -529,22 +529,6 @@ sensors:
     value_template: "{{ states.sensor.rothenbach_st_w_in_der_lach_wendelstein_to_rathenauplatz_nurnberg.attributes.time }}"
 
   #====================
-  # Template Sensor Shelly 057A29 (Toilette Heizplatte) Firmware Infos
-  #====================
-  shelly_shsw_pm_8caab5057a29_has_firmware_update:
-    friendly_name: "Shelly 057A29 (IP:159) FW Update"
-    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.has_firmware_update }}"
-  shelly_shsw_pm_8caab5057a29_firmware_version:
-    friendly_name: "Shelly 057A29 (IP:159) FW Version"
-    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.firmware_version }}"
-  shelly_shsw_pm_8caab5057a29_latest_fw_version:
-    friendly_name: "Shelly 057A29 (IP:159) Latest FW Version"
-    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.latest_fw_version }}"
-  shelly_shsw_pm_8caab5057a29_ip_address:
-    friendly_name: "Shelly 057A29 (IP:159) IP Address"
-    value_template: "{{ states.switch.shelly_shsw_pm_8caab5057a29.attributes.ip_address }}"
-
-  #====================
   # Template Sensor Shelly 05778E (Küche Spülmaschine) Firmware Infos
   #====================
   shelly_shsw_pm_8caab505778e_has_firmware_update:
@@ -559,22 +543,6 @@ sensors:
   shelly_shsw_pm_8caab505778e_ip_address:
     friendly_name: "Shelly 05778E (IP:158) IP Address"
     value_template: "{{ states.switch.shelly_shsw_pm_8caab505778e.attributes.ip_address }}"
-
-  #====================
-  # Template Sensor Shelly BA0F30 (Bad Spiegellampe) Firmware Infos
-  #====================
-  shelly_shsw_pm_ba0f30_has_firmware_update:
-    friendly_name: "Shelly BA0F30 (IP:156) FW Update"
-    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.has_firmware_update }}"
-  shelly_shsw_pm_ba0f30_firmware_version:
-    friendly_name: "Shelly BA0F30 (IP:156) FW Version"
-    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.firmware_version }}"
-  shelly_shsw_pm_ba0f30_latest_fw_version:
-    friendly_name: "Shelly BA0F30 (IP:156) Latest FW Version"
-    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.latest_fw_version }}"
-  shelly_shsw_pm_ba0f30_ip_address:
-    friendly_name: "Shelly BA0F30 (IP:156) IP Address"
-    value_template: "{{ states.switch.shelly_shsw_pm_ba0f30.attributes.ip_address }}"
 
   #====================
   # Template Sensor Shelly 5056877 (Wohnzimmer Steckdose F12S1) Firmware Infos
