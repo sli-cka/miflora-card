@@ -3,7 +3,7 @@
 #==================
 
 platform: ping
-host: 192.168.1.44
+host: 192.168.40.44
 count: 2
 scan_interval: 30
 name: ping_sonos-chillzimmer

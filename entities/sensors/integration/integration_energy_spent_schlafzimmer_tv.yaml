@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shplg_s_977c27_current_consumption
+source: sensor.shellyplug_s_977c27_power
 name: energy_spent_schlafzimmer_tv
 method: left
 unit_prefix: k

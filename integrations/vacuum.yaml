@@ -1,9 +1,11 @@
 #====================
 # Xiaomi Roborock Integration
+#
+# 2021-03-13 disabled - Loading Xiaomi Miio Vacuum via platform setup is deprecated. Please remove it from your configuration.
 #====================
 
-vacuum:
-  - platform: xiaomi_miio
-    host: !secret roborock_ip
-    token: !secret roborock_token
-    name: Roborock
+# vacuum:
+#   - platform: xiaomi_miio
+#     host: !secret roborock_ip
+#     token: !secret roborock_token
+#     name: Roborock

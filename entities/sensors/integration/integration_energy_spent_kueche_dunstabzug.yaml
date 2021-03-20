@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shplg_s_dbf2f5_current_consumption
+source: sensor.shellyplug_s_dbf2f5_power
 name: energy_spent_kueche_dunstabzug
 method: left
 unit_prefix: k

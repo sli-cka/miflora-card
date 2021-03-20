@@ -78,30 +78,6 @@
       order: 0
       friendly_name: Alle Lichter
       state: 'off'
-    switch.shelly_shsw_pm_ba0f30:
-      shelly_type: Shelly 1 PM
-      shelly_id: BA0F30
-      ip_address: 192.168.10.156
-      protocols:
-      - mDns
-      - poll
-      - CoAP-discovery
-      - CoAP-msg
-      ssid: krautsalat2
-      rssi: -63 dB
-      uptime: 59 h
-      device_temp: 42 °C
-      has_firmware_update: false
-      latest_fw_version: 1.8.3
-      firmware_version: 1.8.3
-      mqtt_connected: false
-      cloud_status: disabled
-      switch: false
-      over_power: false
-      current_consumption: 0 W
-      friendly_name: Spiegellampe
-      icon: mdi:lightbulb
-      state: 'off'
 - id: '1601589499104'
   name: Bett
   entities:

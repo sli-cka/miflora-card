@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shplg_s_9a4071_current_consumption
+source: sensor.shellyplug_s_9a4071_power
 name: energy_spent_chillzimmer_tv
 method: left
 unit_prefix: k

@@ -1,7 +1,9 @@
 #====================
 # Integration Pi-Hole
+#
+# Currently Disabled
 #====================
 
-pi_hole:
-  - host: '192.168.10.100'
-    api_key: !secret pihole_api_key
+# pi_hole:
+#   - host: '192.168.10.100'
+#     api_key: !secret pihole_api_key

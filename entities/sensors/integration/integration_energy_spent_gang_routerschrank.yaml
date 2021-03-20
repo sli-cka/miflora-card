@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shplg_s_801be9_current_consumption
+source: sensor.shellyplug_s_801be9_power
 name: energy_spent_gang_routerschrank
 unit_prefix: k
 round: 2

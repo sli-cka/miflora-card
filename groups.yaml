@@ -72,14 +72,14 @@ light.wohnzimmer:
 cover.wohnzimmer:
   name: Wohnzimmer Rollos
   entities:
-    - cover.shelly_shsw_25_8caab505a2ca
-    - cover.shelly_shsw_25_98f4abf2c243
+    - cover.shellyswitch25_8caab505a2ca
+    - cover.shellyswitch25_98f4abf2c243
 
 cover.all:
   name: Alle Rollos
   entities:
-    - cover.shelly_shsw_25_8caab505a2ca
-    - cover.shelly_shsw_25_98f4abf2c243
+    - cover.shellyswitch25_8caab505a2ca
+    - cover.shellyswitch25_98f4abf2c243
     - cover.tradfri_blind
 
 media_player.all:

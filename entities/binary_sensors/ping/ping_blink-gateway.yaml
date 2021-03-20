@@ -3,7 +3,7 @@
 #==================
 
 platform: ping
-host: 192.168.10.157
+host: 192.168.20.14
 count: 2
 scan_interval: 30
 name: ping_blink-gateway

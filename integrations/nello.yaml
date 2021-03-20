@@ -1,0 +1,10 @@
+#====================
+# The nello platform allows you to control Nello intercoms.
+#
+# https://www.home-assistant.io/integrations/nello/
+#====================
+
+lock:
+  - platform: nello
+    username: !secret nello_username
+    password: !secret nello_password

@@ -5,7 +5,7 @@
   - below: 3
     device_id: a5118386e5a94c45aec418915d24c78b
     domain: sensor
-    entity_id: sensor.shelly_shsw_pm_8caab505778e_current_consumption
+    entity_id: sensor.shelly1pm_8caab505778e_power
     for:
       hours: 0
       minutes: 15
@@ -24,7 +24,7 @@
   trigger:
   - device_id: 28ded1cc893143a9a5225c0f1e975330
     domain: switch
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     platform: device
     type: turned_on
   - platform: event
@@ -50,7 +50,7 @@
   trigger:
   - device_id: 28ded1cc893143a9a5225c0f1e975330
     domain: switch
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     platform: device
     type: turned_off
   condition: []
@@ -288,10 +288,8 @@
   alias: Klingel
   description: ''
   trigger:
-  - entity_id: binary_sensor.rudolphstrasse_18_nurnberg
-    from: 'off'
-    platform: state
-    to: 'on'
+  - platform: event
+    event_type: nello_bell_ring
   condition: []
   action:
   - data:
@@ -416,12 +414,12 @@
   action:
   - device_id: 7e01390d29fa4c64ae40a745245df5df
     domain: cover
-    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    entity_id: cover.shellyswitch25_98f4abf2c243
     position: 100
     type: set_position
   - device_id: 87260ef7fd684616a12119abe234f78c
     domain: cover
-    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    entity_id: cover.shellyswitch25_8caab505a2ca
     position: 100
     type: set_position
   mode: single
@@ -435,12 +433,12 @@
   action:
   - device_id: 7e01390d29fa4c64ae40a745245df5df
     domain: cover
-    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    entity_id: cover.shellyswitch25_98f4abf2c243
     position: 0
     type: set_position
   - device_id: 87260ef7fd684616a12119abe234f78c
     domain: cover
-    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    entity_id: cover.shellyswitch25_8caab505a2ca
     position: 0
     type: set_position
   mode: single
@@ -525,9 +523,9 @@
     to: 'on'
   condition: []
   action:
-  - data:
-      message: Tado Bridge (Heizung) gestertet
-    service: notify.flo_telegram
+  - service: notify.mobile_app_flo_s_iphone_11
+    data:
+      message: Tado Bridge (Heizung) gestartet
   mode: single
 - id: '1600003925095'
   alias: Bewegung erkannt
@@ -555,7 +553,7 @@
   action:
   - type: turn_on
     device_id: d15f28d3f9b311ea87726fe564b32d29
-    entity_id: switch.shelly_shplg_s_9a4071
+    entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - service: script.atv_chillzimmer_einschalten
     data: {}
@@ -612,7 +610,7 @@
     type: turn_on
   - type: turn_on
     device_id: d15f28d3f9b311ea87726fe564b32d29
-    entity_id: switch.shelly_shplg_s_9a4071
+    entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - device_id: dd31102cd1224b89bc195d3eff56a385
     domain: light
@@ -649,7 +647,7 @@
   action:
   - type: toggle
     device_id: ff02e160de9c4d26bc390da1aeba5602
-    entity_id: switch.shelly_shsw_pm_ba0f30
+    entity_id: switch.shelly1pm_ba0f30
     domain: switch
   mode: single
 - id: '1600381905068'
@@ -670,23 +668,23 @@
     domain: switch
   - type: turn_off
     device_id: 9894c517073c11eba29a3775c3692765
-    entity_id: switch.shelly_shplg_s_80149d
+    entity_id: switch.shellyplug_s_80149d
     domain: switch
   - type: turn_off
     device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
-    entity_id: switch.shelly_shplg_s_977c27
+    entity_id: switch.shellyplug_s_977c27
     domain: switch
   - type: turn_off
     device_id: 6c55d03d0f6c4fdba9a9d8ddde31d29a
-    entity_id: switch.shelly_shplg_s_dbf2f5
+    entity_id: switch.shellyplug_s_dbf2f5
     domain: switch
   - type: turn_off
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - type: turn_off
     device_id: d15f28d3f9b311ea87726fe564b32d29
-    entity_id: switch.shelly_shplg_s_9a4071
+    entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - delay: '1'
   - service: input_boolean.turn_off
@@ -734,7 +732,7 @@
   trigger:
   - type: temperature
     platform: device
-    device_id: 421555c772964bd4839bb79eed564647
+    device_id: 7a374de5f52f992f862b072bca790510
     entity_id: sensor.sensor_toilette_temperature
     domain: sensor
     below: 17
@@ -747,8 +745,8 @@
     zone: zone.home
   action:
   - type: turn_on
-    device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    device_id: 92cca8641b9c46f1047427e85fb485a1
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   mode: single
 - id: '1601800416342'
@@ -757,15 +755,15 @@
   trigger:
   - type: temperature
     platform: device
-    device_id: 421555c772964bd4839bb79eed564647
+    device_id: 7a374de5f52f992f862b072bca790510
     entity_id: sensor.sensor_toilette_temperature
     domain: sensor
     above: 18
   condition: []
   action:
   - type: turn_off
-    device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    device_id: 92cca8641b9c46f1047427e85fb485a1
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   mode: single
 - id: '1602945984780'
@@ -835,8 +833,8 @@
     entity_id: media_player.schlafzimmer_sonos
   - scene: scene.alle_lampe_ausschalten
   - type: turn_off
-    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
-    entity_id: switch.shelly_shplg_s_977c27
+    device_id: 00403caa4b2c7173a0847709f0b3d0af
+    entity_id: switch.shellyplug_s_977c27
     domain: switch
   - service: input_boolean.turn_off
     data: {}
@@ -858,7 +856,7 @@
   - scene: scene.chillout
   - type: turn_on
     device_id: d15f28d3f9b311ea87726fe564b32d29
-    entity_id: switch.shelly_shplg_s_9a4071
+    entity_id: switch.shellyplug_s_9a4071
     domain: switch
   mode: single
 - id: '1608909673746'
@@ -874,12 +872,12 @@
   action:
   - device_id: 7e01390d29fa4c64ae40a745245df5df
     domain: cover
-    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    entity_id: cover.shellyswitch25_98f4abf2c243
     type: set_position
     position: 100
   - device_id: 87260ef7fd684616a12119abe234f78c
     domain: cover
-    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    entity_id: cover.shellyswitch25_8caab505a2ca
     type: set_position
     position: 100
   mode: single
@@ -896,12 +894,12 @@
   action:
   - device_id: 7e01390d29fa4c64ae40a745245df5df
     domain: cover
-    entity_id: cover.shelly_shsw_25_98f4abf2c243
+    entity_id: cover.shellyswitch25_98f4abf2c243
     type: set_position
     position: 0
   - device_id: 87260ef7fd684616a12119abe234f78c
     domain: cover
-    entity_id: cover.shelly_shsw_25_8caab505a2ca
+    entity_id: cover.shellyswitch25_8caab505a2ca
     type: set_position
     position: 0
   mode: single
@@ -1134,7 +1132,7 @@
     flash: long
   - type: turn_on
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - service: media_player.select_source
     data:
@@ -1152,7 +1150,7 @@
   - delay: '900'
   - type: turn_off
     device_id: 28ded1cc893143a9a5225c0f1e975330
-    entity_id: switch.shelly_shsw_pm_8caab5057a29
+    entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - service: input_boolean.turn_off
     data:
@@ -1175,9 +1173,9 @@
     to: 'off'
   condition: []
   action:
-  - data:
-      message: Tado Bridge down (Heizung)
-    service: notify.flo_telegram
+  - service: notify.mobile_app_flo_s_iphone_11
+    data:
+      message: Tado Bridge (Heizung) down
   mode: single
 - id: '1610744798708'
   alias: Ping - RPi3 up
@@ -1226,22 +1224,22 @@
   - platform: device
     type: turned_on
     device_id: d15f28d3f9b311ea87726fe564b32d29
-    entity_id: switch.shelly_shplg_s_9a4071
+    entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - platform: device
     type: turned_off
     device_id: d15f28d3f9b311ea87726fe564b32d29
-    entity_id: switch.shelly_shplg_s_9a4071
+    entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - platform: device
     type: turned_on
     device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
-    entity_id: switch.shelly_shplg_s_977c27
+    entity_id: switch.shellyplug_s_977c27
     domain: switch
   - platform: device
     type: turned_off
     device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
-    entity_id: switch.shelly_shplg_s_977c27
+    entity_id: switch.shellyplug_s_977c27
     domain: switch
   condition:
   - condition: state
@@ -1250,13 +1248,13 @@
   action:
   - service: input_select.select_option
     data:
-      option: "{% if trigger.entity_id == 'switch.shelly_shplg_s_9a4071' and states.switch.shelly_shplg_s_9a4071.state\
+      option: "{% if trigger.entity_id == 'switch.shellyplug_s_9a4071' and states.switch.shellyplug_s_9a4071.state\
         \ == 'on' %}\n  {% set player = 'wohnzimmer_sonos' %}\n{% elif trigger.entity_id\
-        \ == 'switch.shelly_shplg_s_9a4071' and states.switch.shelly_shplg_s_9a4071.state\
+        \ == 'switch.shellyplug_s_9a4071' and states.switch.shellyplug_s_9a4071.state\
         \ == 'off' %}\n  {% set player = 'gang_sonos' %}    \n{% elif trigger.entity_id\
-        \ == 'switch.shelly_shplg_s_977c27' and states.switch.shelly_shplg_s_977c27.state\
+        \ == 'switch.shellyplug_s_977c27' and states.switch.shellyplug_s_977c27.state\
         \ == 'on' %}\n  {% set player = 'schlafzimmer_sonos' %}  \n{% elif trigger.entity_id\
-        \ == 'switch.shelly_shplg_s_977c27' and states.switch.shelly_shplg_s_977c27.state\
+        \ == 'switch.shellyplug_s_977c27' and states.switch.shellyplug_s_977c27.state\
         \ == 'off' %}\n  {% set player = 'gang_sonos' %}\n{% else %}\n  {% set player\
         \ = 'gang_sonos' %}    \n{% endif %} {% if player is not none %}\n  {{ player\
         \ }}\n{% else %}\n  false\n{% endif %}\n"
@@ -1449,8 +1447,8 @@
   condition: []
   action:
   - type: turn_on
-    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
-    entity_id: switch.shelly_shplg_s_977c27
+    device_id: 00403caa4b2c7173a0847709f0b3d0af
+    entity_id: switch.shellyplug_s_977c27
     domain: switch
   - service: script.say
     data:
@@ -1471,7 +1469,8 @@
   - service: script.atv_schlafzimmer_einschalten
     data: {}
   - service: remote.turn_on
-    data: {}
+    data:
+      entity_id: remote.schlafzimmer_apple_tv
   - delay:
       hours: 0
       minutes: 0

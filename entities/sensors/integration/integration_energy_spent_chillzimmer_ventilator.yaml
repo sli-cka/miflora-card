@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shplg_s_80149d_current_consumption
+source: sensor.shellyplug_s_80149d_power
 name: energy_spent_chillzimmer_ventilator
 method: left
 unit_prefix: k

@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shsw_pm_8caab5057a29_current_consumption
+source: sensor.shelly1pm_8caab5057a29_power
 name: energy_spent_toilette_heizung
 method: left
 unit_prefix: k

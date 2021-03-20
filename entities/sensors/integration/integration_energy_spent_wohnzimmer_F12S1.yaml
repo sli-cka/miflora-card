@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shsw_pm_8caab5056877_current_consumption
+source: sensor.shelly1pm_8caab5056877_power
 name: energy_spent_wohnzimmer_F12S1
 unit_prefix: k
 round: 2

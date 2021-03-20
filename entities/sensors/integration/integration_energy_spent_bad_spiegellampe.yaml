@@ -3,7 +3,7 @@
 #====================
 
 platform: integration
-source: sensor.shelly_shsw_pm_ba0f30_current_consumption
+source: sensor.shelly1pm_ba0f30_power
 name: energy_spent_bad_spiegellampe
 unit_prefix: k
 round: 2

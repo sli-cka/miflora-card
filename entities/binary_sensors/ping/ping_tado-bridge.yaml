@@ -3,7 +3,7 @@
 #==================
 
 platform: ping
-host: 192.168.1.51
+host: 192.168.20.11
 count: 2
 scan_interval: 30
 name: ping_tado-bridge
