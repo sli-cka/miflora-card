@@ -291,6 +291,11 @@ sensors:
     value_template: "{{ states.sensor.mi_c_80eaca8969cb.attributes.rssi }}"
     unit_of_measurement: "dB"
 
+  mi_signal_strength_80eaca8969cb:
+    friendly_name: WZ Dracaena Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_80eaca8969cb.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
   mi_daily_light_80eaca8969cb_min:
     friendly_name: Tageslicht 80eaca8969cb Min
     value_template: "{{ states.sensor.mi_daily_light_80eaca8969cb.attributes.min_value }}"
@@ -313,6 +318,11 @@ sensors:
     friendly_name: Cordyline RSSI
     value_template: "{{ states.sensor.mi_l_c47c8d67bcdd.attributes.rssi }}"
     unit_of_measurement: "dB"
+
+  mi_signal_strength_c47c8d67bcdd:
+    friendly_name: Cordyline Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d67bcdd.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
 
   mi_daily_light_c47c8d67bcdd_min:
     friendly_name: Tageslicht c47c8d67bcdd Min
@@ -338,6 +348,11 @@ sensors:
     value_template: "{{ states.sensor.mi_l_c47c8d678b5b.attributes.rssi }}"
     unit_of_measurement: "dB"
 
+  mi_signal_strength_c47c8d678b5b:
+    friendly_name: CZ Dracaena Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d678b5b.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
   mi_daily_light_c47c8d678b5b_min:
     friendly_name: Tageslicht c47c8d678b5b Min
     value_template: "{{ states.sensor.mi_daily_light_c47c8d678b5b.attributes.min_value }}"
@@ -360,6 +375,11 @@ sensors:
     friendly_name: CZ Efeutute RSSI
     value_template: "{{ states.sensor.mi_c_c47c8d67bd2f.attributes.rssi }}"
     unit_of_measurement: "dB"
+
+  mi_signal_strength_c47c8d67bd2f:
+    friendly_name: CZ Efeutute Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d67bd2f.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
 
   mi_daily_light_c47c8d67bd2f_min:
     friendly_name: Tageslicht c47c8d67bd2f Min
@@ -384,6 +404,11 @@ sensors:
     value_template: "{{ states.sensor.mi_c_c47c8d679abd.attributes.rssi }}"
     unit_of_measurement: "dB"
 
+  mi_signal_strength_c47c8d679abd:
+    friendly_name: CZ Calathea Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d679abd.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
   mi_daily_light_c47c8d679abd_min:
     friendly_name: Tageslicht c47c8d679abd Min
     value_template: "{{ states.sensor.mi_daily_light_c47c8d679abd.attributes.min_value }}"
@@ -406,6 +431,11 @@ sensors:
     friendly_name: CZ Dracaena Marginata RSSI
     value_template: "{{ states.sensor.mi_c_c47c8d678c2a.attributes.rssi }}"
     unit_of_measurement: "dB"
+
+  mi_signal_strength_c47c8d678c2a:
+    friendly_name: CZ Dracaena Marginata Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d678c2a.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
 
   mi_daily_light_c47c8d678c2a_min:
     friendly_name: Tageslicht c47c8d678c2a Min
@@ -430,6 +460,11 @@ sensors:
     value_template: "{{ states.sensor.mi_c_c47c8d67792d.attributes.rssi }}"
     unit_of_measurement: "dB"
 
+  mi_signal_strength_c47c8d67792d:
+    friendly_name: CZ Maya Tree Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d67792d.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
   mi_daily_light_c47c8d67792d_min:
     friendly_name: Tageslicht c47c8d67792d Min
     value_template: "{{ states.sensor.mi_daily_light_c47c8d67792d.attributes.min_value }}"
@@ -452,6 +487,11 @@ sensors:
     friendly_name: Chillzimmer Dracaena Makoyana RSSI
     value_template: "{{ states.sensor.mi_c_c47c8d6789f8.attributes.rssi }}"
     unit_of_measurement: "dB"
+
+  mi_signal_strength_c47c8d67792d:
+    friendly_name: CZ Dracaena Makoyana Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d6789f8.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
 
   mi_daily_light_c47c8d6789f8_min:
     friendly_name: Tageslicht c47c8d6789f8 Min
@@ -476,6 +516,11 @@ sensors:
     value_template: "{{ states.sensor.mi_c_c47c8d67bcbb.attributes.rssi }}"
     unit_of_measurement: "dB"
 
+  mi_signal_strength_c47c8d67bcbb:
+    friendly_name: Wohnzimmer Dypsis Lutescens Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d67bcbb.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
   mi_daily_light_c47c8d67bcbb_min:
     friendly_name: Tageslicht c47c8d67bcbb Min
     value_template: "{{ states.sensor.mi_daily_light_c47c8d67bcbb.attributes.min_value }}"
@@ -499,6 +544,11 @@ sensors:
     value_template: "{{ states.sensor.mi_conductivity_c47c8d6777e3.attributes.rssi }}"
     unit_of_measurement: "dB"
 
+  mi_signal_strength_c47c8d6777e3:
+    friendly_name: Küche Basilikum Signalstärke
+    value_template: "{{ ((states.sensor.mi_rssi_c47c8d6777e3.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
   mi_daily_light_c47c8d6777e3_min:
     friendly_name: Tageslicht c47c8d6777e3 Min
     value_template: "{{ states.sensor.mi_daily_light_c47c8d6777e3.attributes.min_value }}"
@@ -515,6 +565,111 @@ sensors:
     unit_of_measurement: "lx"
 
   #====================
+  # Template Blink Wifi Signal
+  #====================
+  blink_balkon_wifi_signal_strength:
+    friendly_name: blink Balkon Wifi Signalstärke
+    value_template: "{{ ((states.sensor.blink_balkon_wifi_signal.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shellyswitch25_98f4abf2c243 Wifi Signal
+  #====================
+  shellyswitch25_98f4abf2c243_signal_strength:
+    friendly_name: Wohnzimmer Rollo Links Signalstärke
+    value_template: "{{ ((states.sensor.shellyswitch25_98f4abf2c243_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shellyswitch25_8caab505a2ca_rssi Wifi Signal
+  #====================
+  shellyswitch25_8caab505a2ca_signal_strength:
+    friendly_name: Wohnzimmer Rollo Rechts Signalstärke
+    value_template: "{{ ((states.sensor.shellyswitch25_8caab505a2ca_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shelly1pm_ba0f30_rssi Wifi Signal
+  #====================
+  shelly1pm_ba0f30_signal_strength:
+    friendly_name: Bad Spiegellampe Signalstärke
+    value_template: "{{ ((states.sensor.shelly1pm_ba0f30_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shelly1pm_8caab505778e_rssi Wifi Signal
+  #====================
+  shelly1pm_8caab505778e_signal_strength:
+    friendly_name: Küche Spülmaschine Signalstärke
+    value_template: "{{ ((states.sensor.shelly1pm_8caab505778e_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shelly1pm_8caab5057a29_rssi Wifi Signal
+  #====================
+  shelly1pm_8caab5057a29_signal_strength:
+    friendly_name: Toilette Heizung Signalstärke
+    value_template: "{{ ((states.sensor.shelly1pm_8caab5057a29_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shelly1pm_8caab5056877_rssi Wifi Signal
+  #====================
+  shelly1pm_8caab5056877_signal_strength:
+    friendly_name: Wohnzimmer Steckdose F12S1 Signalstärke
+    value_template: "{{ ((states.sensor.shelly1pm_8caab5056877_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+   
+  #====================
+  # Template shelly1pm_8caab505fba2_rssi Wifi Signal
+  #====================
+  shelly1pm_8caab505fba2_signal_strength:
+    friendly_name: Wohnzimmer Steckdose F12S2 Signalstärke
+    value_template: "{{ ((states.sensor.shelly1pm_8caab505fba2_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shellyplug_s_801be9_rssi Wifi Signal
+  #====================
+  shellyplug_s_801be9_signal_strength:
+    friendly_name: Gang Routerschrank Signalstärke
+    value_template: "{{ ((states.sensor.shellyplug_s_801be9_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shellyplug_s_dbf2f5_rssi Wifi Signal
+  #====================
+  shellyplug_s_dbf2f5_signal_strength:
+    friendly_name: Küche Dunstabzug Signalstärke
+    value_template: "{{ ((states.sensor.shellyplug_s_dbf2f5_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shellyplug_s_977c27_rssi Wifi Signal
+  #====================
+  shellyplug_s_977c27_signal_strength:
+    friendly_name: Schlafzimmer TV Signalstärke
+    value_template: "{{ ((states.sensor.shellyplug_s_977c27_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shellyplug_s_9a4071_rssi Wifi Signal
+  #====================
+  shellyplug_s_9a4071_signal_strength:
+    friendly_name: Chillzimmer TV Signalstärke
+    value_template: "{{ ((states.sensor.shellyplug_s_9a4071_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+  #====================
+  # Template shellyplug_s_80149d_rssi Wifi Signal
+  #====================
+  shellyplug_s_80149d_signal_strength:
+    friendly_name: Wohnzimmer Ventilator Signalstärke
+    value_template: "{{ ((states.sensor.shellyplug_s_80149d_rssi.state | int) + 100) * 2 }}"
+    unit_of_measurement: "%"
+
+
+  #====================
   # Template Sensor Fahrtzeit DB
   #====================
   db_transit_time_roe:
@@ -527,6 +682,7 @@ sensors:
   db_transit_time_nue:
     friendly_name: "Fahrtzeit Nue"
     value_template: "{{ states.sensor.rothenbach_st_w_in_der_lach_wendelstein_to_rathenauplatz_nurnberg.attributes.time }}"
+
 
   #====================
   # Template Sensor Nextbike Nähste Fahrrad
@@ -542,8 +698,6 @@ sensors:
   nextbike_closest_bike_coordinates:
     friendly_name: Nextbike Koordinaten nächstes Fahrrad
     value_template: "{{ states.sensor.nextbike_500m.attributes.closest_latitude }}, {{ states.sensor.nextbike_500m.attributes.closest_longitude }}"
-
-
     
   #====================
   # Home Assistant uptime

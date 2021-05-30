@@ -1,0 +1,12 @@
+#====================
+# Input Number Auswahl für Sonos Master Controller Volume 
+# https://www.home-assistant.io/integrations/input_number/
+#====================
+
+music_controller_volume:
+  name: Musik Lautstärke
+  initial: 0.15
+  min: 0
+  max: 0.3
+  step: 0.01
+  icon: mdi:volume-source

@@ -2,7 +2,7 @@
 #=== Binärsensor um Netzwerkstatus per Ping zu ermitteln
 #==================
 platform: ping
-host: 192.168.10.164
+host: 192.168.30.50
 count: 2
 scan_interval: 30
 name: ping_shelly-flood

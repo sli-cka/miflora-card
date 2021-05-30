@@ -3,7 +3,7 @@
 #==================
 
 platform: ping
-host: 192.168.40.45
+host: 192.168.20.55
 count: 2
 scan_interval: 30
 name: ping_sonos-schlafzimmer

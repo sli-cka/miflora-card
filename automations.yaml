@@ -2,38 +2,39 @@
   alias: Info Spülmaschine fertig
   description: ''
   trigger:
-  - below: 3
+  - type: power
+    platform: device
     device_id: a5118386e5a94c45aec418915d24c78b
-    domain: sensor
     entity_id: sensor.shelly1pm_8caab505778e_power
+    domain: sensor
+    below: 3
     for:
       hours: 0
       minutes: 15
       seconds: 0
-    platform: device
-    type: value
+      milliseconds: 0
+    above: 0.1
   condition: []
   action:
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Spülmaschine ist fertig
-    service: notify.flo_telegram
   mode: single
 - id: '1595194697802'
   alias: Heizung Toilette an
   description: ''
   trigger:
-  - device_id: 28ded1cc893143a9a5225c0f1e975330
-    domain: switch
+  - platform: state
     entity_id: switch.shelly1pm_8caab5057a29
-    platform: device
-    type: turned_on
+    from: 'off'
+    to: 'on'
   - platform: event
     event_type: ios.notification_action_fired
     event_data:
       actionName: HEIZUNG_AUS
   condition: []
   action:
-  - service: notify.mobile_app_flo_s_iphone_11
+  - service: notify.mobile_app_iphone
     data:
       title: Heizung
       message: Toilette eingeschalten
@@ -48,11 +49,10 @@
   alias: Heizung Toilette aus
   description: ''
   trigger:
-  - device_id: 28ded1cc893143a9a5225c0f1e975330
-    domain: switch
+  - platform: state
     entity_id: switch.shelly1pm_8caab5057a29
-    platform: device
-    type: turned_off
+    from: 'on'
+    to: 'off'
   condition: []
   action:
   - data:
@@ -64,83 +64,32 @@
         url:
           _: /flos-dashboard/heizung
           HEIZUNG_AN: /flos-dashboard/
-    service: notify.mobile_app_flo_s_iphone_11
+    service: notify.mobile_app_iphone
   mode: single
-- id: '1595197538460'
-  alias: Telegram Infos Arbeit Spät
-  description: ''
-  trigger:
-  - at: '17:10'
-    platform: time
-  condition:
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'on'
-  - condition: zone
-    entity_id: person.flo
-    zone: zone.arbeit
-  action:
-  - data:
-      message: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
-        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %}{{ [\"Meister\",\"\
-        Chef\",\"mein Liebster\"] | random }}.\n\nDie aktuelle Uhrzeit ist {{states.sensor.time.state}}\
-        \ Uhr.\n\nDas Wetter ist aktuell {{state_attr('weather.home', 'temperature')}}°\
-        \ C und es ist {{states.weather.home.state}}. \n\nHeimweg:\nAbfahrt {{ states.sensor.rothenbach_st_w_in_der_lach_wendelstein_to_rathenauplatz_nurnberg.state\
-        \ }} Uhr\nVerspätung {{ states.sensor.rothenbach_st_w_in_der_lach_wendelstein_to_rathenauplatz_nurnberg.attributes.delay\
-        \ }} Minuten\nDauer {{ states.sensor.db_transit_time_nue.state }} Stunden\n\
-        \nAuto - {{ states.sensor.arbeitsweg_nue_auto.state }} Minuten\nvia {{ states.sensor.arbeitsweg_nue_auto.attributes.route\
-        \ }}\n\nIch wünsche dir einen {{ [\"herrlichen\",\"wunderbaren\",\"tollen\"\
-        ,\"super\",\"wundervollen\",\"schönen\"] | random }} Abend!\n"
-    service: notify.flo_telegram
-  - data:
-      language: de
-      message: Guten Abend Flo
-    entity_id: media_player.wohnzimmer_sonos
-    service: tts.google_translate_say
-  mode: single
-- id: '1595765260699'
-  alias: Blitze
-  description: ''
-  trigger:
-  - above: 1
-    below: 100000
-    device_id: a910e7071dc54f0cbe765cff59bbf9cd
-    domain: sensor
-    entity_id: sensor.blitzortung_lightning_counter
-    platform: device
-    type: value
-  condition: []
-  action:
-  - device_id: dd31102cd1224b89bc195d3eff56a385
-    domain: light
-    entity_id: light.chillzimmer_deckenlampe
-    type: flash
-  mode: parallel
-  max: 300
 - id: '1595769804152'
   alias: Rollostop
   description: Jalousien/Rollanden stoppen
   trigger:
-  - above: 98
-    below: 100
-    device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+  - platform: device
+    device_id: df81e077085708d6ff27dc4a4f7469b6
     domain: cover
-    entity_id: cover.tradfri_blind
-    platform: device
+    entity_id: cover.chillzimmer_rollo
     type: position
+    above: 80
+    below: 99
   condition:
   - condition: state
-    entity_id: binary_sensor.koogeek_chillzimmer_fenster
+    entity_id: binary_sensor.chillzimmer_fenstersensor
     state: 'on'
   action:
-  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+  - device_id: df81e077085708d6ff27dc4a4f7469b6
     domain: cover
-    entity_id: cover.tradfri_blind
-    position: 100
+    entity_id: cover.chillzimmer_rollo
     type: set_position
-  - data:
+    position: 100
+  - service: notify.mobile_app_iphone
+    data:
       message: Rollostop Chillzimmer wurde aktiviert
-    service: notify.notify
   - data:
       variables:
         what: Rollo Stop wurde aktiviert!
@@ -148,7 +97,7 @@
         language: de
     entity_id: script.say
     service: script.turn_on
-  mode: single
+  mode: restart
 - id: '1595772363655'
   alias: Kamera Balkon ausschalten
   description: ''
@@ -162,9 +111,9 @@
   - data: {}
     entity_id: alarm_control_panel.blink_rudolph
     service: alarm_control_panel.alarm_disarm
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Kamera Balkon wurde deaktiviert
-    service: notify.flo_telegram
   mode: single
 - id: '1595772447419'
   alias: Kamera Balkon einschalten
@@ -179,66 +128,9 @@
   - data: {}
     entity_id: alarm_control_panel.blink_rudolph
     service: alarm_control_panel.alarm_arm_away
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Kamera Balkon wurde aktiviert
-    service: notify.flo_telegram
-  mode: single
-- id: '1595776280605'
-  alias: Telegram Infos Arbeit  TTS
-  description: ''
-  trigger:
-  - device_id: b7a3fbc22a854263a6530c11366b6b86
-    domain: binary_sensor
-    entity_id: binary_sensor.sensor_bad_motion
-    platform: device
-    type: motion
-  condition:
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'on'
-  - after: 07:00
-    before: '10:00'
-    condition: time
-  action:
-  - data:
-      message: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
-        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %}{{ [\"Meister\",\"\
-        Chef\",\"mein Liebster\"] | random }}.\n\nDie aktuelle Uhrzeit ist {{states.sensor.time.state}}\
-        \ Uhr.\n\nDas Wetter ist aktuell {{state_attr('weather.home', 'temperature')}}°\
-        \ C und es ist {{states.weather.home.state}}. \n\nArbeitsweg:\nAbfahrt {{\
-        \ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.state\
-        \ }} Uhr\nVerspätung {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.attributes.delay\
-        \ }} Minuten\nDauer {{ states.sensor.db_transit_time_roe.state }} Stunden\n\
-        \nAuto - {{ states.sensor.arbeitsweg_roe_auto.state }} Minuten\nvia {{ states.sensor.arbeitsweg_roe_auto.attributes.route\
-        \ }}\n\nIch wünsche dir einen {{ [\"herrlichen\",\"wunderbaren\",\"tollen\"\
-        ,\"super\",\"wundervollen\",\"schönen\"] | random }} Tag!\n"
-    service: notify.flo_telegram
-  - data:
-      entity_id: media_player.bad_sonos
-    service: sonos.snapshot
-  - data:
-      entity_id: media_player.bad_sonos
-    service: sonos.unjoin
-  - data_template:
-      entity_id: media_player.bad_sonos
-      language: de
-      message: "{% if now().strftime(\"%H\")|int < 12 %}Guten Morgen {% elif now().strftime(\"\
-        %H\")|int < 18 %}Hallo {% else %}Guten Abend {% endif %}{{ [\"Meister\",\"\
-        Chef\",\"mein Liebster\"] | random }}.\n\nDie aktuelle Uhrzeit ist {{states.sensor.time.state}}\
-        \ Uhr.\n\nDas Temparatur ist aktuell {{state_attr('weather.home', 'temperature')\
-        \ | round(0)}}° C und das Wetter ist {{states.weather.home.state}}. \n\nAbfahrt\
-        \ in die Arbeit um {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.state\
-        \ }}.\nVerspätung {{ states.sensor.rathenauplatz_nurnberg_to_rothenbach_st_w_in_der_lach_wendelstein.attributes.delay\
-        \ }} Minuten\nDauer {{ states.sensor.db_transit_time_roe.state }}.\nIch wünsche\
-        \ dir einen {{ [\"herrlichen\",\"wunderbaren\",\"tollen\",\"super\",\"wundervollen\"\
-        ,\"schönen\"] | random }} Tag!\n"
-    entity_id: media_player.bad_sonos
-    service: tts.google_translate_say
-  - delay: '2'
-  - data:
-      entity_id: media_player.bad_sonos
-    service: sonos.restore
-  - delay: '1000'
   mode: single
 - id: '1595783889092'
   alias: HA start notify
@@ -248,9 +140,9 @@
     platform: homeassistant
   condition: []
   action:
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Home Assistant gestartet
-    service: notify.flo_telegram
   mode: single
 - id: '1595785985930'
   alias: HA stop notify
@@ -260,9 +152,9 @@
     platform: homeassistant
   condition: []
   action:
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Home Assistant gestoppt
-    service: notify.flo_telegram
   mode: single
 - id: '1596236837075'
   alias: HACS Update Info
@@ -277,12 +169,7 @@
       message: '{{states.sensor.hacs.state}} Hacs Update(s) vorhanden
 
         '
-    service: notify.notify
-  - data:
-      message: '{{states.sensor.hacs.state}} Hacs Update(s) vorhanden
-
-        '
-    service: notify.flo_telegram
+    service: notify.mobile_app_iphone
   mode: single
 - id: '1597054963851'
   alias: Klingel
@@ -294,10 +181,7 @@
   action:
   - data:
       message: Es hat geklingelt
-    service: notify.mobile_app_flo_s_iphone_11
-  - data:
-      message: Es hat geklingelt
-    service: notify.flo_telegram
+    service: notify.mobile_app_iphone
   - device_id: dd31102cd1224b89bc195d3eff56a385
     domain: light
     entity_id: light.chillzimmer_deckenlampe
@@ -399,10 +283,7 @@
   action:
   - data:
       message: Achtung! Wasser am Boden (Toilette)
-    service: notify.mobile_app_flo_s_iphone_11
-  - data:
-      message: Achtung! Wasser am Boden (Toilette)
-    service: notify.flo_telegram
+    service: notify.mobile_app_iphone
   mode: single
 - id: '1599650515819'
   alias: Rollo WZ öffnen
@@ -412,16 +293,16 @@
     platform: sun
   condition: []
   action:
-  - device_id: 7e01390d29fa4c64ae40a745245df5df
+  - device_id: 29b9c8ebfa787e1c60312e2756884599
     domain: cover
     entity_id: cover.shellyswitch25_98f4abf2c243
-    position: 100
     type: set_position
-  - device_id: 87260ef7fd684616a12119abe234f78c
+    position: 100
+  - device_id: 3394f20c49515eeffed73692750c477c
     domain: cover
     entity_id: cover.shellyswitch25_8caab505a2ca
-    position: 100
     type: set_position
+    position: 100
   mode: single
 - id: '1599650893811'
   alias: Rollo WZ schließen
@@ -431,35 +312,30 @@
     platform: sun
   condition: []
   action:
-  - device_id: 7e01390d29fa4c64ae40a745245df5df
+  - device_id: 29b9c8ebfa787e1c60312e2756884599
     domain: cover
     entity_id: cover.shellyswitch25_98f4abf2c243
-    position: 0
     type: set_position
-  - device_id: 87260ef7fd684616a12119abe234f78c
+    position: 0
+  - device_id: 3394f20c49515eeffed73692750c477c
     domain: cover
     entity_id: cover.shellyswitch25_8caab505a2ca
-    position: 0
     type: set_position
+    position: 0
   mode: single
 - id: '1599747044487'
   alias: Briefkasten
   description: ''
   trigger:
-  - device_id: 845ce1ce0a694597b742acde0c9e2c39
-    domain: binary_sensor
-    entity_id: binary_sensor.shelly_shdw_2_d8bfc01a8e7a_door_window
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-    platform: device
-    type: opened
+  - platform: state
+    entity_id: binary_sensor.briefkasten_sensor
+    from: 'off'
+    to: 'on'
   condition: []
   action:
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Briefkasten geöffnet
-    service: notify.flo_telegram
   mode: single
 - id: '1599749316508'
   alias: Ping - RPi3 down
@@ -471,9 +347,9 @@
     to: 'off'
   condition: []
   action:
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Raspberry Pi 3 down (DNS Server)
-    service: notify.flo_telegram
   mode: single
 - id: '1599821272066'
   alias: Rollo CZ öffnen
@@ -483,14 +359,14 @@
     platform: sun
   condition:
   - condition: state
-    entity_id: binary_sensor.koogeek_chillzimmer_fenster
+    entity_id: binary_sensor.chillzimmer_fenstersensor
     state: 'off'
   action:
-  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+  - device_id: df81e077085708d6ff27dc4a4f7469b6
     domain: cover
-    entity_id: cover.tradfri_blind
-    position: 100
+    entity_id: cover.chillzimmer_rollo
     type: set_position
+    position: 100
   mode: single
 - id: '1599821480344'
   alias: Rollo CZ schließen
@@ -500,18 +376,18 @@
     platform: sun
   condition:
   - condition: state
-    entity_id: binary_sensor.koogeek_chillzimmer_fenster
+    entity_id: binary_sensor.chillzimmer_fenstersensor
     state: 'off'
   - above: '50'
     condition: numeric_state
-    entity_id: cover.tradfri_blind
+    entity_id: cover.chillzimmer_rollo
     attribute: current_position
   action:
-  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
+  - device_id: df81e077085708d6ff27dc4a4f7469b6
     domain: cover
-    entity_id: cover.tradfri_blind
-    position: 50
+    entity_id: cover.chillzimmer_rollo
     type: set_position
+    position: 50
   mode: single
 - id: '1599821764307'
   alias: Ping - Tado up
@@ -523,7 +399,7 @@
     to: 'on'
   condition: []
   action:
-  - service: notify.mobile_app_flo_s_iphone_11
+  - service: notify.mobile_app_iphone
     data:
       message: Tado Bridge (Heizung) gestartet
   mode: single
@@ -537,9 +413,9 @@
     to: 'on'
   condition: []
   action:
-  - data:
+  - service: notify.mobile_app_iphone
+    data:
       message: Bewegung erkannt
-    service: notify.flo_telegram
   mode: single
 - id: '1600185298859'
   alias: Movie Night
@@ -552,7 +428,7 @@
   condition: []
   action:
   - type: turn_on
-    device_id: d15f28d3f9b311ea87726fe564b32d29
+    device_id: 543714b0beeca43090324dd709713567
     entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - service: script.atv_chillzimmer_einschalten
@@ -589,54 +465,6 @@
   - service: script.atv_chillzimmer_netflix
     data: {}
   mode: single
-- id: '1600188471292'
-  alias: Xbox spielen
-  description: ''
-  trigger:
-  - entity_id: input_boolean.automation_xbox_spielen
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - device_id: a7758fbaa1f3463fa312fa5b65fe3b3a
-    domain: cover
-    entity_id: cover.tradfri_blind
-    position: 0
-    type: set_position
-  - device_id: fc3fc54fbb794a7a82c9dc87682620f9
-    domain: switch
-    entity_id: switch.xbox
-    type: turn_on
-  - type: turn_on
-    device_id: d15f28d3f9b311ea87726fe564b32d29
-    entity_id: switch.shellyplug_s_9a4071
-    domain: switch
-  - device_id: dd31102cd1224b89bc195d3eff56a385
-    domain: light
-    entity_id: light.chillzimmer_deckenlampe
-    type: turn_off
-  - delay: '1'
-  - brightness_pct: 30
-    device_id: f58408ded4ef42c298dfd3e28fe53808
-    domain: light
-    entity_id: light.chillzimmer_tv_lampe
-    flash: short
-    type: turn_on
-  - delay: '1'
-  - device_id: 5260936b8d284bc4b67d4cf209c0af27
-    domain: light
-    entity_id: light.chillzimmer_stehlampe_unten
-    type: turn_off
-  - delay: '1'
-  - device_id: d0ee65aef03e49dea1c13994f866fabf
-    domain: light
-    entity_id: light.chillzimmer_stehlampe_oben
-    type: turn_off
-  - data:
-      entity_id: input_boolean.automation_xbox_spielen
-    service: input_boolean.turn_off
-  mode: single
 - id: '1600381540794'
   alias: Tag Bad is scanned
   description: ''
@@ -646,7 +474,7 @@
   condition: []
   action:
   - type: toggle
-    device_id: ff02e160de9c4d26bc390da1aeba5602
+    device_id: 5125e2e1807f738d7ede8e687e82383b
     entity_id: switch.shelly1pm_ba0f30
     domain: switch
   mode: single
@@ -663,28 +491,28 @@
   condition: []
   action:
   - type: turn_off
-    device_id: fc3fc54fbb794a7a82c9dc87682620f9
-    entity_id: switch.xbox
-    domain: switch
-  - type: turn_off
-    device_id: 9894c517073c11eba29a3775c3692765
+    device_id: e9b6e5595d83852055f52ed3075dd2d5
     entity_id: switch.shellyplug_s_80149d
     domain: switch
   - type: turn_off
-    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    device_id: 00403caa4b2c7173a0847709f0b3d0af
     entity_id: switch.shellyplug_s_977c27
     domain: switch
   - type: turn_off
-    device_id: 6c55d03d0f6c4fdba9a9d8ddde31d29a
+    device_id: 4a51cfbc209ba765703cdfa8d01ddaab
     entity_id: switch.shellyplug_s_dbf2f5
     domain: switch
   - type: turn_off
-    device_id: 28ded1cc893143a9a5225c0f1e975330
+    device_id: 92cca8641b9c46f1047427e85fb485a1
     entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - type: turn_off
-    device_id: d15f28d3f9b311ea87726fe564b32d29
+    device_id: 543714b0beeca43090324dd709713567
     entity_id: switch.shellyplug_s_9a4071
+    domain: switch
+  - type: turn_off
+    device_id: 5125e2e1807f738d7ede8e687e82383b
+    entity_id: switch.shelly1pm_ba0f30
     domain: switch
   - delay: '1'
   - service: input_boolean.turn_off
@@ -717,9 +545,10 @@
   - platform: state
     entity_id: vacuum.roborock
     to: docked
+    from: returning
   condition: []
   action:
-  - service: notify.flo_telegram
+  - service: notify.mobile_app_iphone
     data:
       message: Roborock hat Ladestation erreicht
   - service: input_boolean.turn_on
@@ -780,22 +609,7 @@
         }} verfügbar
 
         '
-    service: notify.flo_telegram
-  mode: single
-- id: '1602947017477'
-  alias: HA Update Info Latest Version
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.updater
-    to: 'off'
-  condition: []
-  action:
-  - data:
-      message: 'aktuellste Home Assistant Version installiert
-
-        '
-    service: notify.flo_telegram
+    service: notify.mobile_app_iphone
   mode: single
 - id: '1607536666393'
   alias: Gute Nacht Musik
@@ -855,53 +669,9 @@
   action:
   - scene: scene.chillout
   - type: turn_on
-    device_id: d15f28d3f9b311ea87726fe564b32d29
+    device_id: 543714b0beeca43090324dd709713567
     entity_id: switch.shellyplug_s_9a4071
     domain: switch
-  mode: single
-- id: '1608909673746'
-  alias: Dimmer Wohnzimmer Rollo Runter
-  description: ''
-  trigger:
-  - device_id: 45b66ffc2ab54570aa89d2c9b238392c
-    domain: hue
-    platform: device
-    type: remote_button_long_release
-    subtype: dim_up
-  condition: []
-  action:
-  - device_id: 7e01390d29fa4c64ae40a745245df5df
-    domain: cover
-    entity_id: cover.shellyswitch25_98f4abf2c243
-    type: set_position
-    position: 100
-  - device_id: 87260ef7fd684616a12119abe234f78c
-    domain: cover
-    entity_id: cover.shellyswitch25_8caab505a2ca
-    type: set_position
-    position: 100
-  mode: single
-- id: '1608909726300'
-  alias: Dimmer Wohnzimmer Rollo Rauf
-  description: ''
-  trigger:
-  - device_id: 45b66ffc2ab54570aa89d2c9b238392c
-    domain: hue
-    platform: device
-    type: remote_button_long_release
-    subtype: dim_down
-  condition: []
-  action:
-  - device_id: 7e01390d29fa4c64ae40a745245df5df
-    domain: cover
-    entity_id: cover.shellyswitch25_98f4abf2c243
-    type: set_position
-    position: 0
-  - device_id: 87260ef7fd684616a12119abe234f78c
-    domain: cover
-    entity_id: cover.shellyswitch25_8caab505a2ca
-    type: set_position
-    position: 0
   mode: single
 - id: '1608923224438'
   alias: Sonos Radio Group
@@ -1056,11 +826,10 @@
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
-      no_motion_wait: '30'
-      light_target:
-        device_id:
-        - 79459b5df51d4215a3bf064801ad9cd4
+      no_motion_wait: 30
       motion_entity: binary_sensor.sensor_kuche_occupancy
+      light_target:
+        device_id: 53a60bd298935f9459131e1d0144fab7
 - id: '1609334568871'
   alias: Motion-activated Light Bad
   description: ''
@@ -1131,7 +900,7 @@
     brightness_pct: 70
     flash: long
   - type: turn_on
-    device_id: 28ded1cc893143a9a5225c0f1e975330
+    device_id: 92cca8641b9c46f1047427e85fb485a1
     entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - service: media_player.select_source
@@ -1149,7 +918,7 @@
     entity_id: media_player.schlafzimmer_sonos
   - delay: '900'
   - type: turn_off
-    device_id: 28ded1cc893143a9a5225c0f1e975330
+    device_id: 92cca8641b9c46f1047427e85fb485a1
     entity_id: switch.shelly1pm_8caab5057a29
     domain: switch
   - service: input_boolean.turn_off
@@ -1173,7 +942,7 @@
     to: 'off'
   condition: []
   action:
-  - service: notify.mobile_app_flo_s_iphone_11
+  - service: notify.mobile_app_iphone
     data:
       message: Tado Bridge (Heizung) down
   mode: single
@@ -1187,9 +956,9 @@
     to: 'on'
   condition: []
   action:
-  - data:
-      message: Raspberry Pi 3 gestertet
-    service: notify.flo_telegram
+  - service: notify.mobile_app_iphone
+    data:
+      message: Raspberry Pi 3 gestartet
   mode: single
 - id: '1610753616257'
   alias: test_tts
@@ -1223,22 +992,22 @@
   trigger:
   - platform: device
     type: turned_on
-    device_id: d15f28d3f9b311ea87726fe564b32d29
+    device_id: 543714b0beeca43090324dd709713567
     entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - platform: device
     type: turned_off
-    device_id: d15f28d3f9b311ea87726fe564b32d29
+    device_id: 543714b0beeca43090324dd709713567
     entity_id: switch.shellyplug_s_9a4071
     domain: switch
   - platform: device
     type: turned_on
-    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    device_id: 00403caa4b2c7173a0847709f0b3d0af
     entity_id: switch.shellyplug_s_977c27
     domain: switch
   - platform: device
     type: turned_off
-    device_id: 77f5dae3f9af11ea8ebdffe77c6ba772
+    device_id: 00403caa4b2c7173a0847709f0b3d0af
     entity_id: switch.shellyplug_s_977c27
     domain: switch
   condition:
@@ -1308,36 +1077,9 @@
     to: 'off'
   condition: []
   action:
-  - data:
-      message: Es gibt ein Problem mit einem tado Gerät
-    service: notify.flo_telegram
-  mode: single
-- id: '1611786281253'
-  alias: home_status aktualisieren
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: person.flo
-    to: home
-  - platform: state
-    entity_id: person.flo
-    to: not_home
-  - device_id: 0adea5e2c5994bd8849dc710bfe456c9
-    domain: hue
-    platform: device
-    type: remote_button_short_release
-    subtype: dim_down
-  condition: []
-  action:
-  - service: input_select.select_option
+  - service: notify.mobile_app_iphone
     data:
-      option: "{% if trigger.entity_id == 'person.flo' and states.person.flo.state\
-        \ == 'home' %}\n  {% set home_mode = 'Zuhause' %}\n{% elif trigger.entity_id\
-        \ == 'person.flo' and states.person.flo.state == 'not_home' %}\n  {% set home_mode\
-        \ = 'Abwesend' %}\n{% else %}\n  {% set home_mode = 'Abwesend' %}    \n{%\
-        \ endif %} {% if home_mode is not none %}\n  {{ home_mode }}\n{% else %}\n\
-        \  false\n{% endif %}\n"
-    entity_id: input_select.home_status
+      message: Es gibt ein Problem mit einem tado Gerät
   mode: single
 - id: '1611853049208'
   alias: home_status Zuhause
@@ -1350,14 +1092,17 @@
   action:
   - service: script.say
     data:
-      where: chillzimmer_sonos
+      where: gang_sonos
       what: Der Zuhause Modus wurde aktiviert
-  - service: notify.flo_telegram
+  - service: notify.mobile_app_iphone
     data:
       message: Der Zuhause Modus wurde aktiviert
   - service: input_boolean.turn_on
     data: {}
-    entity_id: input_boolean.follow_music
+    target:
+      entity_id:
+      - input_boolean.follow_music
+      - input_boolean.automation_licht_bewegungsmelder
   - service: automation.turn_off
     data: {}
     entity_id: automation.bewegung_erkannt
@@ -1373,9 +1118,9 @@
   action:
   - service: script.say
     data:
-      where: chillzimmer_sonos
+      where: gang_sonos
       what: Der Gast Modus wurde aktiviert
-  - service: notify.flo_telegram
+  - service: notify.mobile_app_iphone
     data:
       message: Der Gast Modus wurde aktiviert
   - service: input_boolean.turn_off
@@ -1398,15 +1143,23 @@
     data:
       where: gang_sonos
       what: Der Abwesend Modus wurde aktiviert
-  - service: notify.flo_telegram
+  - service: notify.mobile_app_iphone
     data:
       message: Der Abwesend Modus wurde aktiviert
   - service: input_boolean.turn_off
     data: {}
-    entity_id: input_boolean.follow_music
+    target:
+      entity_id:
+      - input_boolean.follow_music
+      - input_boolean.automation_licht_bewegungsmelder
   - service: automation.turn_on
     data: {}
     entity_id: automation.bewegung_erkannt
+  - service: input_boolean.turn_on
+    target:
+      entity_id:
+      - input_boolean.automation_licht_aus
+      - input_boolean.automation_strom_aus
   mode: single
 - id: '1612632253349'
   alias: ZHA - Tuya 4-Button Scene Switch
@@ -1432,10 +1185,23 @@
         domain: light
       button_one_double_press: []
       button_two_short_press:
-      - type: toggle
-        device_id: e902a0cd25bb47f0926be1e4e6c46bae
-        entity_id: light.schlafzimmer_deckenlampe
-        domain: light
+      - service: input_select.select_option
+        data:
+          option: Zuhause
+        target:
+          entity_id: input_select.home_status
+      button_two_long_press:
+      - service: input_select.select_option
+        data:
+          option: Gast_Modus
+        target:
+          entity_id: input_select.home_status
+      button_two_double_press:
+      - service: input_select.select_option
+        data:
+          option: Abwesend
+        target:
+          entity_id: input_select.home_status
 - id: '1613829218114'
   alias: Gute Nacht TV
   description: ''
@@ -1529,3 +1295,377 @@
     data: {}
     entity_id: input_boolean.automation_garage_zu
   mode: single
+- id: '1616278626032'
+  alias: Music Controller Lautstärke anpassen Uhrzeit
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00
+  - platform: time
+    at: 08:00
+  - platform: time
+    at: '10:00'
+  - platform: time
+    at: '20:00'
+  - platform: time
+    at: '22:00'
+  - platform: time
+    at: '23:59'
+  condition: []
+  action:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.music_controller_volume
+    data:
+      value: "{% if states.sensor.time.state == '07:00' %}\n  {% set volume = '0.10'\
+        \ %}\n{% elif states.sensor.time.state == '08:00' %}\n  {% set volume = '0.15'\
+        \ %}\n{% elif states.sensor.time.state == '10:00' %}\n  {% set volume = '0.20'\
+        \ %}\n{% elif states.sensor.time.state == '20:00' %}\n  {% set volume = '0.15'\
+        \ %}\n{% elif states.sensor.time.state == '22:00' %}\n  {% set volume = '0.10'\
+        \ %}\n{% elif states.sensor.time.state == '23:59' %}\n  {% set volume = '0.05'\
+        \ %}\n{% endif %} {% if volume is not none %}\n  {{ volume }}\n{% else %}\n\
+        \  false\n{% endif %}\n"
+  mode: single
+- id: '1616283389034'
+  alias: 'Music Controller Lautstärke anpassen automatisch '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_number.music_controller_volume
+  condition: []
+  action:
+  - service: media_player.volume_set
+    target:
+      device_id: 3714e478600f49d7aad6d1131630b8d3
+    data:
+      volume_level: '{{ states.input_number.music_controller_volume.state }}'
+  - service: media_player.volume_set
+    target:
+      device_id: fed17a6a571044f9b561ebee30be4290
+    data:
+      volume_level: '{{ states.input_number.music_controller_volume.state }}'
+  - service: media_player.volume_set
+    target:
+      device_id: 1ef94b26dca643c18619c28136970039
+    data:
+      volume_level: '{{ states.input_number.music_controller_volume.state }}'
+  - service: media_player.volume_set
+    target:
+      device_id: 4f90d569fdbb11eab5092f570cf13261
+    data:
+      volume_level: '{{ states.input_number.music_controller_volume.state }}'
+  - service: media_player.volume_set
+    target:
+      device_id: 3530d1fa70914aa39b82d07af9907f1d
+    data:
+      volume_level: '{{ states.input_number.music_controller_volume.state }}'
+  - service: media_player.volume_set
+    target:
+      device_id: 142d64449b2745bc922acb2cb93e09f0
+    data:
+      volume_level: '{{ states.input_number.music_controller_volume.state }}'
+  mode: single
+- id: '1616937557874'
+  alias: ZHA - Hue Dimmer Gang
+  description: ''
+  use_blueprint:
+    path: mannerisms/zha-philips-hue-dimmer-switch-individual-buttons-with-long-presses.yaml
+    input:
+      remote: e2048ebfce92d5906948c67bb18a9a86
+      button_1_single_press:
+      - type: turn_on
+        device_id: 389250c4ad3d17b95a5124632deec6f6
+        entity_id: light.gang_deckenlampe_1
+        domain: light
+        brightness_pct: 100
+      - type: turn_on
+        device_id: 928e5823a1ea9910dc131bf4681ae2db
+        entity_id: light.gang_deckenlampe_2
+        domain: light
+        brightness_pct: 100
+      button_4_single_press:
+      - service: light.turn_off
+        data:
+          transition: 1
+        target:
+          entity_id: group.light_gang
+- id: '1616937615893'
+  alias: ZHA - Hue Dimmer Küche
+  description: ''
+  use_blueprint:
+    path: mannerisms/zha-philips-hue-dimmer-switch-individual-buttons-with-long-presses.yaml
+    input:
+      remote: 68527aa7ae2fb2485528ff671f79da4b
+      button_1_single_press:
+      - type: turn_on
+        device_id: 53a60bd298935f9459131e1d0144fab7
+        entity_id: light.kuche_deckenlampe
+        domain: light
+        brightness_pct: 100
+      button_2_single_press:
+      - type: turn_on
+        device_id: 4a51cfbc209ba765703cdfa8d01ddaab
+        entity_id: switch.shellyplug_s_dbf2f5
+        domain: switch
+      button_3_single_press:
+      - type: turn_off
+        device_id: 4a51cfbc209ba765703cdfa8d01ddaab
+        entity_id: switch.shellyplug_s_dbf2f5
+        domain: switch
+      button_4_single_press:
+      - service: light.turn_off
+        data:
+          transition: 1
+        target:
+          entity_id: group.light_kueche
+- id: '1616937638696'
+  alias: ZHA - Hue Dimmer Bad
+  description: ''
+  use_blueprint:
+    path: mannerisms/zha-philips-hue-dimmer-switch-individual-buttons-with-long-presses.yaml
+    input:
+      remote: c5d31d5b0e2507d2bce80482657867d6
+      button_2_single_press:
+      - type: turn_on
+        device_id: 5125e2e1807f738d7ede8e687e82383b
+        entity_id: switch.shelly1pm_ba0f30
+        domain: switch
+      button_3_single_press:
+      - type: turn_off
+        device_id: 5125e2e1807f738d7ede8e687e82383b
+        entity_id: switch.shelly1pm_ba0f30
+        domain: switch
+      button_4_single_press:
+      - service: light.turn_off
+        data:
+          transition: 1
+        target:
+          entity_id: group.light_bad
+      - type: turn_off
+        device_id: 5125e2e1807f738d7ede8e687e82383b
+        entity_id: switch.shelly1pm_ba0f30
+        domain: switch
+      button_1_single_press:
+      - service: light.turn_on
+        data:
+          transition: 1
+          brightness_pct: 100
+        target:
+          entity_id: group.light_bad
+- id: '1616937665758'
+  alias: ZHA - Hue Dimmer Wohnzimmer
+  description: ''
+  use_blueprint:
+    path: mannerisms/zha-philips-hue-dimmer-switch-individual-buttons-with-long-presses.yaml
+    input:
+      remote: 71f7b1fa85b51e0092a25d08cebb11a5
+      button_1_single_press:
+      - type: turn_on
+        device_id: d78a90235957aba423eddab617ceed06
+        entity_id: light.wohnzimmer_deckenlampe
+        domain: light
+        brightness_pct: 100
+      button_4_single_press:
+      - service: light.turn_off
+        data:
+          transition: 1
+        target:
+          entity_id: group.light_wohnzimmer
+- id: '1616937690298'
+  alias: ZHA - Hue Dimmer Toilette
+  description: ''
+  use_blueprint:
+    path: mannerisms/zha-philips-hue-dimmer-switch-individual-buttons-with-long-presses.yaml
+    input:
+      remote: bc34faea0a01d02050f62e5e5f199a99
+      button_1_single_press:
+      - type: turn_on
+        device_id: ad949acb8a3b5c387b1fe80e62cdeb6a
+        entity_id: light.toilette_deckenlampe
+        domain: light
+        brightness_pct: 100
+      button_4_single_press:
+      - type: turn_off
+        device_id: ad949acb8a3b5c387b1fe80e62cdeb6a
+        entity_id: light.toilette_deckenlampe
+        domain: light
+- id: '1616937735821'
+  alias: ZHA - Hue Dimmer Schlafzimmer
+  description: ''
+  use_blueprint:
+    path: mannerisms/zha-philips-hue-dimmer-switch-individual-buttons-with-long-presses.yaml
+    input:
+      remote: 5c539d7381939f906bbf3137e1f027e5
+      button_1_single_press:
+      - type: turn_on
+        device_id: 6ca35ad6524e96e2ad6c05c1d3e50769
+        entity_id: light.schlafzimmer_deckenlampe
+        domain: light
+        brightness_pct: 100
+      button_2_long_press: []
+      button_3_single_press:
+      - type: turn_off
+        device_id: 00403caa4b2c7173a0847709f0b3d0af
+        entity_id: switch.shellyplug_s_977c27
+        domain: switch
+      button_4_single_press:
+      - service: light.turn_off
+        data:
+          transition: 1
+        target:
+          entity_id: group.light_schlafzimmer
+      button_2_single_press:
+      - type: turn_on
+        device_id: 00403caa4b2c7173a0847709f0b3d0af
+        entity_id: switch.shellyplug_s_977c27
+        domain: switch
+- id: '1616967654056'
+  alias: ZHA - Hue Dimmer Chillzimmer
+  description: ''
+  use_blueprint:
+    path: mannerisms/zha-philips-hue-dimmer-switch-individual-buttons-with-long-presses.yaml
+    input:
+      remote: 3ad184f03f76802fb7a2321035da49bb
+      button_1_single_press:
+      - type: turn_on
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+        brightness_pct: 100
+      button_4_single_press:
+      - service: light.turn_off
+        data:
+          transition: 1
+        target:
+          entity_id: group.light_chillzimmer
+      button_4_long_press: []
+      button_1_long_press:
+      - scene: scene.chillout
+      button_2_single_press:
+      - type: turn_on
+        device_id: 543714b0beeca43090324dd709713567
+        entity_id: switch.shellyplug_s_9a4071
+        domain: switch
+      button_3_single_press:
+      - type: turn_off
+        device_id: 543714b0beeca43090324dd709713567
+        entity_id: switch.shellyplug_s_9a4071
+        domain: switch
+- id: '1617622170480'
+  alias: ZHA - Chillzimmer Rollo Fernbedienung
+  description: ''
+  use_blueprint:
+    path: seblu/zha-ikea-open-close-switch-for-covers-e-g-kadrilj-fyrtur.yaml
+    input:
+      remote: 7f61f9bcc446b49bdbb608956a3be3f1
+      cover:
+        entity_id: cover.chillzimmer_rollo
+- id: '1618518174441'
+  alias: Bewegung Licht aktivieren
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.automation_licht_bewegungsmelder
+    to: 'on'
+  condition: []
+  action:
+  - service: automation.turn_on
+    target:
+      entity_id:
+      - automation.motion_activated_light_bad
+      - automation.motion_activated_light_gang
+      - automation.motion_activated_light_kuche
+      - automation.motion_activated_light_schlafzimmer
+      - automation.motion_activated_light_toilette
+  mode: single
+- id: '1618520587243'
+  alias: Bewegung Licht deaktivieren
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.automation_licht_bewegungsmelder
+    to: 'off'
+  condition: []
+  action:
+  - service: automation.turn_off
+    target:
+      entity_id:
+      - automation.motion_activated_light_bad
+      - automation.motion_activated_light_gang
+      - automation.motion_activated_light_kuche
+      - automation.motion_activated_light_schlafzimmer
+      - automation.motion_activated_light_toilette
+  mode: single
+- id: '1619027992055'
+  alias: Aqara Magic Cube
+  description: ''
+  use_blueprint:
+    path: brent/zha-aqara-magic-cube-57-actions.yaml
+    input:
+      remote: 56dc3651c8fe28d436e3c8eb1f0455b7
+      flip_90: true
+      flip_180: false
+      cube_flip_90:
+      - type: toggle
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+      one_to_one:
+      - type: flash
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+      two_to_two:
+      - type: flash
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+      one_to_two:
+      - device_id: ''
+        domain: ''
+        entity_id: ''
+      rotate_right:
+      - service: ''
+        data: {}
+      cube_drop:
+      - scene: scene.alle_lampe_ausschalten
+- id: '1619033402437'
+  alias: Aqara Magic Cube
+  description: ''
+  use_blueprint:
+    path: brent/zha-aqara-magic-cube-57-actions.yaml
+    input:
+      remote: 56dc3651c8fe28d436e3c8eb1f0455b7
+      flip_90: true
+      cube_flip_90:
+      - type: toggle
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+      flip_180: true
+      cube_flip_180:
+      - type: toggle
+        device_id: 543714b0beeca43090324dd709713567
+        entity_id: switch.shellyplug_s_9a4071
+        domain: switch
+      rotate_right:
+      - type: brightness_increase
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+      rotate_left:
+      - type: brightness_decrease
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light
+      cube_shake:
+      - scene: scene.chillout
+      cube_drop:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.automation_licht_aus
+      one_to_one:
+      - type: flash
+        device_id: af4037d67c804dea70e3842a4439575c
+        entity_id: light.chillzimmer_deckenlampe
+        domain: light

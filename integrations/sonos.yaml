@@ -1,0 +1,14 @@
+#====================
+# Sonos Notification
+# https://www.home-assistant.io/integrations/sonos/
+#====================
+
+sonos:
+  media_player:
+    hosts:
+      - 192.168.20.50
+      - 192.168.20.51
+      - 192.168.20.52
+      - 192.168.20.53
+      - 192.168.20.54
+      - 192.168.20.55

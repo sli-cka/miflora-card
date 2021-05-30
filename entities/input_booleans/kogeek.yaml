@@ -1,9 +1,0 @@
-### Hilfsschalter für HomeKit
-koogeek_chillzimmer_fenster:
-  name: Chillzimmer Fenstersensor
-  icon: mdi:window-open-variant  
-
-### Hilfsschalter für HomeKit
-koogeek_balkon_tuer:
-  name: Balkon Türsensor
-  icon: mdi:door

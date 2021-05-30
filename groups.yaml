@@ -5,6 +5,7 @@ light.all:
     - light.bad_deckenlampe_weiss
     - light.hue_iris_1
     - light.chillzimmer_deckenlampe
+    - light.chillzimmer_stehlampe_klein
     - light.chillzimmer_stehlampe_oben
     - light.chillzimmer_stehlampe_unten
     - light.chillzimmer_tv_lampe
@@ -18,7 +19,6 @@ light.all:
     - light.toilette_deckenlampe
     - light.wohnzimmer_deckenlampe
     - light.wohnzimmer_stehlampe_klein
-    - light.wohnzimmer_stehlampe_klein2
     - light.wohnzimmer_stehlampe_li1
     - light.wohnzimmer_stehlampe_li2
     - light.wohnzimmer_stehlampe_re1
@@ -35,6 +35,7 @@ light.chillzimmer:
   name: Chillzimmer Licht
   entities:
     - light.chillzimmer_deckenlampe
+    - light.chillzimmer_stehlampe_klein
     - light.chillzimmer_stehlampe_oben
     - light.chillzimmer_stehlampe_unten
     - light.chillzimmer_tv_lampe
@@ -58,12 +59,16 @@ light.schlafzimmer:
     - light.schlafzimmer_tischlampe
     - light.schlafzimmer_stehlampen
 
+light.toilette:
+  name: Toilette Licht
+  entities:
+    - light.toilette_deckenlampe
+
 light.wohnzimmer:
   name: Wohnzimmer Licht
   entities:
     - light.wohnzimmer_deckenlampe
     - light.wohnzimmer_stehlampe_klein
-    - light.wohnzimmer_stehlampe_klein2
     - light.wohnzimmer_stehlampe_li1
     - light.wohnzimmer_stehlampe_li2
     - light.wohnzimmer_stehlampe_re1

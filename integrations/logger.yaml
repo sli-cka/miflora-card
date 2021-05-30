@@ -1,6 +1,7 @@
 #====================
 # Erweiterte Logs einschalten
 #====================
+
 logger:
   default: info
   logs:

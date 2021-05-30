@@ -3,6 +3,6 @@
 # Login auf https://www.17track.net/de
 #====================
 
-platform: seventeentrack
-username: !secret seventeentrack_username
-password: !secret seventeentrack_password
+# platform: seventeentrack
+# username: !secret seventeentrack_username
+# password: !secret seventeentrack_password

@@ -1,0 +1,4 @@
+# Hilfsschalter für Automation: Licht per Bewegungsmelder aktivieren
+automation_licht_bewegungsmelder:
+  name: automation_licht_bewegungsmelder
+  icon: mdi:track-light
